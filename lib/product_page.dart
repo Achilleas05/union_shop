@@ -17,7 +17,7 @@ class ProductPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Header (same as home page)
+            // Header
             Container(
               height: 100,
               color: Colors.white,
@@ -224,8 +224,9 @@ class ProductPage extends StatelessWidget {
               ),
             ),
 
-            // Footer (same as home page)
+            // Footer
             Container(
+              width: double.infinity,
               color: Colors.grey[50],
               padding: const EdgeInsets.all(24),
               child: const Text(
