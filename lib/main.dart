@@ -199,19 +199,23 @@ class HomeScreen extends StatelessWidget {
                         const Text(
                           'Essential Range - Over 20% OFF!',
                           style: TextStyle(
-                            fontSize: 32,
+                            fontSize: 60,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                             height: 1.2,
+                            letterSpacing: 1.2,
                           ),
+                          textAlign: TextAlign.center,
                         ),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: 8),
                         const Text(
                           "Over 20% off our Essential Range. Come and grab yours while stock lasts!",
                           style: TextStyle(
                             fontSize: 20,
+                            fontWeight: FontWeight.bold,
                             color: Colors.white,
                             height: 1.5,
+                            letterSpacing: 1.2,
                           ),
                           textAlign: TextAlign.center,
                         ),
