@@ -335,7 +335,7 @@ class ProductCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: Image.network(
+            child: Image.asset(
               imageUrl,
               fit: BoxFit.cover,
               errorBuilder: (context, error, stackTrace) {
