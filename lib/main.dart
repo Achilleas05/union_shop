@@ -230,7 +230,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
                           child: const Text(
-                            'BROWSE PRODUCTS',
+                            'BROWSE COLLECTION',
                             style: TextStyle(fontSize: 14, letterSpacing: 1),
                           ),
                         ),
