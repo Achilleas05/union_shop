@@ -240,7 +240,7 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-
+            const SizedBox(height: 12),
             // Products Section
             Container(
               color: Colors.white,
