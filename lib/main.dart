@@ -249,11 +249,12 @@ class HomeScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     const Text(
-                      'PRODUCTS SECTION',
+                      'FEATURED PRODUCTS',
                       style: TextStyle(
                         fontSize: 20,
                         color: Colors.black,
-                        letterSpacing: 1,
+                        letterSpacing: 3,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                     const SizedBox(height: 48),
