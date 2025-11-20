@@ -18,6 +18,14 @@ class CustomHeader extends StatelessWidget {
     this.onMenuPressed,
   });
 
+  void navigateToHome(BuildContext context) {
+    Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+  }
+
+  void navigateToAbout(BuildContext context) {
+    Navigator.pushNamed(context, '/about');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container();
