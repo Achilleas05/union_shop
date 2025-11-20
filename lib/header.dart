@@ -28,6 +28,12 @@ class CustomHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      height: 140,
+      color: Colors.white,
+      child: const Column(
+        children: [],
+      ),
+    );
   }
 }
