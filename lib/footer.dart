@@ -60,6 +60,14 @@ class Footer extends StatelessWidget {
                         fontSize: 14,
                       ),
                     ),
+                    SizedBox(height: 8),
+                    Text(
+                      'Last post date: 12pm on 18/12/2025',
+                      style: TextStyle(
+                        color: Colors.black87,
+                        fontSize: 14,
+                      ),
+                    ),
                   ],
                 ),
               ),
