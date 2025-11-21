@@ -121,7 +121,15 @@ class Footer extends StatelessWidget {
                     const SizedBox(height: 12),
                     _buildFooterLink('Search'),
                     _buildFooterLink('Terms & Conditions of Sale Policy'),
-                    const SizedBox(height: 12),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 40),
+              // Latest Offers - Right
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
                     const Text(
                       'Latest Offers',
                       style: TextStyle(
