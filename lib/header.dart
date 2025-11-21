@@ -114,6 +114,16 @@ class CustomHeader extends StatelessWidget {
                       ],
                     ),
                   ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 600),
+                      child: const Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
