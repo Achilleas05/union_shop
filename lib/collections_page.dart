@@ -77,15 +77,18 @@ class _CollectionCardState extends State<CollectionCard> {
         },
         child: Stack(
           children: [
+            // Background with gradient overlay
             Container(
-              color: widget.collection.color,
-              child: Center(
-                child: Text(
-                  widget.collection.name,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
+              width: double.infinity,
+              height: double.infinity,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    widget.collection.color.withAlpha((255 * 0.8).round()),
+                    widget.collection.color.withAlpha((255 * 0.9).round()),
+                  ],
                 ),
               ),
             ),
