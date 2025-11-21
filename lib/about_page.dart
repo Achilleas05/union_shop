@@ -31,6 +31,18 @@ class AboutPage extends StatelessWidget {
               onCartPressed: () {},
               onMenuPressed: () {},
             ),
+            Container(
+              padding: const EdgeInsets.only(top: 40, bottom: 20),
+              child: const Text(
+                'About us',
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
             const Padding(
               padding: EdgeInsets.all(24.0),
               child: Column(
