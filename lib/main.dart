@@ -101,10 +101,10 @@ class HomeScreen extends StatelessWidget {
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 8),
-                        const Text(
+                        Text(
                           "Over 20% off our Essential Range. Come and grab yours while stock lasts!",
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: isMobile ? 16 : 20,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                             height: 1.5,
