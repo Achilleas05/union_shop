@@ -48,6 +48,23 @@ class CustomHeader extends StatelessWidget {
               ),
             ),
           ),
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: const Stack(
+                alignment: Alignment.center,
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
         ],
       ),
     );
