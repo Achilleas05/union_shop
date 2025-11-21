@@ -133,7 +133,20 @@ class CustomHeader extends StatelessWidget {
                               minHeight: 32,
                             ),
                             onPressed: onSearchPressed,
-                          )
+                          ),
+                          IconButton(
+                            icon: const Icon(
+                              Icons.person_outline,
+                              size: 18,
+                              color: Colors.grey,
+                            ),
+                            padding: const EdgeInsets.all(8),
+                            constraints: const BoxConstraints(
+                              minWidth: 32,
+                              minHeight: 32,
+                            ),
+                            onPressed: onProfilePressed,
+                          ),
                         ],
                       ),
                     ),
