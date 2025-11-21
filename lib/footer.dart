@@ -114,6 +114,26 @@ class Footer extends StatelessWidget {
                   ],
                 ),
               ),
+              SizedBox(width: 40),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Help and Information',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 12),
+                    Text('Search'),
+                    SizedBox(height: 8),
+                    Text('Terms & Conditions of Sale Policy'),
+                  ],
+                ),
+              ),
             ],
           ),
         ],
