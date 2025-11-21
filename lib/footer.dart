@@ -174,33 +174,6 @@ class Footer extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 40),
-                    const Divider(height: 1, color: Colors.grey),
-                    const SizedBox(height: 20),
-                    const Text(
-                      '© 2025, upsu-store Powered by Shopify',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 40),
-              const Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Latest Offers',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 12),
                   ],
                 ),
               ),
