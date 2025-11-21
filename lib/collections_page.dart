@@ -112,9 +112,18 @@ class _CollectionCardState extends State<CollectionCard> {
               ),
             ),
             // Collection name in center
-            const Positioned.fill(
+            Positioned.fill(
               child: Align(
                 alignment: Alignment.center,
+                child: Text(
+                  widget.collection.name,
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
           ],
