@@ -149,12 +149,26 @@ class Footer extends StatelessWidget {
                     const SizedBox(height: 8),
                     Row(
                       children: [
-                        const Expanded(
+                        Expanded(
                           child: TextField(
                             decoration: InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(
+                              contentPadding: const EdgeInsets.symmetric(
                                   horizontal: 12, vertical: 8),
-                              border: OutlineInputBorder(),
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey[400]!,
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey[400]!,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey[600]!,
+                                ),
+                              ),
                             ),
                           ),
                         ),
