@@ -60,13 +60,23 @@ class CustomHeader extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         GestureDetector(
-                            onTap:
-                                onHomePressed ?? () => navigateToHome(context),
-                            child: Image.network(
+                          onTap: onHomePressed ?? () => navigateToHome(context),
+                          child: Image.network(
                               'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
                               height: 30,
                               fit: BoxFit.cover,
-                            )),
+                              errorBuilder: (context, error, stackTrace) {
+                            return Container(
+                              color: Colors.grey[300],
+                              width: 30,
+                              height: 30,
+                              child: const Center(
+                                child: Icon(Icons.image_not_supported,
+                                    color: Colors.grey),
+                              ),
+                            );
+                          }),
+                        ),
                       ],
                     ),
                   ),
