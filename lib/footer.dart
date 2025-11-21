@@ -9,13 +9,13 @@ class Footer extends StatelessWidget {
       width: double.infinity,
       color: Colors.grey[50],
       padding: const EdgeInsets.all(40),
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
+              const Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -114,12 +114,12 @@ class Footer extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(width: 40),
+              const SizedBox(width: 40),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       'Help and Information',
                       style: TextStyle(
                         color: Colors.black,
@@ -127,12 +127,12 @@ class Footer extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 12),
-                    Text('Search'),
-                    SizedBox(height: 8),
-                    Text('Terms & Conditions of Sale Policy'),
-                    SizedBox(height: 12),
-                    Text(
+                    const SizedBox(height: 12),
+                    const Text('Search'),
+                    const SizedBox(height: 8),
+                    const Text('Terms & Conditions of Sale Policy'),
+                    const SizedBox(height: 12),
+                    const Text(
                       'Latest Offers',
                       style: TextStyle(
                         color: Colors.black,
@@ -140,18 +140,18 @@ class Footer extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 12),
-                    Text(
+                    const SizedBox(height: 12),
+                    const Text(
                       'Email address',
                       style: TextStyle(
                         color: Colors.black87,
                         fontSize: 14,
                       ),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Row(
                       children: [
-                        Expanded(
+                        const Expanded(
                           child: TextField(
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.symmetric(
@@ -160,13 +160,27 @@ class Footer extends StatelessWidget {
                             ),
                           ),
                         ),
+                        const SizedBox(width: 8),
+                        ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF4d2963),
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 12),
+                          ),
+                          child: const Text(
+                            'SUBSCRIBE',
+                            style: TextStyle(fontWeight: FontWeight.w600),
+                          ),
+                        ),
                       ],
                     ),
                   ],
                 ),
               ),
-              SizedBox(width: 40),
-              Expanded(
+              const SizedBox(width: 40),
+              const Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
