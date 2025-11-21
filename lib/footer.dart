@@ -119,9 +119,8 @@ class Footer extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 12),
-                    const Text('Search'),
-                    const SizedBox(height: 8),
-                    const Text('Terms & Conditions of Sale Policy'),
+                    _buildFooterLink('Search'),
+                    _buildFooterLink('Terms & Conditions of Sale Policy'),
                     const SizedBox(height: 12),
                     const Text(
                       'Latest Offers',
@@ -200,6 +199,27 @@ class Footer extends StatelessWidget {
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildFooterLink(String text) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: TextButton(
+        onPressed: () {}, // Placeholder for future functionality
+        style: TextButton.styleFrom(
+          padding: EdgeInsets.zero,
+          minimumSize: const Size(0, 0),
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        ),
+        child: Text(
+          text,
+          style: const TextStyle(
+            color: Color(0xFF4d2963),
+            fontSize: 14,
+          ),
+        ),
       ),
     );
   }
