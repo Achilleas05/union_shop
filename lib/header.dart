@@ -89,7 +89,14 @@ class CustomHeader extends StatelessWidget {
                         TextButton(
                           onPressed:
                               onHomePressed ?? () => navigateToHome(context),
-                          child: const Text('Home'),
+                          child: const Text(
+                            'Home',
+                            style: TextStyle(
+                              color: Color(0xFF4d2963),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                         ),
                       ],
                     ),
