@@ -64,6 +64,33 @@ class CollectionsPage extends StatelessWidget {
   }
 }
 
+class CollectionCard extends StatefulWidget {
+  final Collection collection;
+
+  const CollectionCard({super.key, required this.collection});
+
+  @override
+  State<CollectionCard> createState() => _CollectionCardState();
+}
+
+class _CollectionCardState extends State<CollectionCard> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: widget.collection.color,
+      child: Center(
+        child: Text(
+          widget.collection.name,
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class Collection {
   final String name;
   final Color color;
