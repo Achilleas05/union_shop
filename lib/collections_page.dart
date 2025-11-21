@@ -68,6 +68,7 @@ class _CollectionCardState extends State<CollectionCard> {
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
+      cursor: SystemMouseCursors.click,
       onEnter: (_) => setState(() => _isHovering = true),
       onExit: (_) => setState(() => _isHovering = false),
       child: Container(
