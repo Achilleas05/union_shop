@@ -94,6 +94,14 @@ class Footer extends StatelessWidget {
                         fontSize: 14,
                       ),
                     ),
+                    SizedBox(height: 4),
+                    Text(
+                      'Monday - Friday 10am - 3pm',
+                      style: TextStyle(
+                        color: Colors.black87,
+                        fontSize: 14,
+                      ),
+                    ),
                   ],
                 ),
               ),
