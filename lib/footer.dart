@@ -20,7 +20,7 @@ class Footer extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Opening Hours',
+                      'Help and Information',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 18,
