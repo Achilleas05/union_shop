@@ -35,3 +35,15 @@ class CollectionsPage extends StatelessWidget {
     );
   }
 }
+
+class Collection {
+  final String name;
+  final Color color;
+  final IconData icon;
+
+  const Collection({
+    required this.name,
+    required this.color,
+    required this.icon,
+  });
+}
