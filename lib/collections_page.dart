@@ -121,6 +121,13 @@ class _CollectionCardState extends State<CollectionCard> {
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
+                    shadows: [
+                      Shadow(
+                        blurRadius: 4,
+                        color: Colors.black,
+                        offset: Offset(2, 2),
+                      ),
+                    ],
                   ),
                   textAlign: TextAlign.center,
                 ),
