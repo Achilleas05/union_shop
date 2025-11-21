@@ -27,6 +27,21 @@ class CollectionsPage extends StatelessWidget {
               ),
             ),
 
+            // Collections Grid
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 72),
+              child: GridView.count(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                crossAxisCount: 3,
+                crossAxisSpacing: 16,
+                mainAxisSpacing: 16,
+                childAspectRatio: 1.0,
+                children: [],
+              ),
+            ),
+            const SizedBox(height: 60),
+
             // Footer
             const Footer(),
           ],
