@@ -99,6 +99,18 @@ class CustomHeader extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 16),
+                        TextButton(
+                          onPressed:
+                              onAboutPressed ?? () => navigateToAbout(context),
+                          child: const Text(
+                            'About',
+                            style: TextStyle(
+                              color: Color(0xFF4d2963),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
