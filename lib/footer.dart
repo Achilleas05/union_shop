@@ -106,6 +106,7 @@ class Footer extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 40),
+              // Help & Info - Middle
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -174,16 +175,24 @@ class Footer extends StatelessWidget {
                         ),
                         const SizedBox(width: 8),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            // Placeholder for subscribe functionality
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF4d2963),
                             foregroundColor: Colors.white,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.zero,
+                            ),
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 12),
                           ),
                           child: const Text(
                             'SUBSCRIBE',
-                            style: TextStyle(fontWeight: FontWeight.w600),
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
                       ],
