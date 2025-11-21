@@ -4,14 +4,6 @@ import 'package:union_shop/header.dart';
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
 
-  void navigateToHome(BuildContext context) {
-    Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-  }
-
-  void navigateToAbout(BuildContext context) {
-    Navigator.pushNamed(context, '/about');
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,18 +11,8 @@ class AboutPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            CustomHeader(
-              onHomePressed: () {
-                navigateToHome(context);
-              },
-              onAboutPressed: () {
-                navigateToAbout(context);
-              },
-              onSearchPressed: () {},
-              onProfilePressed: () {},
-              onCartPressed: () {},
-              onMenuPressed: () {},
-            ),
+            // Remove custom callbacks and use default header
+            const CustomHeader(),
             Container(
               padding: const EdgeInsets.only(top: 40, bottom: 20),
               child: const Text(
