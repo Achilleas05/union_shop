@@ -11,7 +11,18 @@ class Footer extends StatelessWidget {
       padding: const EdgeInsets.all(40),
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [],
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(child: SizedBox()), // Opening Hours
+              SizedBox(width: 40),
+              Expanded(child: SizedBox()), // Help & Info
+              SizedBox(width: 40),
+              Expanded(child: SizedBox()), // Latest Offers
+            ],
+          ),
+        ],
       ),
     );
   }
