@@ -43,9 +43,11 @@ class AboutPage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(24.0),
-              child: Column(
+            // Replace padding with max width container
+            Container(
+              width: 900,
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
