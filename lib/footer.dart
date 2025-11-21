@@ -86,6 +86,14 @@ class Footer extends StatelessWidget {
                         fontSize: 14,
                       ),
                     ),
+                    SizedBox(height: 12),
+                    Text(
+                      '(Outside of Term Time / Consolidation Weeks)',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 14,
+                      ),
+                    ),
                   ],
                 ),
               ),
