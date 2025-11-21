@@ -40,6 +40,15 @@ class CollectionsPage extends StatelessWidget {
                 children: collections.map((Collection col) {
                   return Container(
                     color: col.color,
+                    child: Center(
+                      child: Text(
+                        col.name,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
                   );
                 }).toList(),
               ),
