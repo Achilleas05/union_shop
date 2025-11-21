@@ -179,6 +179,17 @@ class Footer extends StatelessWidget {
               ),
             ],
           ),
+          // Bottom section with copyright
+          const SizedBox(height: 40),
+          const Divider(height: 1, color: Colors.grey),
+          const SizedBox(height: 20),
+          const Text(
+            '© 2025 UPSU. All rights reserved.',
+            style: TextStyle(
+              color: Colors.grey,
+              fontSize: 14,
+            ),
+          ),
         ],
       ),
     );
