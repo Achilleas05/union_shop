@@ -102,8 +102,8 @@ class Footer extends StatelessWidget {
                         fontSize: 14,
                       ),
                     ),
-                    const SizedBox(height: 12),
-                    const Text(
+                    SizedBox(height: 12),
+                    Text(
                       'Purchase online 24/7',
                       style: TextStyle(
                         color: Colors.black87,
