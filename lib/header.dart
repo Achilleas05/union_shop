@@ -28,6 +28,10 @@ class CustomHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final bool isDesktop =
+        screenWidth > 768; // A common breakpoint for tablets/desktops
+
     return Container(
       height: 140,
       color: Colors.white,
@@ -81,39 +85,41 @@ class CustomHeader extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        TextButton(
-                          onPressed:
-                              onHomePressed ?? () => navigateToHome(context),
-                          child: const Text(
-                            'Home',
-                            style: TextStyle(
-                              color: Color(0xFF4d2963),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
+                  // Only show centered navigation on wider screens
+                  if (isDesktop)
+                    Align(
+                      alignment: Alignment.center,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          TextButton(
+                            onPressed:
+                                onHomePressed ?? () => navigateToHome(context),
+                            child: const Text(
+                              'Home',
+                              style: TextStyle(
+                                color: Color(0xFF4d2963),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
-                        ),
-                        const SizedBox(width: 16),
-                        TextButton(
-                          onPressed:
-                              onAboutPressed ?? () => navigateToAbout(context),
-                          child: const Text(
-                            'About',
-                            style: TextStyle(
-                              color: Color(0xFF4d2963),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
+                          const SizedBox(width: 16),
+                          TextButton(
+                            onPressed: onAboutPressed ??
+                                () => navigateToAbout(context),
+                            child: const Text(
+                              'About',
+                              style: TextStyle(
+                                color: Color(0xFF4d2963),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
                   Align(
                     alignment: Alignment.centerRight,
                     child: ConstrainedBox(
@@ -160,19 +166,29 @@ class CustomHeader extends StatelessWidget {
                             ),
                             onPressed: onCartPressed,
                           ),
-                          IconButton(
-                            icon: const Icon(
-                              Icons.menu,
-                              size: 18,
-                              color: Colors.grey,
+                          // On mobile, show a popup menu. On desktop, show a simple icon.
+                          if (!isDesktop) // Only show menu button on mobile
+                            PopupMenuButton<String>(
+                              onSelected: (value) {
+                                if (value == 'home') {
+                                  navigateToHome(context);
+                                } else if (value == 'about') {
+                                  navigateToAbout(context);
+                                }
+                              },
+                              itemBuilder: (context) => [
+                                const PopupMenuItem(
+                                    value: 'home', child: Text('Home')),
+                                const PopupMenuItem(
+                                    value: 'about', child: Text('About')),
+                              ],
+                              icon: const Icon(
+                                Icons.menu,
+                                size: 18,
+                                color: Colors.grey,
+                              ),
+                              padding: const EdgeInsets.all(8),
                             ),
-                            padding: const EdgeInsets.all(8),
-                            constraints: const BoxConstraints(
-                              minWidth: 32,
-                              minHeight: 32,
-                            ),
-                            onPressed: onMenuPressed,
-                          ),
                         ],
                       ),
                     ),
