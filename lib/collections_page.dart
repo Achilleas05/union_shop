@@ -91,6 +91,17 @@ class _CollectionCardState extends State<CollectionCard> {
                   ],
                 ),
               ),
+              child: ColorFiltered(
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withAlpha((255 * 0.2).round()),
+                  BlendMode.darken,
+                ),
+                child: Icon(
+                  widget.collection.icon,
+                  size: 64,
+                  color: Colors.white.withAlpha((255 * 0.7).round()),
+                ),
+              ),
             ),
             // Hover effect overlay
             AnimatedOpacity(
@@ -98,6 +109,28 @@ class _CollectionCardState extends State<CollectionCard> {
               duration: const Duration(milliseconds: 200),
               child: Container(
                 color: Colors.black.withAlpha((255 * 0.2).round()),
+              ),
+            ),
+            // Collection name in center
+            Positioned.fill(
+              child: Align(
+                alignment: Alignment.center,
+                child: Text(
+                  widget.collection.name,
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    shadows: [
+                      Shadow(
+                        blurRadius: 4,
+                        color: Colors.black,
+                        offset: Offset(2, 2),
+                      ),
+                    ],
+                  ),
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
           ],
