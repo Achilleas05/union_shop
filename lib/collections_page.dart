@@ -7,8 +7,15 @@ class CollectionsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(),
+    return const Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            CustomHeader(),
+            Footer(),
+          ],
+        ),
+      ),
     );
   }
 }
