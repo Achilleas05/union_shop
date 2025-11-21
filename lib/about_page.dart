@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/header.dart';
+import 'package:union_shop/footer.dart'; // Add this import
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
@@ -54,18 +55,6 @@ class AboutPage extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class Footer extends StatelessWidget {
-  const Footer({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(40),
-      child: const Text('Footer'),
     );
   }
 }
