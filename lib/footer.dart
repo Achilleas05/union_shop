@@ -68,6 +68,16 @@ class Footer extends StatelessWidget {
                         fontSize: 14,
                       ),
                     ),
+                    SizedBox(height: 16),
+                    Divider(height: 1, color: Colors.grey),
+                    SizedBox(height: 16),
+                    Text(
+                      '(Term Time)',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 14,
+                      ),
+                    ),
                   ],
                 ),
               ),
