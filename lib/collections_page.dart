@@ -74,6 +74,8 @@ class CollectionCard extends StatefulWidget {
 }
 
 class _CollectionCardState extends State<CollectionCard> {
+  bool _isHovering = false;
+
   @override
   Widget build(BuildContext context) {
     return Container(
