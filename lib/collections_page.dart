@@ -89,6 +89,14 @@ class _CollectionCardState extends State<CollectionCard> {
                 ),
               ),
             ),
+            // Hover effect overlay
+            AnimatedOpacity(
+              opacity: _isHovering ? 1.0 : 0.0,
+              duration: const Duration(milliseconds: 200),
+              child: Container(
+                color: Colors.black.withAlpha((255 * 0.2).round()),
+              ),
+            ),
           ],
         ),
       ),
