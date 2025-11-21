@@ -38,18 +38,7 @@ class CollectionsPage extends StatelessWidget {
                 mainAxisSpacing: 16,
                 childAspectRatio: 1.0,
                 children: collections.map((Collection col) {
-                  return Container(
-                    color: col.color,
-                    child: Center(
-                      child: Text(
-                        col.name,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  );
+                  return CollectionCard(collection: col);
                 }).toList(),
               ),
             ),
