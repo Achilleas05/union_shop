@@ -7,12 +7,28 @@ class CollectionsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
-            CustomHeader(),
-            Footer(),
+            // Header
+            const CustomHeader(),
+
+            // Page Title - Centered
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 40),
+              child: const Text(
+                'Collections',
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+
+            // Footer
+            const Footer(),
           ],
         ),
       ),
