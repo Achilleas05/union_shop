@@ -51,14 +51,19 @@ class CustomHeader extends StatelessWidget {
           Expanded(
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: const Stack(
+              child: Stack(
                 alignment: Alignment.center,
                 children: [
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
-                      children: [],
+                      children: [
+                        GestureDetector(
+                          onTap: onHomePressed ?? () => navigateToHome(context),
+                          child: const SizedBox(height: 30, width: 30),
+                        ),
+                      ],
                     ),
                   ),
                 ],
