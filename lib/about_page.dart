@@ -43,9 +43,8 @@ class AboutPage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            // Replace padding with max width container
             Container(
-              width: 900,
+              width: 900, // keeps content centered like the website
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,9 +72,22 @@ class AboutPage extends StatelessWidget {
                 ],
               ),
             ),
+            const Footer(),
           ],
         ),
       ),
+    );
+  }
+}
+
+class Footer extends StatelessWidget {
+  const Footer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(40),
+      child: const Text('Footer'),
     );
   }
 }
