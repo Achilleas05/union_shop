@@ -134,6 +134,23 @@ class Footer extends StatelessWidget {
                   ],
                 ),
               ),
+              SizedBox(width: 40),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Latest Offers',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 12),
+                  ],
+                ),
+              ),
             ],
           ),
         ],
