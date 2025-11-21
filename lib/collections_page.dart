@@ -71,14 +71,19 @@ class _CollectionCardState extends State<CollectionCard> {
       cursor: SystemMouseCursors.click,
       onEnter: (_) => setState(() => _isHovering = true),
       onExit: (_) => setState(() => _isHovering = false),
-      child: Container(
-        color: widget.collection.color,
-        child: Center(
-          child: Text(
-            widget.collection.name,
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
+      child: GestureDetector(
+        onTap: () {
+          // Placeholder for collection detail navigation
+        },
+        child: Container(
+          color: widget.collection.color,
+          child: Center(
+            child: Text(
+              widget.collection.name,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),
