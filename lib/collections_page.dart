@@ -37,7 +37,11 @@ class CollectionsPage extends StatelessWidget {
                 crossAxisSpacing: 16,
                 mainAxisSpacing: 16,
                 childAspectRatio: 1.0,
-                children: [],
+                children: collections.map((Collection col) {
+                  return Container(
+                    color: col.color,
+                  );
+                }).toList(),
               ),
             ),
             const SizedBox(height: 60),
