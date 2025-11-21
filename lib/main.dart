@@ -73,6 +73,7 @@ class HomeScreen extends StatelessWidget {
               height: 400,
               width: double.infinity,
               child: Stack(
+                alignment: Alignment.center,
                 children: [
                   // Background image
                   Positioned.fill(
@@ -82,17 +83,16 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   // Content overlay
-                  Positioned(
-                    left: 24,
-                    right: 24,
-                    top: 80,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
                     child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Text(
+                        Text(
                           'Essential Range - Over 20% OFF!',
                           style: TextStyle(
-                            fontSize: 60,
+                            fontSize: isMobile ? 36 : 60,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                             height: 1.2,
