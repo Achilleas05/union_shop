@@ -75,17 +75,21 @@ class _CollectionCardState extends State<CollectionCard> {
         onTap: () {
           // Placeholder for collection detail navigation
         },
-        child: Container(
-          color: widget.collection.color,
-          child: Center(
-            child: Text(
-              widget.collection.name,
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
+        child: Stack(
+          children: [
+            Container(
+              color: widget.collection.color,
+              child: Center(
+                child: Text(
+                  widget.collection.name,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );
