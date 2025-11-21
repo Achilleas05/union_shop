@@ -81,11 +81,17 @@ class CustomHeader extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const Align(
+                  Align(
                     alignment: Alignment.center,
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
-                      children: [],
+                      children: [
+                        TextButton(
+                          onPressed:
+                              onHomePressed ?? () => navigateToHome(context),
+                          child: const Text('Home'),
+                        ),
+                      ],
                     ),
                   ),
                 ],
