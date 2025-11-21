@@ -131,6 +131,24 @@ class Footer extends StatelessWidget {
                     Text('Search'),
                     SizedBox(height: 8),
                     Text('Terms & Conditions of Sale Policy'),
+                    SizedBox(height: 12),
+                    Text(
+                      'Latest Offers',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 12),
+                    Text(
+                      'Email address',
+                      style: TextStyle(
+                        color: Colors.black87,
+                        fontSize: 14,
+                      ),
+                    ),
+                    SizedBox(height: 8),
                   ],
                 ),
               ),
