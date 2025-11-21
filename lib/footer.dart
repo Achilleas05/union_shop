@@ -45,6 +45,21 @@ class Footer extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
+                    SizedBox(height: 8),
+                    Text(
+                      'Closing 4pm 19/12/2025',
+                      style: TextStyle(
+                        color: Colors.black87,
+                        fontSize: 14,
+                      ),
+                    ),
+                    Text(
+                      'Reopening 10am 05/01/2026',
+                      style: TextStyle(
+                        color: Colors.black87,
+                        fontSize: 14,
+                      ),
+                    ),
                   ],
                 ),
               ),
