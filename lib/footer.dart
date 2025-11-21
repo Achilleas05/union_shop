@@ -15,11 +15,21 @@ class Footer extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(child: SizedBox()), // Opening Hours
-              SizedBox(width: 40),
-              Expanded(child: SizedBox()), // Help & Info
-              SizedBox(width: 40),
-              Expanded(child: SizedBox()), // Latest Offers
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Opening Hours',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ],
