@@ -160,7 +160,7 @@ class _CollectionPageState extends State<CollectionPage> {
                 borderRadius:
                     const BorderRadius.vertical(top: Radius.circular(8)),
                 image: DecorationImage(
-                  image: NetworkImage(product.imageUrl),
+                  image: AssetImage(product.imageUrl),
                   fit: BoxFit.cover,
                 ),
               ),
