@@ -55,9 +55,34 @@ class _CollectionPageState extends State<CollectionPage> {
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Row(
         children: [
-          Expanded(child: Container()), // Placeholder for sort dropdown
+          _buildDropdown(
+            value: _selectedSort,
+            label: 'Sort by',
+            items: const [
+              'Featured',
+              'Price: Low to High',
+              'Price: High to Low',
+              'A-Z'
+            ],
+            onChanged: (value) => setState(() => _selectedSort = value),
+            borderStyle: borderStyle,
+            contentPadding: dropdownPadding,
+          ),
           const SizedBox(width: 12),
-          Expanded(child: Container()), // Placeholder for filter dropdown
+          _buildDropdown(
+            value: _selectedFilter,
+            label: 'Filter',
+            items: const [
+              'All products',
+              'Clothing',
+              'Accessories',
+              'Sale items',
+              'New arrivals'
+            ],
+            onChanged: (value) => setState(() => _selectedFilter = value),
+            borderStyle: borderStyle,
+            contentPadding: dropdownPadding,
+          ),
         ],
       ),
     );
@@ -78,7 +103,7 @@ class _CollectionPageState extends State<CollectionPage> {
   }) =>
       Expanded(
         child: DropdownButtonFormField<String>(
-          value: value,
+          initialValue: value,
           decoration: InputDecoration(
             labelText: label,
             border: borderStyle,
