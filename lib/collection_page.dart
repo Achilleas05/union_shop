@@ -13,18 +13,36 @@ class CollectionPage extends StatefulWidget {
 class _CollectionPageState extends State<CollectionPage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
-            CustomHeader(),
-            SizedBox(height: 40),
-            Footer(),
+            const CustomHeader(),
+            _buildHeader(),
+            const SizedBox(height: 40),
+            const Footer(),
           ],
         ),
       ),
     );
   }
+
+  Widget _buildHeader() => Container(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          children: [
+            Text(
+              widget.collectionTitle,
+              style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              'Curated picks for the season. Explore our favourite hoodies, tees and accessories.',
+              style: TextStyle(fontSize: 16, color: Colors.grey),
+            ),
+          ],
+        ),
+      );
 }
 
 class Product {
