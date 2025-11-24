@@ -23,6 +23,8 @@ class _CollectionPageState extends State<CollectionPage> {
             const CustomHeader(),
             _buildHeader(),
             _buildFilterRow(),
+            const SizedBox(height: 24),
+            _buildProductGrid(),
             const SizedBox(height: 40),
             const Footer(),
           ],
@@ -59,6 +61,10 @@ class _CollectionPageState extends State<CollectionPage> {
         ],
       ),
     );
+  }
+
+  Widget _buildProductGrid() {
+    return Container();
   }
 }
 
