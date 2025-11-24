@@ -140,8 +140,73 @@ class _CollectionPageState extends State<CollectionPage> {
               border: Border.all(color: Colors.grey.shade300),
               borderRadius: BorderRadius.circular(8),
             ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildProductImage(product),
+                _buildProductInfo(product),
+              ],
+            ),
           ),
         ),
+      );
+
+  Widget _buildProductImage(Product product) => Expanded(
+        flex: 3,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
+            image: DecorationImage(
+              image: NetworkImage(product.imageUrl),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+      );
+
+  Widget _buildProductInfo(Product product) => Expanded(
+        flex: 1,
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                product.name,
+                style:
+                    const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                maxLines: 2,
+              ),
+              const SizedBox(height: 4),
+              _buildPriceRow(product),
+            ],
+          ),
+        ),
+      );
+
+  Widget _buildPriceRow(Product product) => Row(
+        children: [
+          if (product.originalPrice != null) ...[
+            Text(
+              '£${product.originalPrice!.toStringAsFixed(2)}',
+              style: const TextStyle(
+                decoration: TextDecoration.lineThrough,
+                fontSize: 12,
+                color: Colors.grey,
+              ),
+            ),
+            const SizedBox(width: 6),
+          ],
+          Text(
+            '£${product.price.toStringAsFixed(2)}',
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: product.originalPrice != null ? Colors.red : Colors.black,
+            ),
+          ),
+        ],
       );
 }
 
