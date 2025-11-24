@@ -153,14 +153,19 @@ class _CollectionPageState extends State<CollectionPage> {
 
   Widget _buildProductImage(Product product) => Expanded(
         flex: 3,
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
-            image: DecorationImage(
-              image: NetworkImage(product.imageUrl),
-              fit: BoxFit.cover,
+        child: Stack(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(8)),
+                image: DecorationImage(
+                  image: NetworkImage(product.imageUrl),
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
-          ),
+          ],
         ),
       );
 
