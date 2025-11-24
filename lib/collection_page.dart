@@ -131,15 +131,18 @@ class _CollectionPageState extends State<CollectionPage> {
         ),
       );
 
-  // Placeholder card
-  Widget _buildProductCard(Product product) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300),
-        borderRadius: BorderRadius.circular(8),
-      ),
-    );
-  }
+  Widget _buildProductCard(Product product) => MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: GestureDetector(
+          onTap: () {},
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey.shade300),
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+        ),
+      );
 }
 
 class Product {
