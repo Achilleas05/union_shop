@@ -22,6 +22,7 @@ class _CollectionPageState extends State<CollectionPage> {
           children: [
             const CustomHeader(),
             _buildHeader(),
+            _buildFilterRow(),
             const SizedBox(height: 40),
             const Footer(),
           ],
@@ -46,6 +47,19 @@ class _CollectionPageState extends State<CollectionPage> {
           ],
         ),
       );
+
+  Widget _buildFilterRow() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24),
+      child: Row(
+        children: [
+          Expanded(child: Container()), // Placeholder for sort dropdown
+          const SizedBox(width: 12),
+          Expanded(child: Container()), // Placeholder for filter dropdown
+        ],
+      ),
+    );
+  }
 }
 
 class Product {
