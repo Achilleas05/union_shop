@@ -51,6 +51,10 @@ class _CollectionPageState extends State<CollectionPage> {
       );
 
   Widget _buildFilterRow() {
+    const borderStyle =
+        OutlineInputBorder(borderSide: BorderSide(color: Colors.grey));
+    const dropdownPadding = EdgeInsets.symmetric(horizontal: 12, vertical: 8);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Row(
@@ -88,11 +92,6 @@ class _CollectionPageState extends State<CollectionPage> {
     );
   }
 
-  static const borderStyle =
-      OutlineInputBorder(borderSide: BorderSide(color: Colors.grey));
-  static const dropdownPadding =
-      EdgeInsets.symmetric(horizontal: 12, vertical: 8);
-
   Widget _buildDropdown({
     required String? value,
     required String label,
@@ -119,8 +118,27 @@ class _CollectionPageState extends State<CollectionPage> {
         ),
       );
 
-  Widget _buildProductGrid() {
-    return Container();
+  Widget _buildProductGrid() => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: GridView.count(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          crossAxisCount: MediaQuery.of(context).size.width > 800 ? 3 : 2,
+          crossAxisSpacing: 16,
+          mainAxisSpacing: 16,
+          childAspectRatio: 0.75,
+          children: products.map(_buildProductCard).toList(),
+        ),
+      );
+
+  // Placeholder card
+  Widget _buildProductCard(Product product) {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey.shade300),
+        borderRadius: BorderRadius.circular(8),
+      ),
+    );
   }
 }
 
