@@ -63,6 +63,37 @@ class _CollectionPageState extends State<CollectionPage> {
     );
   }
 
+  static const borderStyle =
+      OutlineInputBorder(borderSide: BorderSide(color: Colors.grey));
+  static const dropdownPadding =
+      EdgeInsets.symmetric(horizontal: 12, vertical: 8);
+
+  Widget _buildDropdown({
+    required String? value,
+    required String label,
+    required List<String> items,
+    required Function(String?) onChanged,
+    required InputBorder borderStyle,
+    required EdgeInsetsGeometry contentPadding,
+  }) =>
+      Expanded(
+        child: DropdownButtonFormField<String>(
+          value: value,
+          decoration: InputDecoration(
+            labelText: label,
+            border: borderStyle,
+            enabledBorder: borderStyle,
+            focusedBorder: borderStyle,
+            contentPadding: contentPadding,
+            floatingLabelStyle: const TextStyle(color: Colors.grey),
+          ),
+          items: items
+              .map((item) => DropdownMenuItem(value: item, child: Text(item)))
+              .toList(),
+          onChanged: onChanged,
+        ),
+      );
+
   Widget _buildProductGrid() {
     return Container();
   }
