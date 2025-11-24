@@ -11,6 +11,9 @@ class CollectionPage extends StatefulWidget {
 }
 
 class _CollectionPageState extends State<CollectionPage> {
+  String? _selectedFilter = 'All products';
+  String? _selectedSort = 'Featured';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
