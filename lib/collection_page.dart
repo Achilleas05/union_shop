@@ -165,7 +165,28 @@ class _CollectionPageState extends State<CollectionPage> {
                 ),
               ),
             ),
+            if (product.tag != null) _buildProductTag(product.tag!),
           ],
+        ),
+      );
+
+  Widget _buildProductTag(String tag) => Positioned(
+        top: 8,
+        left: 8,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          decoration: BoxDecoration(
+            color: tag == 'Sale' ? Colors.red : Colors.orange,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Text(
+            tag,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 10,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
       );
 
