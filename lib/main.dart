@@ -5,6 +5,7 @@ import 'package:union_shop/about_page.dart';
 import 'package:union_shop/header.dart';
 import 'package:union_shop/footer.dart'; // Add this import
 import 'package:union_shop/collection_page.dart';
+import 'package:union_shop/models/fixtures.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -32,6 +33,7 @@ class UnionShopApp extends StatelessWidget {
         '/collections': (context) => const CollectionsPage(),
         '/collection/autumn-favourites': (context) => const CollectionPage(
               collectionTitle: 'Autumn Favourites',
+              collectionProducts: products, // Use products from fixtures
             ),
       },
     );
