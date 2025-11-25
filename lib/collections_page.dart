@@ -3,7 +3,7 @@ import 'package:union_shop/footer.dart';
 import 'package:union_shop/header.dart';
 import 'package:union_shop/models/collection.dart';
 import 'package:union_shop/models/fixtures.dart';
-import 'package:union_shop/collection_page.dart';
+import 'package:go_router/go_router.dart';
 
 class CollectionsPage extends StatelessWidget {
   const CollectionsPage({super.key});
@@ -76,15 +76,7 @@ class _CollectionCardState extends State<CollectionCard> {
       onExit: (_) => setState(() => _isHovering = false),
       child: GestureDetector(
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => CollectionPage(
-                collectionTitle: widget.collection.name,
-                collectionProducts: widget.collection.products,
-              ),
-            ),
-          );
+          context.go('/collections/${widget.collection.id}');
         },
         child: Stack(
           children: [
