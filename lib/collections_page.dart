@@ -73,7 +73,7 @@ class _CollectionCardState extends State<CollectionCard> {
       onExit: (_) => setState(() => _isHovering = false),
       child: GestureDetector(
         onTap: () {
-          // Placeholder for collection detail navigation
+          Navigator.pushNamed(context, '/collection/autumn-favourites');
         },
         child: Stack(
           children: [
