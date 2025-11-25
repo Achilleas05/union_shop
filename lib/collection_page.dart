@@ -138,107 +138,83 @@ class _CollectionPageState extends State<CollectionPage> {
         ),
       );
 
-  Widget _buildProductCard(Product product) => MouseRegion(
-        cursor: SystemMouseCursors.click,
-        child: GestureDetector(
-          onTap: () {},
-          child: Container(
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey.shade300),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildProductImage(product),
-                _buildProductInfo(product),
-              ],
-            ),
-          ),
-        ),
-      );
-
-  Widget _buildProductImage(Product product) => Expanded(
-        flex: 3,
-        child: Stack(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(8)),
-                image: DecorationImage(
-                  image: AssetImage(product.imageUrl),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            if (product.tag != null) _buildProductTag(product.tag!),
-          ],
-        ),
-      );
-
-  Widget _buildProductTag(String tag) => Positioned(
-        top: 8,
-        left: 8,
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-          decoration: BoxDecoration(
-            color: tag == 'Sale' ? Colors.red : Colors.orange,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Text(
-            tag,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 10,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-      );
-
-  Widget _buildProductInfo(Product product) => Expanded(
-        flex: 1,
-        child: Padding(
-          padding: const EdgeInsets.all(12),
+  Widget _buildProductCard(Product product) => GestureDetector(
+        onTap: () {},
+        child: Card(
+          elevation: 2,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                product.name,
-                style:
-                    const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-                maxLines: 2,
+              Expanded(
+                child: Image.asset(
+                  product.imageUrl,
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      color: Colors.grey[300],
+                      child:
+                          const Center(child: Icon(Icons.image_not_supported)),
+                    );
+                  },
+                ),
               ),
-              const SizedBox(height: 4),
-              _buildPriceRow(product),
+              Padding(
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      product.name,
+                      style: const TextStyle(
+                          fontSize: 14, fontWeight: FontWeight.w500),
+                      maxLines: 2,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      '£${product.price.toStringAsFixed(2)}',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: product.originalPrice != null
+                            ? Colors.red
+                            : Colors.grey,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    if (product.originalPrice != null)
+                      Text(
+                        '£${product.originalPrice!.toStringAsFixed(2)}',
+                        style: const TextStyle(
+                          decoration: TextDecoration.lineThrough,
+                          fontSize: 12,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    if (product.tag != null)
+                      Container(
+                        margin: const EdgeInsets.only(top: 4),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 6, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: product.tag == 'Sale'
+                              ? Colors.red
+                              : Colors.orange,
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Text(
+                          product.tag!,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
-      );
-
-  Widget _buildPriceRow(Product product) => Row(
-        children: [
-          if (product.originalPrice != null) ...[
-            Text(
-              '£${product.originalPrice!.toStringAsFixed(2)}',
-              style: const TextStyle(
-                decoration: TextDecoration.lineThrough,
-                fontSize: 12,
-                color: Colors.grey,
-              ),
-            ),
-            const SizedBox(width: 6),
-          ],
-          Text(
-            '£${product.price.toStringAsFixed(2)}',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-              color: product.originalPrice != null ? Colors.red : Colors.black,
-            ),
-          ),
-        ],
       );
 }
