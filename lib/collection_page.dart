@@ -49,9 +49,9 @@ class _CollectionPageState extends State<CollectionPage> {
               style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-            const Text(
-              'Curated picks for the season. Explore our favourite hoodies, tees and accessories.',
-              style: TextStyle(fontSize: 16, color: Colors.grey),
+            Text(
+              '${widget.collectionProducts.length} products in this collection',
+              style: const TextStyle(fontSize: 16, color: Colors.grey),
             ),
           ],
         ),
