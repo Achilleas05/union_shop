@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/footer.dart';
 import 'package:union_shop/header.dart';
+import 'package:union_shop/models/product.dart';
 
 class CollectionPage extends StatefulWidget {
   final String collectionTitle;
-  const CollectionPage({super.key, required this.collectionTitle});
+  final List<Product> collectionProducts;
+
+  const CollectionPage({
+    super.key,
+    required this.collectionTitle,
+    required this.collectionProducts,
+  });
 
   @override
   State<CollectionPage> createState() => _CollectionPageState();
