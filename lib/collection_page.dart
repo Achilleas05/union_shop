@@ -116,7 +116,6 @@ class _CollectionPageState extends State<CollectionPage> {
             enabledBorder: borderStyle,
             focusedBorder: borderStyle,
             contentPadding: contentPadding,
-            floatingLabelStyle: const TextStyle(color: Colors.grey),
           ),
           items: items
               .map((item) => DropdownMenuItem(value: item, child: Text(item)))
