@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/footer.dart';
 import 'package:union_shop/header.dart';
+import 'package:union_shop/models/collection.dart';
+import 'package:union_shop/models/fixtures.dart';
+import 'package:union_shop/collection_page.dart';
 
 class CollectionsPage extends StatelessWidget {
   const CollectionsPage({super.key});
@@ -73,7 +76,15 @@ class _CollectionCardState extends State<CollectionCard> {
       onExit: (_) => setState(() => _isHovering = false),
       child: GestureDetector(
         onTap: () {
-          Navigator.pushNamed(context, '/collection/autumn-favourites');
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CollectionPage(
+                collectionTitle: widget.collection.name,
+                collectionProducts: widget.collection.products,
+              ),
+            ),
+          );
         },
         child: Stack(
           children: [
@@ -139,49 +150,3 @@ class _CollectionCardState extends State<CollectionCard> {
     );
   }
 }
-
-class Collection {
-  final String name;
-  final Color color;
-  final IconData icon;
-
-  const Collection({
-    required this.name,
-    required this.color,
-    required this.icon,
-  });
-}
-
-// Hardcoded collections data with colors and icons
-final List<Collection> collections = [
-  const Collection(
-    name: 'Essential Range',
-    color: Color(0xFF4d2963),
-    icon: Icons.star_border,
-  ),
-  const Collection(
-    name: 'University Clothing',
-    color: Color(0xFF2E8B57),
-    icon: Icons.flag,
-  ),
-  const Collection(
-    name: 'Study Supplies',
-    color: Color(0xFF1E90FF),
-    icon: Icons.school,
-  ),
-  const Collection(
-    name: 'Gift Shop',
-    color: Color(0xFFFF6347),
-    icon: Icons.card_giftcard,
-  ),
-  const Collection(
-    name: 'Limited Edition',
-    color: Color(0xFFFFD700),
-    icon: Icons.lock_clock,
-  ),
-  const Collection(
-    name: 'Sale Items',
-    color: Color(0xFFDC143C),
-    icon: Icons.local_offer,
-  ),
-];
