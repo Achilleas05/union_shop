@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:union_shop/collections_page.dart';
 import 'package:union_shop/product_page.dart';
 import 'package:union_shop/about_page.dart';
@@ -16,26 +17,49 @@ class UnionShopApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    final GoRouter router = GoRouter(
+      routes: [
+        GoRoute(
+          path: '/',
+          builder: (context, state) => const HomeScreen(),
+        ),
+        GoRoute(
+          path: '/product',
+          builder: (context, state) => const ProductPage(),
+        ),
+        GoRoute(
+          path: '/about',
+          builder: (context, state) => const AboutPage(),
+        ),
+        GoRoute(
+          path: '/collections',
+          builder: (context, state) => const CollectionsPage(),
+        ),
+        GoRoute(
+          path: '/collections/:collectionId',
+          builder: (context, state) {
+            final id = state.pathParameters['collectionId']!;
+            final collection = collections.firstWhere(
+              (c) => c.id == id,
+              orElse: () => collections.first,
+            );
+
+            return CollectionPage(
+              collectionTitle: collection.name,
+              collectionProducts: collection.products,
+            );
+          },
+        ),
+      ],
+    );
+
+    return MaterialApp.router(
+      routerConfig: router,
       title: 'Union Shop',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4d2963)),
       ),
-      home: const HomeScreen(),
-      // By default, the app starts at the '/' route, which is the HomeScreen
-      initialRoute: '/',
-      // When navigating to '/product', build and return the ProductPage
-      // In your browser, try this link: http://localhost:49856/#/product
-      routes: {
-        '/product': (context) => const ProductPage(),
-        '/about': (context) => const AboutPage(),
-        '/collections': (context) => const CollectionsPage(),
-        '/collection/autumn-favourites': (context) => const CollectionPage(
-              collectionTitle: 'Autumn Favourites',
-              collectionProducts: products, // Use products from fixtures
-            ),
-      },
     );
   }
 }
@@ -43,25 +67,11 @@ class UnionShopApp extends StatelessWidget {
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  void navigateToHome(BuildContext context) {
-    Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-  }
-
-  void navigateToProduct(BuildContext context) {
-    Navigator.pushNamed(context, '/product');
-  }
-
-  void navigateToAbout(BuildContext context) {
-    Navigator.pushNamed(context, '/about');
-  }
-
-  void navigateToCollections(BuildContext context) {
-    Navigator.pushNamed(context, '/collections');
-  }
-
-  void placeholderCallbackForButtons() {
-    // This is the event handler for buttons that don't work yet
-  }
+  void navigateToHome(BuildContext context) => context.go('/');
+  void navigateToProduct(BuildContext context) => context.go('/product');
+  void navigateToAbout(BuildContext context) => context.go('/about');
+  void navigateToCollections(BuildContext context) =>
+      context.go('/collections');
 
   @override
   Widget build(BuildContext context) {
@@ -215,9 +225,7 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, '/product');
-      },
+      onTap: () => context.go('/product'),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
