@@ -6,6 +6,10 @@ class Product {
   final double? originalPrice;
   final String? tag;
 
+  final String description;
+  final List<String> sizes;
+  final List<String> colors;
+
   const Product({
     required this.id,
     required this.name,
@@ -13,5 +17,8 @@ class Product {
     required this.price,
     this.originalPrice,
     this.tag,
+    required this.description,
+    required this.sizes,
+    required this.colors,
   });
 }
