@@ -62,6 +62,39 @@ class _CollectionPageState extends State<CollectionPage> {
                   ],
                 ),
               ),
+            if (widget.collectionTitle == 'Essential Range')
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Essential Range',
+                      style: TextStyle(
+                        fontSize: 34,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF4d2963),
+                        letterSpacing: 2,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      "Quality basics, everyday value.",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      "Over 20% off our Essential Range—stock up for the semester!",
+                      style: TextStyle(fontSize: 14, color: Colors.grey),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 8),
+                  ],
+                ),
+              ),
             _buildHeader(),
             _buildFilterRow(),
             const SizedBox(height: 24),
