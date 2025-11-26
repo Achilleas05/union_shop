@@ -28,6 +28,17 @@ class UnionShopApp extends StatelessWidget {
           builder: (context, state) => const ProductPage(),
         ),
         GoRoute(
+          path: '/product/:productId',
+          builder: (context, state) {
+            final productId = state.pathParameters['productId'];
+            final product = products.firstWhere(
+              (p) => p.id == productId,
+              orElse: () => products.first,
+            );
+            return ProductPage(product: product);
+          },
+        ),
+        GoRoute(
           path: '/about',
           builder: (context, state) => const AboutPage(),
         ),
@@ -179,21 +190,25 @@ class HomeScreen extends StatelessWidget {
                           title: 'Portsmouth City Magnet',
                           price: '£3.50',
                           imageUrl: 'assets/portsmouth_magnet.png',
+                          productId: 'magnet-1',
                         ),
                         ProductCard(
                           title: 'University Hoodie Navy',
                           price: '£29.99',
                           imageUrl: 'assets/portsmouth_hoodie.png',
+                          productId: 'hoodie-1',
                         ),
                         ProductCard(
                           title: 'Pom Pom Beanie',
                           price: '£12.00',
                           imageUrl: 'assets/portsmouth_beanie.png',
+                          productId: 'beanie-1',
                         ),
                         ProductCard(
                           title: 'UPSU Tote Bag',
                           price: '£6.00',
                           imageUrl: 'assets/portsmouth_bag.png',
+                          productId: 'bag-1',
                         ),
                       ],
                     ),
@@ -214,18 +229,20 @@ class ProductCard extends StatelessWidget {
   final String title;
   final String price;
   final String imageUrl;
+  final String productId;
 
   const ProductCard({
     super.key,
     required this.title,
     required this.price,
     required this.imageUrl,
+    required this.productId,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.go('/product'),
+      onTap: () => context.go('/product/$productId'),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
