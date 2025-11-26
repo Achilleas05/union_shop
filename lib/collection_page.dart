@@ -128,6 +128,39 @@ class _CollectionPageState extends State<CollectionPage> {
                   ],
                 ),
               ),
+            if (widget.collectionTitle == 'Study Supplies')
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Study Supplies',
+                      style: TextStyle(
+                        fontSize: 34,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF1E90FF),
+                        letterSpacing: 1,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      "Gear up for success.",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      "Find essential stationery and accessories for every student.",
+                      style: TextStyle(fontSize: 14, color: Colors.grey),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 8),
+                  ],
+                ),
+              ),
             _buildHeader(),
             _buildFilterRow(),
             const SizedBox(height: 24),
