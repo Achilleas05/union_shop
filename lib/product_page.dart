@@ -179,13 +179,13 @@ class _ProductPageState extends State<ProductPage> {
         _buildDropdown('Size', _selectedSize, ['S', 'M', 'L', 'XL'], (value) {
           setState(() => _selectedSize = value!);
         }),
-        const SizedBox(height: 20),
+        const SizedBox(height: 16),
         _buildDropdown(
             'Color', _selectedColor, ['Black', 'Navy', 'Grey', 'White'],
             (value) {
           setState(() => _selectedColor = value!);
         }),
-        const SizedBox(height: 20),
+        const SizedBox(height: 16),
         _buildQuantitySelector(),
       ],
     );
