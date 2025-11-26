@@ -14,6 +14,8 @@ class ProductPage extends StatefulWidget {
 class _ProductPageState extends State<ProductPage> {
   @override
   Widget build(BuildContext context) {
+    final product = widget.product ?? _createDummyProduct();
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -37,8 +39,8 @@ class _ProductPageState extends State<ProductPage> {
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
-                      child: Image.network(
-                        'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                      child: Image.asset(
+                        product.imageUrl,
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) {
                           return Container(
@@ -69,9 +71,9 @@ class _ProductPageState extends State<ProductPage> {
                   const SizedBox(height: 24),
 
                   // Product name
-                  const Text(
-                    'Placeholder Product Name',
-                    style: TextStyle(
+                  Text(
+                    product.name,
+                    style: const TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
@@ -81,9 +83,9 @@ class _ProductPageState extends State<ProductPage> {
                   const SizedBox(height: 12),
 
                   // Product price
-                  const Text(
-                    '£15.00',
-                    style: TextStyle(
+                  Text(
+                    '£${product.price.toStringAsFixed(2)}',
+                    style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                       color: Color(0xFF4d2963),
@@ -118,6 +120,20 @@ class _ProductPageState extends State<ProductPage> {
           ],
         ),
       ),
+    );
+  }
+
+  Product _createDummyProduct() {
+    return const Product(
+      id: 'classic-sweatshirt-1',
+      name: 'Classic Sweatshirt',
+      imageUrl: 'assets/portsmouth_hoodie.png',
+      price: 29.99,
+      originalPrice: 39.99,
+      tag: 'Sale',
+      description: '',
+      sizes: [],
+      colors: [],
     );
   }
 }
