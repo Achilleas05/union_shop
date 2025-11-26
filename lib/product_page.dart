@@ -204,11 +204,14 @@ class _ProductPageState extends State<ProductPage> {
           decoration: BoxDecoration(
             border: Border.all(color: Colors.grey),
             borderRadius: BorderRadius.circular(4),
+            color: Colors.white, // Add this
           ),
           child: DropdownButtonHideUnderline(
             child: DropdownButton<String>(
               value: value,
               isExpanded: true,
+              dropdownColor: Colors.white,
+              focusColor: Colors.transparent,
               items: items.map((item) {
                 return DropdownMenuItem(value: item, child: Text(item));
               }).toList(),
