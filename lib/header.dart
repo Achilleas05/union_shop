@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomHeader extends StatelessWidget {
   final VoidCallback? onHomePressed;
@@ -19,11 +20,11 @@ class CustomHeader extends StatelessWidget {
   });
 
   void navigateToHome(BuildContext context) {
-    Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+    context.go('/'); // CHANGE TO context.go
   }
 
   void navigateToAbout(BuildContext context) {
-    Navigator.pushNamed(context, '/about');
+    context.go('/about'); // CHANGE TO context.go
   }
 
   @override
