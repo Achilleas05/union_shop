@@ -80,6 +80,29 @@ class LoginPage extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 24),
+                          const Row(
+                            children: [
+                              Expanded(child: Divider()),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 8),
+                                child: Text("or",
+                                    style: TextStyle(color: Colors.black54)),
+                              ),
+                              Expanded(child: Divider()),
+                            ],
+                          ),
+                          const SizedBox(height: 22),
+                          TextFormField(
+                            decoration: InputDecoration(
+                              labelText: null,
+                              hintText: 'Email',
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 18, horizontal: 14),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(7)),
+                            ),
+                          ),
+                          const SizedBox(height: 22),
                         ],
                       ),
                     ),
