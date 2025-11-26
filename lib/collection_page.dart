@@ -95,6 +95,39 @@ class _CollectionPageState extends State<CollectionPage> {
                   ],
                 ),
               ),
+            if (widget.collectionTitle == 'University Clothing')
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'University Clothing',
+                      style: TextStyle(
+                        fontSize: 34,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF2E8B57),
+                        letterSpacing: 1,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      "Show your university pride.",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      "Browse our official campus apparel—perfect for every student.",
+                      style: TextStyle(fontSize: 14, color: Colors.grey),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 8),
+                  ],
+                ),
+              ),
             _buildHeader(),
             _buildFilterRow(),
             const SizedBox(height: 24),
