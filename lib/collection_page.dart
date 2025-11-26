@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:union_shop/footer.dart';
 import 'package:union_shop/header.dart';
 import 'package:union_shop/models/product.dart';
@@ -138,7 +139,9 @@ class _CollectionPageState extends State<CollectionPage> {
       );
 
   Widget _buildProductCard(Product product) => GestureDetector(
-        onTap: () {},
+        onTap: () {
+          context.go('/product/${product.id}');
+        },
         child: Card(
           elevation: 2,
           child: Column(
