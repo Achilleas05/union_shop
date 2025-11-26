@@ -106,7 +106,9 @@ class _ProductPageState extends State<ProductPage> {
         _buildPriceSection(product),
         const SizedBox(height: 20),
         _buildOptionsSection(),
-        const SizedBox(height: 20),
+        const SizedBox(height: 30),
+        _buildActionButtons(),
+        const SizedBox(height: 30),
         const Text(
           'Description',
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
@@ -244,6 +246,42 @@ class _ProductPageState extends State<ProductPage> {
                 ),
               ],
             ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildActionButtons() {
+    return Row(
+      children: [
+        Expanded(
+          child: ElevatedButton(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF4d2963),
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              shape:
+                  const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+            ),
+            child: const Text('ADD TO CART',
+                style: TextStyle(fontSize: 14, letterSpacing: 1)),
+          ),
+        ),
+        const SizedBox(width: 10),
+        Expanded(
+          child: ElevatedButton(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.green,
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              shape:
+                  const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+            ),
+            child: const Text('BUY NOW',
+                style: TextStyle(fontSize: 14, letterSpacing: 1)),
           ),
         ),
       ],
