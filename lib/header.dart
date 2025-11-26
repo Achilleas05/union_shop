@@ -107,6 +107,20 @@ class CustomHeader extends StatelessWidget {
                           ),
                           const SizedBox(width: 16),
                           TextButton(
+                            onPressed: () =>
+                                context.go('/collections/sale-items'),
+                            child: const Text(
+                              'SALE!',
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 1.2,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 16),
+                          TextButton(
                             onPressed: onAboutPressed ??
                                 () => navigateToAbout(context),
                             child: const Text(
@@ -175,6 +189,8 @@ class CustomHeader extends StatelessWidget {
                                   navigateToHome(context);
                                 } else if (value == 'about') {
                                   navigateToAbout(context);
+                                } else if (value == 'sale') {
+                                  context.go('/collections/sale-items');
                                 }
                               },
                               itemBuilder: (context) => [
@@ -182,6 +198,9 @@ class CustomHeader extends StatelessWidget {
                                     value: 'home', child: Text('Home')),
                                 const PopupMenuItem(
                                     value: 'about', child: Text('About')),
+                                const PopupMenuItem(
+                                    value: 'sale',
+                                    child: Text('SALE!')), // add this line
                               ],
                               icon: const Icon(
                                 Icons.menu,
@@ -189,7 +208,7 @@ class CustomHeader extends StatelessWidget {
                                 color: Colors.grey,
                               ),
                               padding: const EdgeInsets.all(8),
-                            ),
+                            )
                         ],
                       ),
                     ),
