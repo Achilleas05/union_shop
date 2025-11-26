@@ -7,6 +7,7 @@ import 'package:union_shop/header.dart';
 import 'package:union_shop/footer.dart'; // Add this import
 import 'package:union_shop/collection_page.dart';
 import 'package:union_shop/models/fixtures.dart';
+import 'package:union_shop/login_page.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -60,6 +61,10 @@ class UnionShopApp extends StatelessWidget {
               collectionProducts: collection.products,
             );
           },
+        ),
+        GoRoute(
+          path: '/login',
+          builder: (context, state) => const LoginPage(),
         ),
       ],
     );
