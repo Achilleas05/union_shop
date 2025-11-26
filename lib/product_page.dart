@@ -38,23 +38,38 @@ class _ProductPageState extends State<ProductPage> {
       padding: const EdgeInsets.all(24),
       child: LayoutBuilder(
         builder: (context, constraints) {
-          final isDesktop = constraints.maxWidth > 768;
+          final isMobile = constraints.maxWidth < 600;
 
-          if (isDesktop) {
-            return Row(
+          if (isMobile) {
+            // Mobile: vertical layout
+            return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildProductImage(product, 500),
-                const SizedBox(width: 40),
-                Expanded(child: _buildProductDetails(product)),
+                _buildProductImage(product, 300), // big full-width image
+                const SizedBox(height: 16),
+                Text(
+                  product.name,
+                  style: const TextStyle(
+                      fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8),
+                _buildPriceSection(product),
+                const SizedBox(height: 16),
+                _buildOptionsSection(),
+                const SizedBox(height: 16),
+                _buildActionButtons(),
+                const SizedBox(height: 16),
+                _buildDescriptionSection(product),
               ],
             );
           } else {
-            return Column(
+            // Desktop/tablet: row layout
+            return Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildProductImage(product, 300),
-                const SizedBox(height: 20),
-                _buildProductDetails(product),
+                Expanded(flex: 2, child: _buildProductImage(product, 500)),
+                const SizedBox(width: 40),
+                Expanded(flex: 1, child: _buildProductDetails(product)),
               ],
             );
           }
@@ -64,59 +79,52 @@ class _ProductPageState extends State<ProductPage> {
   }
 
   Widget _buildProductImage(Product product, double height) {
-    return Expanded(
-      flex: 2,
-      child: Container(
-        height: height,
-        decoration: BoxDecoration(
-          color: Colors.grey[200],
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Image.asset(
-          product.imageUrl,
-          fit: BoxFit.cover,
-          errorBuilder: (context, error, stackTrace) {
-            return Container(
-              color: Colors.grey[300],
-              child: const Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.image_not_supported,
-                        size: 64, color: Colors.grey),
-                    SizedBox(height: 8),
-                    Text('Image unavailable',
-                        style: TextStyle(color: Colors.grey)),
-                  ],
-                ),
+    return Container(
+      height: height,
+      decoration: BoxDecoration(
+        color: Colors.grey[200],
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Image.asset(
+        product.imageUrl,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) {
+          return Container(
+            color: Colors.grey[300],
+            child: const Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.image_not_supported, size: 64, color: Colors.grey),
+                  SizedBox(height: 8),
+                  Text('Image unavailable',
+                      style: TextStyle(color: Colors.grey)),
+                ],
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }
 
   Widget _buildProductDetails(Product product) {
-    return Expanded(
-      flex: 1,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            product.name,
-            style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 10),
-          _buildPriceSection(product),
-          const SizedBox(height: 20),
-          _buildOptionsSection(),
-          const SizedBox(height: 30),
-          _buildActionButtons(),
-          const SizedBox(height: 30),
-          _buildDescriptionSection(product),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          product.name,
+          style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 10),
+        _buildPriceSection(product),
+        const SizedBox(height: 20),
+        _buildOptionsSection(),
+        const SizedBox(height: 30),
+        _buildActionButtons(),
+        const SizedBox(height: 30),
+        _buildDescriptionSection(product),
+      ],
     );
   }
 
