@@ -12,6 +12,9 @@ class ProductPage extends StatefulWidget {
 }
 
 class _ProductPageState extends State<ProductPage> {
+  String _selectedSize = 'M';
+  String _selectedColor = 'Black';
+
   @override
   Widget build(BuildContext context) {
     final product = widget.product ?? _createDummyProduct();
@@ -101,6 +104,8 @@ class _ProductPageState extends State<ProductPage> {
         const SizedBox(height: 10),
         _buildPriceSection(product),
         const SizedBox(height: 20),
+        _buildOptionsSection(),
+        const SizedBox(height: 20),
         const Text(
           'Description',
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
@@ -155,6 +160,51 @@ class _ProductPageState extends State<ProductPage> {
             ),
           ),
         ],
+      ],
+    );
+  }
+
+  Widget _buildOptionsSection() {
+    return Column(
+      children: [
+        _buildDropdown('Size', _selectedSize, ['S', 'M', 'L', 'XL'], (value) {
+          setState(() => _selectedSize = value!);
+        }),
+        const SizedBox(height: 20),
+        _buildDropdown(
+            'Color', _selectedColor, ['Black', 'Navy', 'Grey', 'White'],
+            (value) {
+          setState(() => _selectedColor = value!);
+        }),
+      ],
+    );
+  }
+
+  Widget _buildDropdown(String label, String value, List<String> items,
+      ValueChanged<String?> onChanged) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('$label:', style: const TextStyle(fontWeight: FontWeight.bold)),
+        const SizedBox(height: 8),
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey),
+            borderRadius: BorderRadius.circular(4),
+          ),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<String>(
+              value: value,
+              isExpanded: true,
+              items: items.map((item) {
+                return DropdownMenuItem(value: item, child: Text(item));
+              }).toList(),
+              onChanged: onChanged,
+            ),
+          ),
+        ),
       ],
     );
   }
