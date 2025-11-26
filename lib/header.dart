@@ -166,7 +166,7 @@ class CustomHeader extends StatelessWidget {
                               minWidth: 32,
                               minHeight: 32,
                             ),
-                            onPressed: onProfilePressed,
+                            onPressed: () => context.go('/login'),
                           ),
                           IconButton(
                             icon: const Icon(
