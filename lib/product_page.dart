@@ -98,21 +98,9 @@ class _ProductPageState extends State<ProductPage> {
           product.name,
           style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
         ),
-        const SizedBox(height: 12),
-
-        // Product price
-        Text(
-          '£${product.price.toStringAsFixed(2)}',
-          style: const TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF4d2963),
-          ),
-        ),
-
-        const SizedBox(height: 24),
-
-        // Product description
+        const SizedBox(height: 10),
+        _buildPriceSection(product),
+        const SizedBox(height: 20),
         const Text(
           'Description',
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
@@ -122,6 +110,51 @@ class _ProductPageState extends State<ProductPage> {
           'This is a placeholder description for the product.',
           style: TextStyle(fontSize: 16, color: Colors.grey, height: 1.5),
         ),
+      ],
+    );
+  }
+
+  Widget _buildPriceSection(Product product) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (product.originalPrice != null) ...[
+          Text(
+            '£${product.originalPrice!.toStringAsFixed(2)}',
+            style: const TextStyle(
+              fontSize: 18,
+              color: Colors.grey,
+              decoration: TextDecoration.lineThrough,
+            ),
+          ),
+          const SizedBox(height: 4),
+        ],
+        Text(
+          '£${product.price.toStringAsFixed(2)}',
+          style: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+            color: Color(0xFF4d2963),
+          ),
+        ),
+        if (product.tag != null) ...[
+          const SizedBox(height: 8),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(
+              color: product.tag == 'Sale' ? Colors.red : Colors.orange,
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Text(
+              product.tag!,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ],
       ],
     );
   }
