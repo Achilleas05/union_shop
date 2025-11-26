@@ -42,10 +42,27 @@ class LoginPage extends StatelessWidget {
                         vertical: 16.0, horizontal: 24.0),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16)),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 40, horizontal: 32),
-                      child: Container(), // empty for now
+                    child: const Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 40, horizontal: 32),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          SizedBox(height: 20),
+                          Text(
+                            'Sign in',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 22),
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            "Choose how you'd like to sign in",
+                            style:
+                                TextStyle(fontSize: 14, color: Colors.black54),
+                          ),
+                          SizedBox(height: 30),
+                        ],
+                      ),
                     ),
                   ),
                 ),
