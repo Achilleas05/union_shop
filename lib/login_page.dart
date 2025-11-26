@@ -42,25 +42,44 @@ class LoginPage extends StatelessWidget {
                         vertical: 16.0, horizontal: 24.0),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16)),
-                    child: const Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 40, horizontal: 32),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 40, horizontal: 32),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          SizedBox(height: 20),
-                          Text(
+                          const SizedBox(height: 20),
+                          const Text(
                             'Sign in',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 22),
                           ),
-                          SizedBox(height: 10),
-                          Text(
+                          const SizedBox(height: 10),
+                          const Text(
                             "Choose how you'd like to sign in",
                             style:
                                 TextStyle(fontSize: 14, color: Colors.black54),
                           ),
-                          SizedBox(height: 30),
+                          const SizedBox(height: 30),
+                          SizedBox(
+                            height: 48,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFF6842F6),
+                                foregroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(7),
+                                ),
+                              ),
+                              onPressed: () {},
+                              child: const Text(
+                                "Sign in with shop",
+                                style: TextStyle(
+                                    fontSize: 17, fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 24),
                         ],
                       ),
                     ),
