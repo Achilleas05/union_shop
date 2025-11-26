@@ -14,6 +14,7 @@ class ProductPage extends StatefulWidget {
 class _ProductPageState extends State<ProductPage> {
   String _selectedSize = 'M';
   String _selectedColor = 'Black';
+  int _quantity = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -176,6 +177,8 @@ class _ProductPageState extends State<ProductPage> {
             (value) {
           setState(() => _selectedColor = value!);
         }),
+        const SizedBox(height: 20),
+        _buildQuantitySelector(),
       ],
     );
   }
@@ -202,6 +205,44 @@ class _ProductPageState extends State<ProductPage> {
                 return DropdownMenuItem(value: item, child: Text(item));
               }).toList(),
               onChanged: onChanged,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildQuantitySelector() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text('Quantity:', style: TextStyle(fontWeight: FontWeight.bold)),
+        const SizedBox(height: 8),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.remove),
+                  onPressed: () => setState(() {
+                    if (_quantity > 1) _quantity--;
+                  }),
+                ),
+                Container(
+                    width: 40,
+                    alignment: Alignment.center,
+                    child: Text(_quantity.toString())),
+                IconButton(
+                  icon: const Icon(Icons.add),
+                  onPressed: () => setState(() => _quantity++),
+                ),
+              ],
             ),
           ),
         ),
