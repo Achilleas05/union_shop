@@ -10,6 +10,10 @@ const List<Product> products = [
     price: 34.99,
     originalPrice: 44.99,
     tag: 'Sale',
+    description:
+        'A comfortable and stylish university hoodie perfect for campus life. Made from high-quality cotton blend with university branding.',
+    sizes: ['S', 'M', 'L', 'XL'],
+    colors: ['Navy', 'Black', 'Grey'],
   ),
   Product(
     id: 'beanie-1',
@@ -17,18 +21,30 @@ const List<Product> products = [
     imageUrl: 'assets/portsmouth_beanie.png',
     price: 12.99,
     tag: 'New',
+    description:
+        'Warm and cozy beanie with a cute pom pom. Perfect for cold weather on campus.',
+    sizes: ['One Size'],
+    colors: ['Navy', 'Black', 'Cream', 'Maroon'],
   ),
   Product(
     id: 'bag-1',
     name: 'UPSU Tote Bag',
     imageUrl: 'assets/portsmouth_bag.png',
     price: 12.99,
+    description:
+        'Durable and spacious tote bag with UPSU branding. Perfect for carrying books and essentials.',
+    sizes: ['One Size'],
+    colors: ['Natural', 'Black', 'Navy'],
   ),
   Product(
     id: 'magnet-1',
     name: 'Portsmouth City Magnet',
     imageUrl: 'assets/portsmouth_magnet.png',
     price: 3.50,
+    description:
+        'Colorful Portsmouth city landmark magnet. Great souvenir or gift.',
+    sizes: ['One Size'],
+    colors: ['Multicolor'],
   ),
 ];
 
