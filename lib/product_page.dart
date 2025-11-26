@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:union_shop/models/product.dart';
 
-class ProductPage extends StatelessWidget {
-  const ProductPage({super.key});
+class ProductPage extends StatefulWidget {
+  final Product? product;
+  const ProductPage({super.key, this.product});
 
-  void navigateToHome(BuildContext context) {
-    Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-  }
+  @override
+  State<ProductPage> createState() => _ProductPageState();
+}
 
-  void placeholderCallbackForButtons() {
-    // This is the event handler for buttons that don't work yet
-  }
-
+class _ProductPageState extends State<ProductPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +41,7 @@ class ProductPage extends StatelessWidget {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              navigateToHome(context);
+                              // navigateToHome(context);
                             },
                             child: Image.network(
                               'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
@@ -78,7 +77,7 @@ class ProductPage extends StatelessWidget {
                                     minWidth: 32,
                                     minHeight: 32,
                                   ),
-                                  onPressed: placeholderCallbackForButtons,
+                                  onPressed: () {},
                                 ),
                                 IconButton(
                                   icon: const Icon(
@@ -91,7 +90,7 @@ class ProductPage extends StatelessWidget {
                                     minWidth: 32,
                                     minHeight: 32,
                                   ),
-                                  onPressed: placeholderCallbackForButtons,
+                                  onPressed: () {},
                                 ),
                                 IconButton(
                                   icon: const Icon(
@@ -104,7 +103,7 @@ class ProductPage extends StatelessWidget {
                                     minWidth: 32,
                                     minHeight: 32,
                                   ),
-                                  onPressed: placeholderCallbackForButtons,
+                                  onPressed: () {},
                                 ),
                                 IconButton(
                                   icon: const Icon(
@@ -117,7 +116,7 @@ class ProductPage extends StatelessWidget {
                                     minWidth: 32,
                                     minHeight: 32,
                                   ),
-                                  onPressed: placeholderCallbackForButtons,
+                                  onPressed: () {},
                                 ),
                               ],
                             ),
