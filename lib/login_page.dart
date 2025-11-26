@@ -34,15 +34,21 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 40),
-                const Text(
-                  'Login',
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
+                SizedBox(
+                  width: 420,
+                  child: Card(
+                    elevation: 0,
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 16.0, horizontal: 24.0),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16)),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 40, horizontal: 32),
+                      child: Container(), // empty for now
+                    ),
                   ),
                 ),
-                const SizedBox(height: 24),
-                // Add your login form widgets here
               ],
             ),
           ),
