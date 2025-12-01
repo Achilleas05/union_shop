@@ -144,11 +144,19 @@ class CartContent extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(4),
-                child: Container(
+                child: Image.network(
+                  item.imageUrl,
                   width: 80,
                   height: 80,
-                  color: Colors.grey[200],
-                  child: const Icon(Icons.image_not_supported),
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      width: 80,
+                      height: 80,
+                      color: Colors.grey[200],
+                      child: const Icon(Icons.image_not_supported),
+                    );
+                  },
                 ),
               ),
               const SizedBox(width: 16),
@@ -188,6 +196,72 @@ class CartContent extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+          const SizedBox(height: 16),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _buildQuantityControls(item, context),
+              IconButton(
+                onPressed: () {
+                  Provider.of<Cart>(context, listen: false).removeItem(
+                    item.productId,
+                    size: item.size,
+                    color: item.color,
+                  );
+                },
+                icon: const Icon(Icons.delete_outline),
+                color: Colors.grey[600],
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildQuantityControls(CartItem item, BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey[300]!),
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          IconButton(
+            icon: const Icon(Icons.remove, size: 16),
+            padding: const EdgeInsets.all(4),
+            constraints: const BoxConstraints(),
+            onPressed: () {
+              Provider.of<Cart>(context, listen: false).decrementQuantity(
+                item.productId,
+                size: item.size,
+                color: item.color,
+              );
+            },
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: Text(
+              item.quantity.toString(),
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          IconButton(
+            icon: const Icon(Icons.add, size: 16),
+            padding: const EdgeInsets.all(4),
+            constraints: const BoxConstraints(),
+            onPressed: () {
+              Provider.of<Cart>(context, listen: false).incrementQuantity(
+                item.productId,
+                size: item.size,
+                color: item.color,
+              );
+            },
           ),
         ],
       ),
