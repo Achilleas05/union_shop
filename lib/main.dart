@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:union_shop/pages/collections_page.dart';
 import 'package:union_shop/pages/product_page.dart';
 import 'package:union_shop/pages/about_page.dart';
@@ -8,6 +9,8 @@ import 'package:union_shop/widgets/footer.dart'; // Add this import
 import 'package:union_shop/pages/collection_page.dart';
 import 'package:union_shop/models/fixtures.dart';
 import 'package:union_shop/pages/login_page.dart';
+import 'package:union_shop/pages/cart_page.dart';
+import 'package:union_shop/models/cart.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -66,15 +69,22 @@ class UnionShopApp extends StatelessWidget {
           path: '/login',
           builder: (context, state) => const LoginPage(),
         ),
+        GoRoute(
+          path: '/cart',
+          builder: (context, state) => const CartPage(),
+        ),
       ],
     );
 
-    return MaterialApp.router(
-      routerConfig: router,
-      title: 'Union Shop',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4d2963)),
+    return ChangeNotifierProvider(
+      create: (context) => Cart(),
+      child: MaterialApp.router(
+        routerConfig: router,
+        title: 'Union Shop',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4d2963)),
+        ),
       ),
     );
   }
