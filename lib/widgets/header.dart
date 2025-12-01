@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:union_shop/models/cart.dart';
 
 class CustomHeader extends StatelessWidget {
   final VoidCallback? onHomePressed;
@@ -25,6 +27,10 @@ class CustomHeader extends StatelessWidget {
 
   void navigateToAbout(BuildContext context) {
     context.go('/about'); // CHANGE TO context.go
+  }
+
+  void navigateToCart(BuildContext context) {
+    context.go('/cart');
   }
 
   @override
@@ -168,18 +174,54 @@ class CustomHeader extends StatelessWidget {
                             ),
                             onPressed: () => context.go('/login'),
                           ),
-                          IconButton(
-                            icon: const Icon(
-                              Icons.shopping_bag_outlined,
-                              size: 18,
-                              color: Colors.grey,
-                            ),
-                            padding: const EdgeInsets.all(8),
-                            constraints: const BoxConstraints(
-                              minWidth: 32,
-                              minHeight: 32,
-                            ),
-                            onPressed: onCartPressed,
+                          Stack(
+                            children: [
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.shopping_bag_outlined,
+                                  size: 18,
+                                  color: Colors.grey,
+                                ),
+                                padding: const EdgeInsets.all(8),
+                                constraints: const BoxConstraints(
+                                  minWidth: 32,
+                                  minHeight: 32,
+                                ),
+                                onPressed: onCartPressed ??
+                                    () => navigateToCart(context),
+                              ),
+                              Consumer<Cart>(
+                                builder: (context, cart, child) {
+                                  if (cart.itemCount == 0) {
+                                    return const SizedBox.shrink();
+                                  }
+                                  return Positioned(
+                                    right: 8,
+                                    top: 8,
+                                    child: Container(
+                                      padding: const EdgeInsets.all(2),
+                                      decoration: BoxDecoration(
+                                        color: Colors.red,
+                                        borderRadius: BorderRadius.circular(6),
+                                      ),
+                                      constraints: const BoxConstraints(
+                                        minWidth: 12,
+                                        minHeight: 12,
+                                      ),
+                                      child: Text(
+                                        cart.itemCount.toString(),
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 8,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ],
                           ),
                           // On mobile, show a popup menu. On desktop, show a simple icon.
                           if (!isDesktop) // Only show menu button on mobile
