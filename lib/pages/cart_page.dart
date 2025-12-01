@@ -33,6 +33,8 @@ class CartContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<Cart>(context);
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 768;
 
     if (cart.items.isEmpty) {
       return Padding(
@@ -91,6 +93,104 @@ class CartContent extends StatelessWidget {
       );
     }
 
-    return const SizedBox.shrink();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 24),
+        const Text(
+          'Your Shopping Cart',
+          style: TextStyle(
+            fontSize: 28,
+            fontWeight: FontWeight.bold,
+            color: Colors.black87,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          '${cart.itemCount} item${cart.itemCount == 1 ? '' : 's'} in your cart',
+          style: const TextStyle(
+            fontSize: 16,
+            color: Colors.grey,
+          ),
+        ),
+        const SizedBox(height: 32),
+        isMobile
+            ? _buildMobileCartItems(cart, context)
+            : const SizedBox.shrink(),
+      ],
+    );
+  }
+
+  Widget _buildMobileCartItems(Cart cart, BuildContext context) {
+    return Column(
+      children: cart.items
+          .map((item) => _buildMobileCartItem(item, context))
+          .toList(),
+    );
+  }
+
+  Widget _buildMobileCartItem(CartItem item, BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey[200]!),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(4),
+                child: Container(
+                  width: 80,
+                  height: 80,
+                  color: Colors.grey[200],
+                  child: const Icon(Icons.image_not_supported),
+                ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      item.title,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black87,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 4),
+                    if (item.size != null || item.color != null)
+                      Text(
+                        '${item.size ?? ''}${item.size != null && item.color != null ? ' • ' : ''}${item.color ?? ''}',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey[600],
+                        ),
+                      ),
+                    const SizedBox(height: 8),
+                    Text(
+                      '£${item.price.toStringAsFixed(2)}',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF4d2963),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
