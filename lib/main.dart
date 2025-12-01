@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:union_shop/collections_page.dart';
-import 'package:union_shop/product_page.dart';
-import 'package:union_shop/about_page.dart';
-import 'package:union_shop/header.dart';
-import 'package:union_shop/footer.dart'; // Add this import
-import 'package:union_shop/collection_page.dart';
+import 'package:union_shop/pages/collections_page.dart';
+import 'package:union_shop/pages/product_page.dart';
+import 'package:union_shop/pages/about_page.dart';
+import 'package:union_shop/widgets/header.dart';
+import 'package:union_shop/widgets/footer.dart'; // Add this import
+import 'package:union_shop/pages/collection_page.dart';
 import 'package:union_shop/models/fixtures.dart';
-import 'package:union_shop/login_page.dart';
+import 'package:union_shop/pages/login_page.dart';
 
 void main() {
   runApp(const UnionShopApp());
