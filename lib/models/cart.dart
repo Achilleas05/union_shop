@@ -88,6 +88,61 @@ class Cart extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateQuantity(String productId, int quantity,
+      {String? size, String? color}) {
+    if (quantity <= 0) {
+      removeItem(productId, size: size, color: color);
+      return;
+    }
+
+    final index = _items.indexWhere(
+      (item) =>
+          item.productId == productId &&
+          item.size == size &&
+          item.color == color,
+    );
+
+    if (index >= 0) {
+      _items[index] = _items[index].copyWith(quantity: quantity);
+      notifyListeners();
+    }
+  }
+
+  void incrementQuantity(String productId, {String? size, String? color}) {
+    final index = _items.indexWhere(
+      (item) =>
+          item.productId == productId &&
+          item.size == size &&
+          item.color == color,
+    );
+
+    if (index >= 0) {
+      _items[index] = _items[index].copyWith(
+        quantity: _items[index].quantity + 1,
+      );
+      notifyListeners();
+    }
+  }
+
+  void decrementQuantity(String productId, {String? size, String? color}) {
+    final index = _items.indexWhere(
+      (item) =>
+          item.productId == productId &&
+          item.size == size &&
+          item.color == color,
+    );
+
+    if (index >= 0) {
+      final newQuantity = _items[index].quantity - 1;
+      if (newQuantity <= 0) {
+        removeItem(productId, size: size, color: color);
+      } else {
+        _items[index] = _items[index].copyWith(quantity: newQuantity);
+        notifyListeners();
+      }
+    }
+  }
+
   void clear() {
     _items.clear();
     notifyListeners();
