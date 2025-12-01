@@ -22,6 +22,57 @@ class _CollectionPageState extends State<CollectionPage> {
   String? _selectedFilter = 'All products';
   String? _selectedSort = 'Featured';
 
+  late List<Product> _allCollectionProducts;
+
+  @override
+  void initState() {
+    super.initState();
+    _allCollectionProducts = List<Product>.from(widget.collectionProducts);
+    _applyFilterAndSort();
+  }
+
+  void _applyFilterAndSort() {
+    List<Product> result = List<Product>.from(_allCollectionProducts);
+
+    // FILTER
+    switch (_selectedFilter) {
+      case 'Clothing':
+        result = result.where((p) => p.category == 'Clothing').toList();
+        break;
+      case 'Accessories':
+        result = result.where((p) => p.category == 'Accessories').toList();
+        break;
+      case 'Sale items':
+        result = result.where((p) => p.isOnSale || p.tag == 'Sale').toList();
+        break;
+      case 'New arrivals':
+        result = result.where((p) => p.isNew).toList();
+        break;
+      case 'All products':
+      default:
+        break;
+    }
+
+    // SORT
+    switch (_selectedSort) {
+      case 'Price: Low to High':
+        result.sort((a, b) => a.price.compareTo(b.price));
+        break;
+      case 'Price: High to Low':
+        result.sort((a, b) => b.price.compareTo(a.price));
+        break;
+      case 'A-Z':
+        result.sort(
+            (a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+        break;
+      case 'Featured':
+      default:
+        break;
+    }
+
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
