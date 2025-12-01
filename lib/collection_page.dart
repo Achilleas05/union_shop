@@ -28,14 +28,20 @@ class _CollectionPageState extends State<CollectionPage> {
   int _currentPage = 1;
   final int _pageSize = 6;
 
+  int get _totalPages => _filteredAndSortedProducts.isEmpty
+      ? 1
+      : (_filteredAndSortedProducts.length / _pageSize).ceil();
+
   @override
   void initState() {
     super.initState();
+    // Base list for this collection
     _allCollectionProducts = List<Product>.from(widget.collectionProducts);
     _applyFilterAndSort();
   }
 
   void _applyFilterAndSort() {
+    // Start from full collection
     List<Product> result = List<Product>.from(_allCollectionProducts);
 
     // FILTER
@@ -76,7 +82,7 @@ class _CollectionPageState extends State<CollectionPage> {
 
     setState(() {
       _filteredAndSortedProducts = result;
-      _currentPage = 1;
+      _currentPage = 1; // reset to first page whenever criteria change
     });
   }
 
@@ -98,6 +104,20 @@ class _CollectionPageState extends State<CollectionPage> {
     final endIndex =
         (startIndex + _pageSize).clamp(0, _filteredAndSortedProducts.length);
     return _filteredAndSortedProducts.sublist(startIndex, endIndex);
+  }
+
+  void _goToPreviousPage() {
+    if (_currentPage <= 1) return;
+    setState(() {
+      _currentPage--;
+    });
+  }
+
+  void _goToNextPage() {
+    if (_currentPage >= _totalPages) return;
+    setState(() {
+      _currentPage++;
+    });
   }
 
   @override
@@ -278,6 +298,8 @@ class _CollectionPageState extends State<CollectionPage> {
             _buildFilterRow(),
             const SizedBox(height: 24),
             _buildProductGrid(pageItems),
+            const SizedBox(height: 16),
+            _buildPaginationControls(),
             const SizedBox(height: 40),
             const Footer(),
           ],
@@ -382,6 +404,26 @@ class _CollectionPageState extends State<CollectionPage> {
           children: pageItems.map(_buildProductCard).toList(),
         ),
       );
+
+  Widget _buildPaginationControls() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          IconButton(
+            onPressed: _currentPage > 1 ? _goToPreviousPage : null,
+            icon: const Icon(Icons.chevron_left),
+          ),
+          Text('Page $_currentPage of $_totalPages'),
+          IconButton(
+            onPressed: _currentPage < _totalPages ? _goToNextPage : null,
+            icon: const Icon(Icons.chevron_right),
+          ),
+        ],
+      ),
+    );
+  }
 
   Widget _buildProductCard(Product product) => GestureDetector(
         onTap: () {
