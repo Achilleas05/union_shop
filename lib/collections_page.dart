@@ -5,8 +5,36 @@ import 'package:union_shop/models/collection.dart';
 import 'package:union_shop/models/fixtures.dart';
 import 'package:go_router/go_router.dart';
 
-class CollectionsPage extends StatelessWidget {
+class CollectionService {
+  Future<List<Collection>> getCollections() async {
+    return collections;
+  }
+}
+
+class CollectionsPage extends StatefulWidget {
   const CollectionsPage({super.key});
+
+  @override
+  State<CollectionsPage> createState() => _CollectionsPageState();
+}
+
+class _CollectionsPageState extends State<CollectionsPage> {
+  late List<Collection> _collections;
+  final CollectionService _service = CollectionService();
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCollections();
+  }
+
+  // This method demonstrates the dynamic data pattern
+  void _loadCollections() async {
+    final collections = await _service.getCollections();
+    setState(() {
+      _collections = collections;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +68,7 @@ class CollectionsPage extends StatelessWidget {
                 crossAxisSpacing: 16,
                 mainAxisSpacing: 16,
                 childAspectRatio: 1.0,
-                children: collections.map((Collection col) {
+                children: _collections.map((Collection col) {
                   return CollectionCard(collection: col);
                 }).toList(),
               ),
