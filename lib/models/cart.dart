@@ -45,3 +45,15 @@ class CartItem {
     );
   }
 }
+
+class Cart extends ChangeNotifier {
+  final List<CartItem> _items = [];
+
+  List<CartItem> get items => List.unmodifiable(_items);
+
+  int get itemCount => _items.length;
+
+  double get totalAmount {
+    return _items.fold(0, (total, item) => total + item.totalPrice);
+  }
+}
