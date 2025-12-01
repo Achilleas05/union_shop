@@ -530,7 +530,10 @@ class CartContent extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                // Simulate checkout
+                _showCheckoutDialog(context, cart);
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF4d2963),
                 foregroundColor: Colors.white,
@@ -562,6 +565,39 @@ class CartContent extends StatelessWidget {
                 ),
               ),
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showCheckoutDialog(BuildContext context, Cart cart) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Order Confirmation'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('Thank you for your order!'),
+            const SizedBox(height: 16),
+            Text('Total: £${cart.totalAmount.toStringAsFixed(2)}'),
+            const SizedBox(height: 8),
+            const Text(
+              'This is a demo checkout. No actual payment was processed.',
+              style: TextStyle(fontSize: 12, color: Colors.grey),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              cart.clear();
+              context.go('/');
+            },
+            child: const Text('Continue Shopping'),
           ),
         ],
       ),
