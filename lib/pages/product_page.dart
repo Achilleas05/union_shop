@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:union_shop/widgets/header.dart';
 import 'package:union_shop/widgets/footer.dart';
 import 'package:union_shop/models/product.dart';
+import 'package:union_shop/models/cart.dart';
 
 class ProductPage extends StatefulWidget {
   final Product? product;
@@ -57,7 +59,7 @@ class _ProductPageState extends State<ProductPage> {
                 const SizedBox(height: 16),
                 _buildOptionsSection(),
                 const SizedBox(height: 16),
-                _buildActionButtons(),
+                _buildActionButtons(product),
                 const SizedBox(height: 16),
                 _buildDescriptionSection(product),
               ],
@@ -121,7 +123,7 @@ class _ProductPageState extends State<ProductPage> {
         const SizedBox(height: 20),
         _buildOptionsSection(),
         const SizedBox(height: 30),
-        _buildActionButtons(),
+        _buildActionButtons(product), // Updated
         const SizedBox(height: 30),
         _buildDescriptionSection(product),
       ],
@@ -204,7 +206,7 @@ class _ProductPageState extends State<ProductPage> {
           decoration: BoxDecoration(
             border: Border.all(color: Colors.grey),
             borderRadius: BorderRadius.circular(4),
-            color: Colors.white, // Add this
+            color: Colors.white,
           ),
           child: DropdownButtonHideUnderline(
             child: DropdownButton<String>(
@@ -261,37 +263,41 @@ class _ProductPageState extends State<ProductPage> {
     );
   }
 
-  Widget _buildActionButtons() {
-    return Row(
+  Widget _buildActionButtons(Product product) {
+    return Column(
       children: [
-        Expanded(
-          child: ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF4d2963),
-              foregroundColor: Colors.white,
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              shape:
-                  const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+        Row(
+          children: [
+            Expanded(
+              child: ElevatedButton(
+                onPressed: () => _addToCart(context, product),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF4d2963),
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.zero),
+                ),
+                child: const Text('ADD TO CART',
+                    style: TextStyle(fontSize: 14, letterSpacing: 1)),
+              ),
             ),
-            child: const Text('ADD TO CART',
-                style: TextStyle(fontSize: 14, letterSpacing: 1)),
-          ),
-        ),
-        const SizedBox(width: 10),
-        Expanded(
-          child: ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.green,
-              foregroundColor: Colors.white,
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              shape:
-                  const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+            const SizedBox(width: 10),
+            Expanded(
+              child: ElevatedButton(
+                onPressed: () => _buyNow(context, product),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.zero),
+                ),
+                child: const Text('BUY NOW',
+                    style: TextStyle(fontSize: 14, letterSpacing: 1)),
+              ),
             ),
-            child: const Text('BUY NOW',
-                style: TextStyle(fontSize: 14, letterSpacing: 1)),
-          ),
+          ],
         ),
       ],
     );
@@ -314,6 +320,31 @@ class _ProductPageState extends State<ProductPage> {
         ),
       ],
     );
+  }
+
+  void _addToCart(BuildContext context, Product product) {
+    final cart = Provider.of<Cart>(context, listen: false);
+
+    // Create a unique ID for the cart item
+    final cartItemId = '${product.id}-${DateTime.now().millisecondsSinceEpoch}';
+
+    final cartItem = CartItem(
+      id: cartItemId,
+      productId: product.id,
+      title: product.name,
+      imageUrl: product.imageUrl,
+      price: product.price,
+      quantity: _quantity,
+      size: _selectedSize,
+      color: _selectedColor,
+    );
+
+    cart.addItem(cartItem);
+  }
+
+  void _buyNow(BuildContext context, Product product) {
+    // First add to cart
+    _addToCart(context, product);
   }
 
   Product _createDummyProduct() {
