@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:union_shop/widgets/header.dart';
 import 'package:union_shop/widgets/footer.dart';
@@ -299,6 +300,20 @@ class _ProductPageState extends State<ProductPage> {
             ),
           ],
         ),
+        const SizedBox(height: 8),
+        SizedBox(
+          width: double.infinity,
+          child: TextButton.icon(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            icon: const Icon(Icons.arrow_back, size: 18),
+            label: const Text('Continue Shopping'),
+            style: TextButton.styleFrom(
+              foregroundColor: const Color(0xFF4d2963),
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -340,11 +355,78 @@ class _ProductPageState extends State<ProductPage> {
     );
 
     cart.addItem(cartItem);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            const Icon(Icons.check_circle, color: Colors.white),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                'Added $_quantity ${product.name} to cart',
+                style: const TextStyle(color: Colors.white),
+              ),
+            ),
+          ],
+        ),
+        backgroundColor: Colors.green,
+        duration: const Duration(seconds: 2),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
+    );
+
+    _showAddToCartDialog(context);
   }
 
   void _buyNow(BuildContext context, Product product) {
-    // First add to cart
     _addToCart(context, product);
+
+    context.go('/cart');
+  }
+
+  void _showAddToCartDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: const Row(
+            children: [
+              Icon(Icons.check_circle, color: Colors.green),
+              SizedBox(width: 8),
+              Text('Item Added to Cart'),
+            ],
+          ),
+          content: const Text(
+            'Your item has been successfully added to the shopping cart.',
+            style: TextStyle(fontSize: 14),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(dialogContext).pop(),
+              child: const Text('CONTINUE SHOPPING'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(dialogContext).pop(); // Close dialog
+                // Get GoRouter from the outer context
+                final router = GoRouter.of(context);
+                router.go('/cart');
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF4d2963),
+                foregroundColor: Colors.white,
+              ),
+              child: const Text('VIEW CART'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Product _createDummyProduct() {
