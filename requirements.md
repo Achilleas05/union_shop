@@ -185,3 +185,39 @@ Product listings of a single collection populated from models/fixtures with func
 - Product count text matches the filtered list, and navigation to product detail remains functional.
 
 ---
+
+### Functional Product Pages (6%) – ✅
+
+**Description**  
+Product detail pages populated from the shared data models/fixtures, with **working size and colour dropdowns** and a **quantity counter**. The “Add to Cart” buttons are present but not required to perform any real cart logic for this feature.
+
+**Files involved**
+
+- `lib/product_page.dart`
+- `lib/models/product.dart`
+- `lib/models/fixtures.dart`
+- `lib/main.dart` (route definition for `/product/:id`)
+
+**Behaviour implemented**
+
+- Routing:
+
+  - `GoRoute(path: '/product/:id', builder: (context, state) => const ProductPage())` is defined in `main.dart`.
+  - Collection and other listing pages navigate using `context.go('/product/${product.id}')`, passing only the product ID.
+
+- Product loading:
+
+  - `ProductPage` no longer takes a `Product` via constructor.
+  - In `_ProductPageState`, the page:
+    - Reads the `id` from the GoRouter path parameters.
+    - Looks up the matching `Product` from the `products` list in `fixtures.dart`.
+    - If no product is found, shows a simple “Product not found” message and a button to go back to collections.
+
+- UI behaviour:
+  - Layout remains responsive:
+    - Mobile: image on top, details below in a column.
+    - Wider screens: image on the left, details on the right in a row.
+  - Price section:
+    - Shows original price with strikethrough when
+
+---
