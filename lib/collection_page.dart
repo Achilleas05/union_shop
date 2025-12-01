@@ -23,6 +23,10 @@ class _CollectionPageState extends State<CollectionPage> {
   String? _selectedSort = 'Featured';
 
   late List<Product> _allCollectionProducts;
+  late List<Product> _filteredAndSortedProducts;
+
+  int _currentPage = 1;
+  final int _pageSize = 6;
 
   @override
   void initState() {
@@ -70,11 +74,36 @@ class _CollectionPageState extends State<CollectionPage> {
         break;
     }
 
-    setState(() {});
+    setState(() {
+      _filteredAndSortedProducts = result;
+      _currentPage = 1;
+    });
+  }
+
+  void _onSortChanged(String? value) {
+    if (value == null) return;
+    _selectedSort = value;
+    _applyFilterAndSort();
+  }
+
+  void _onFilterChanged(String? value) {
+    if (value == null) return;
+    _selectedFilter = value;
+    _applyFilterAndSort();
+  }
+
+  List<Product> _currentPageItems() {
+    if (_filteredAndSortedProducts.isEmpty) return const [];
+    final startIndex = (_currentPage - 1) * _pageSize;
+    final endIndex =
+        (startIndex + _pageSize).clamp(0, _filteredAndSortedProducts.length);
+    return _filteredAndSortedProducts.sublist(startIndex, endIndex);
   }
 
   @override
   Widget build(BuildContext context) {
+    final pageItems = _currentPageItems();
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -248,7 +277,7 @@ class _CollectionPageState extends State<CollectionPage> {
             _buildHeader(),
             _buildFilterRow(),
             const SizedBox(height: 24),
-            _buildProductGrid(),
+            _buildProductGrid(pageItems),
             const SizedBox(height: 40),
             const Footer(),
           ],
@@ -267,7 +296,7 @@ class _CollectionPageState extends State<CollectionPage> {
             ),
             const SizedBox(height: 8),
             Text(
-              '${widget.collectionProducts.length} products in this collection',
+              '${_filteredAndSortedProducts.length} products in this collection',
               style: const TextStyle(fontSize: 16, color: Colors.grey),
             ),
           ],
@@ -292,7 +321,7 @@ class _CollectionPageState extends State<CollectionPage> {
               'Price: High to Low',
               'A-Z'
             ],
-            onChanged: (value) => setState(() => _selectedSort = value),
+            onChanged: _onSortChanged,
             borderStyle: borderStyle,
             contentPadding: dropdownPadding,
           ),
@@ -307,7 +336,7 @@ class _CollectionPageState extends State<CollectionPage> {
               'Sale items',
               'New arrivals'
             ],
-            onChanged: (value) => setState(() => _selectedFilter = value),
+            onChanged: _onFilterChanged,
             borderStyle: borderStyle,
             contentPadding: dropdownPadding,
           ),
@@ -341,7 +370,7 @@ class _CollectionPageState extends State<CollectionPage> {
         ),
       );
 
-  Widget _buildProductGrid() => Padding(
+  Widget _buildProductGrid(List<Product> pageItems) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: GridView.count(
           shrinkWrap: true,
@@ -350,7 +379,7 @@ class _CollectionPageState extends State<CollectionPage> {
           crossAxisSpacing: 16,
           mainAxisSpacing: 16,
           childAspectRatio: 0.75,
-          children: widget.collectionProducts.map(_buildProductCard).toList(),
+          children: pageItems.map(_buildProductCard).toList(),
         ),
       );
 
