@@ -338,22 +338,26 @@ class _CustomHeaderState extends State<CustomHeader> {
       if (!isDesktop && !_showSearch)
         PopupMenuButton<String>(
           onSelected: (value) {
-            if (value == 'home') {
-              context.go('/');
-            } else if (value == 'about') {
-              context.go('/about');
-            } else if (value == 'sale') {
-              context.go('/collections/sale-items');
-            } else if (value == 'print_shack') {
-              context.go('/print-shack');
+            switch (value) {
+              case 'home':
+                context.go('/');
+                break;
+              case 'about':
+                context.go('/about');
+                break;
+              case 'sale':
+                context.go('/collections/sale-items');
+                break;
+              case 'print_shack':
+                context.go('/print-shack');
+                break;
             }
           },
-          itemBuilder: (context) => [
-            const PopupMenuItem(value: 'home', child: Text('Home')),
-            const PopupMenuItem(value: 'about', child: Text('About')),
-            const PopupMenuItem(value: 'sale', child: Text('SALE!')),
-            const PopupMenuItem(
-                value: 'print_shack', child: Text('PRINT SHACK')),
+          itemBuilder: (_) => const [
+            PopupMenuItem(value: 'home', child: Text('Home')),
+            PopupMenuItem(value: 'about', child: Text('About')),
+            PopupMenuItem(value: 'sale', child: Text('SALE!')),
+            PopupMenuItem(value: 'print_shack', child: Text('PRINT SHACK')),
           ],
           icon: Icon(
             Icons.menu,
@@ -369,11 +373,8 @@ class _CustomHeaderState extends State<CustomHeader> {
     return Stack(
       children: [
         IconButton(
-          icon: Icon(
-            Icons.shopping_bag_outlined,
-            size: isMobile ? 20 : 18,
-            color: Colors.grey,
-          ),
+          icon: const Icon(Icons.shopping_bag_outlined,
+              size: 18, color: Colors.grey),
           padding: EdgeInsets.all(isMobile ? 4 : 8),
           constraints: BoxConstraints(
             minWidth: isMobile ? 28 : 32,
@@ -391,21 +392,15 @@ class _CustomHeaderState extends State<CustomHeader> {
               top: isMobile ? 4 : 8,
               child: Container(
                 padding: const EdgeInsets.all(2),
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                constraints: const BoxConstraints(
-                  minWidth: 12,
-                  minHeight: 12,
-                ),
+                decoration: const BoxDecoration(
+                    color: Colors.red, shape: BoxShape.circle),
+                constraints: const BoxConstraints(minWidth: 16, minHeight: 16),
                 child: Text(
-                  cart.itemCount.toString(),
+                  '${cart.itemCount}',
                   style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 8,
-                    fontWeight: FontWeight.bold,
-                  ),
+                      color: Colors.white,
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
               ),
