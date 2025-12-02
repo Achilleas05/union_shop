@@ -211,39 +211,46 @@ class _CustomHeaderState extends State<CustomHeader> {
   }
 
   Widget _buildCartIcon(BuildContext context) {
-    return Stack(
-      children: [
-        IconButton(
-          icon: const Icon(Icons.shopping_bag_outlined,
-              size: 18, color: Colors.grey),
-          padding: const EdgeInsets.all(8),
-          constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
-          onPressed: widget.onCartPressed ?? () => context.go('/cart'),
-        ),
-        Consumer<Cart>(
-          builder: (context, cart, _) {
-            if (cart.itemCount == 0) return const SizedBox.shrink();
-            return Positioned(
-              right: 8,
-              top: 8,
-              child: Container(
-                padding: const EdgeInsets.all(2),
-                decoration: const BoxDecoration(
-                    color: Colors.red, shape: BoxShape.circle),
-                constraints: const BoxConstraints(minWidth: 16, minHeight: 16),
-                child: Text(
-                  '${cart.itemCount}',
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            );
-          },
-        ),
-      ],
+    return Consumer<Cart>(
+      builder: (context, cart, child) {
+        return InkWell(
+          onTap: () => context.go('/cart'),
+          child: Container(
+            padding: const EdgeInsets.all(12), // Ensures minimum tap target
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                const Icon(Icons.shopping_cart, size: 18, color: Colors.grey),
+                if (cart.itemCount > 0)
+                  Positioned(
+                    right: -8,
+                    top: -8,
+                    child: Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: const BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle,
+                      ),
+                      constraints: const BoxConstraints(
+                        minWidth: 20,
+                        minHeight: 20,
+                      ),
+                      child: Text(
+                        '${cart.itemCount}',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
