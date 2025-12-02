@@ -11,6 +11,7 @@ class PrintShackPage extends StatefulWidget {
 
 class _PrintShackPageState extends State<PrintShackPage> {
   String _config = '1_front';
+  int _quantity = 1;
 
   int get _lineCount => int.parse(_config.split('_')[0]);
   String get _locationKey => _config.split('_')[1];
@@ -190,6 +191,8 @@ class _PrintShackPageState extends State<PrintShackPage> {
         _buildDropdown(),
         const SizedBox(height: 24),
         _buildTextFields(),
+        const SizedBox(height: 8),
+        _buildQuantity(),
       ],
     );
   }
@@ -301,6 +304,81 @@ class _PrintShackPageState extends State<PrintShackPage> {
           ),
         ],
       ],
+    );
+  }
+
+  Widget _buildQuantity() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'QUANTITY',
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: Colors.grey[700],
+            letterSpacing: 1,
+          ),
+        ),
+        const SizedBox(height: 12),
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey[400]!),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _buildQuantityButton(
+                icon: Icons.remove,
+                onTap: _quantity > 1 ? () => setState(() => _quantity--) : null,
+                enabled: _quantity > 1,
+              ),
+              Container(
+                width: 60,
+                height: 44,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  border: Border.symmetric(
+                    vertical: BorderSide(color: Colors.grey[400]!),
+                  ),
+                ),
+                child: Text(
+                  '$_quantity',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              _buildQuantityButton(
+                icon: Icons.add,
+                onTap: () => setState(() => _quantity++),
+                enabled: true,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildQuantityButton({
+    required IconData icon,
+    required VoidCallback? onTap,
+    required bool enabled,
+  }) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        child: Container(
+          width: 44,
+          height: 44,
+          alignment: Alignment.center,
+          child: Icon(icon,
+              size: 18, color: enabled ? Colors.black : Colors.grey[400]),
+        ),
+      ),
     );
   }
 }
