@@ -38,6 +38,10 @@ class _CollectionsPageState extends State<CollectionsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 600;
+    final isTablet = screenWidth >= 600 && screenWidth < 900;
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -47,11 +51,11 @@ class _CollectionsPageState extends State<CollectionsPage> {
 
             // Page Title - Centered
             Container(
-              padding: const EdgeInsets.symmetric(vertical: 40),
-              child: const Text(
+              padding: EdgeInsets.symmetric(vertical: isMobile ? 24 : 40),
+              child: Text(
                 'Collections',
                 style: TextStyle(
-                  fontSize: 32,
+                  fontSize: isMobile ? 24 : 32,
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
                 ),
@@ -60,20 +64,21 @@ class _CollectionsPageState extends State<CollectionsPage> {
 
             // Collections Grid
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 72),
+              padding: EdgeInsets.symmetric(
+                  horizontal: isMobile ? 16 : (isTablet ? 32 : 72)),
               child: GridView.count(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                crossAxisCount: 3,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-                childAspectRatio: 1.0,
+                crossAxisCount: 2,
+                crossAxisSpacing: isMobile ? 12 : 16,
+                mainAxisSpacing: isMobile ? 12 : 16,
+                childAspectRatio: isMobile ? 1.0 : 1.0,
                 children: _collections.map((Collection col) {
                   return CollectionCard(collection: col);
                 }).toList(),
               ),
             ),
-            const SizedBox(height: 60),
+            SizedBox(height: isMobile ? 40 : 60),
 
             // Footer
             const Footer(),
@@ -98,6 +103,9 @@ class _CollectionCardState extends State<CollectionCard> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 600;
+
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       onEnter: (_) => setState(() => _isHovering = true),
@@ -129,7 +137,7 @@ class _CollectionCardState extends State<CollectionCard> {
                 ),
                 child: Icon(
                   widget.collection.icon,
-                  size: 64,
+                  size: isMobile ? 48 : 64,
                   color: Colors.white.withAlpha((255 * 0.7).round()),
                 ),
               ),
@@ -148,11 +156,11 @@ class _CollectionCardState extends State<CollectionCard> {
                 alignment: Alignment.center,
                 child: Text(
                   widget.collection.name,
-                  style: const TextStyle(
-                    fontSize: 24,
+                  style: TextStyle(
+                    fontSize: isMobile ? 20 : 24,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
-                    shadows: [
+                    shadows: const [
                       Shadow(
                         blurRadius: 4,
                         color: Colors.black,
@@ -165,19 +173,22 @@ class _CollectionCardState extends State<CollectionCard> {
               ),
             ),
             Positioned(
-              top: 12,
-              right: 12,
+              top: isMobile ? 8 : 12,
+              right: isMobile ? 8 : 12,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: EdgeInsets.symmetric(
+                  horizontal: isMobile ? 6 : 8,
+                  vertical: isMobile ? 3 : 4,
+                ),
                 decoration: BoxDecoration(
-                  color: Colors.black.withValues(alpha: 0.7),
+                  color: Colors.black.withAlpha((255 * 0.7).round()),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Text(
                   '${widget.collection.products.length} items',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.white,
-                    fontSize: 12,
+                    fontSize: isMobile ? 10 : 12,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
