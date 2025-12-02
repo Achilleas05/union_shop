@@ -194,235 +194,225 @@ class _CustomHeaderState extends State<CustomHeader> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                GestureDetector(
-                  onTap: widget.onHomePressed ?? () => context.go('/'),
-                  child: Image.network(
-                      'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
-                      height: isMobile ? 24 : 30,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
-                    return Container(
-                      color: Colors.grey[300],
-                      width: isMobile ? 24 : 30,
-                      height: isMobile ? 24 : 30,
-                      child: const Center(
-                        child: Icon(Icons.image_not_supported,
-                            color: Colors.grey, size: 16),
-                      ),
-                    );
-                  }),
-                ),
+                _buildLogo(context, isMobile),
                 SizedBox(width: isMobile ? 8 : 16),
               ],
             ),
           ),
-          // Only show centered navigation on wider screens
           if (isDesktop && !_showSearch)
             Align(
               alignment: Alignment.center,
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  TextButton(
-                    onPressed: widget.onHomePressed ?? () => context.go('/'),
-                    child: const Text(
+                  _navButton(
                       'Home',
-                      style: TextStyle(
-                        color: Color(0xFF4d2963),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
+                      widget.onHomePressed ?? () => context.go('/'),
+                      const Color(0xFF4d2963)),
                   const SizedBox(width: 16),
-                  TextButton(
-                    onPressed: () => context.go('/collections/sale-items'),
-                    child: const Text(
-                      'SALE!',
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1.2,
-                      ),
-                    ),
-                  ),
+                  _navButton('SALE!',
+                      () => context.go('/collections/sale-items'), Colors.red,
+                      bold: true),
                   const SizedBox(width: 16),
-                  TextButton(
-                    onPressed: () => context.go('/print-shack'),
-                    child: const Text(
-                      'PRINT SHACK',
-                      style: TextStyle(
-                        color: Color(0xFF4d2963),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                  TextButton(
-                    onPressed:
-                        widget.onAboutPressed ?? () => context.go('/about'),
-                    child: const Text(
+                  _navButton('PRINT SHACK', () => context.go('/print-shack'),
+                      const Color(0xFF4d2963)),
+                  _navButton(
                       'About',
-                      style: TextStyle(
-                        color: Color(0xFF4d2963),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
+                      widget.onAboutPressed ?? () => context.go('/about'),
+                      const Color(0xFF4d2963)),
                 ],
               ),
             ),
-          if (_showSearch)
-            Align(
-              alignment: Alignment.center,
-              child: Expanded(
-                child: Container(
-                  constraints: const BoxConstraints(maxWidth: 400),
-                  child: TextField(
-                    controller: _searchController,
-                    focusNode: _searchFocusNode,
-                    onChanged: _performSearch,
-                    decoration: InputDecoration(
-                      hintText: 'Search products...',
-                      prefixIcon: const Icon(Icons.search, size: 18),
-                      suffixIcon: IconButton(
-                        icon: const Icon(Icons.close, size: 18),
-                        onPressed: _closeSearch,
-                      ),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 8, horizontal: 12),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+          if (_showSearch) _buildSearchField(),
           Align(
             alignment: Alignment.centerRight,
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 600),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
-                children: [
-                  if (!_showSearch)
-                    IconButton(
-                      icon: Icon(
-                        Icons.search,
-                        size: isMobile ? 20 : 18,
-                        color: Colors.grey,
-                      ),
-                      padding: EdgeInsets.all(isMobile ? 4 : 8),
-                      constraints: BoxConstraints(
-                        minWidth: isMobile ? 28 : 32,
-                        minHeight: isMobile ? 28 : 32,
-                      ),
-                      onPressed: () {
-                        setState(() => _showSearch = true);
-                        _searchFocusNode.requestFocus();
-                      },
-                    ),
-                  IconButton(
-                    icon: Icon(
-                      Icons.person_outline,
-                      size: isMobile ? 20 : 18,
-                      color: Colors.grey,
-                    ),
-                    padding: EdgeInsets.all(isMobile ? 4 : 8),
-                    constraints: BoxConstraints(
-                      minWidth: isMobile ? 28 : 32,
-                      minHeight: isMobile ? 28 : 32,
-                    ),
-                    onPressed: () => context.go('/login'),
-                  ),
-                  Stack(
-                    children: [
-                      IconButton(
-                        icon: Icon(
-                          Icons.shopping_bag_outlined,
-                          size: isMobile ? 20 : 18,
-                          color: Colors.grey,
-                        ),
-                        padding: EdgeInsets.all(isMobile ? 4 : 8),
-                        constraints: BoxConstraints(
-                          minWidth: isMobile ? 28 : 32,
-                          minHeight: isMobile ? 28 : 32,
-                        ),
-                        onPressed:
-                            widget.onCartPressed ?? () => context.go('/cart'),
-                      ),
-                      Consumer<Cart>(
-                        builder: (context, cart, child) {
-                          if (cart.itemCount == 0) {
-                            return const SizedBox.shrink();
-                          }
-                          return Positioned(
-                            right: isMobile ? 4 : 8,
-                            top: isMobile ? 4 : 8,
-                            child: Container(
-                              padding: const EdgeInsets.all(2),
-                              decoration: BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              constraints: const BoxConstraints(
-                                minWidth: 12,
-                                minHeight: 12,
-                              ),
-                              child: Text(
-                                cart.itemCount.toString(),
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 8,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                  // On mobile, show a popup menu. On desktop, show a simple icon.
-                  if (!isDesktop &&
-                      !_showSearch) // Only show menu button on mobile
-                    PopupMenuButton<String>(
-                      onSelected: (value) {
-                        if (value == 'home') {
-                          context.go('/');
-                        } else if (value == 'about') {
-                          context.go('/about');
-                        } else if (value == 'sale') {
-                          context.go('/collections/sale-items');
-                        } else if (value == 'print_shack') {
-                          context.go('/print-shack');
-                        }
-                      },
-                      itemBuilder: (context) => [
-                        const PopupMenuItem(value: 'home', child: Text('Home')),
-                        const PopupMenuItem(
-                            value: 'about', child: Text('About')),
-                        const PopupMenuItem(
-                            value: 'sale', child: Text('SALE!')),
-                        const PopupMenuItem(
-                            value: 'print_shack', child: Text('PRINT SHACK')),
-                      ],
-                      icon: Icon(
-                        Icons.menu,
-                        size: isMobile ? 20 : 18,
-                        color: Colors.grey,
-                      ),
-                      padding: EdgeInsets.all(isMobile ? 4 : 8),
-                    )
-                ],
+                children: _buildRightIcons(context, isDesktop, isMobile),
               ),
             ),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildLogo(BuildContext context, bool isMobile) {
+    return GestureDetector(
+      onTap: widget.onHomePressed ?? () => context.go('/'),
+      child: Image.network(
+        'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
+        height: isMobile ? 24 : 30,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) {
+          return Container(
+            color: Colors.grey[300],
+            width: isMobile ? 24 : 30,
+            height: isMobile ? 24 : 30,
+            child: const Center(
+              child:
+                  Icon(Icons.image_not_supported, color: Colors.grey, size: 16),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _navButton(String text, VoidCallback onPressed, Color color,
+      {bool bold = false}) {
+    return TextButton(
+      onPressed: onPressed,
+      child: Text(
+        text,
+        style: TextStyle(
+          color: color,
+          fontSize: 14,
+          fontWeight: bold ? FontWeight.bold : FontWeight.w600,
+          letterSpacing: bold ? 1.2 : 0,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSearchField() {
+    return Expanded(
+      child: Container(
+        constraints: const BoxConstraints(maxWidth: 400),
+        child: TextField(
+          controller: _searchController,
+          focusNode: _searchFocusNode,
+          onChanged: _performSearch,
+          decoration: InputDecoration(
+            hintText: 'Search products...',
+            prefixIcon: const Icon(Icons.search, size: 18),
+            suffixIcon: IconButton(
+              icon: const Icon(Icons.close, size: 18),
+              onPressed: _closeSearch,
+            ),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+          ),
+        ),
+      ),
+    );
+  }
+
+  List<Widget> _buildRightIcons(
+      BuildContext context, bool isDesktop, bool isMobile) {
+    return [
+      if (!_showSearch)
+        IconButton(
+          icon: Icon(
+            Icons.search,
+            size: isMobile ? 20 : 18,
+            color: Colors.grey,
+          ),
+          padding: EdgeInsets.all(isMobile ? 4 : 8),
+          constraints: BoxConstraints(
+            minWidth: isMobile ? 28 : 32,
+            minHeight: isMobile ? 28 : 32,
+          ),
+          onPressed: () {
+            setState(() => _showSearch = true);
+            _searchFocusNode.requestFocus();
+          },
+        ),
+      IconButton(
+        icon: Icon(
+          Icons.person_outline,
+          size: isMobile ? 20 : 18,
+          color: Colors.grey,
+        ),
+        padding: EdgeInsets.all(isMobile ? 4 : 8),
+        constraints: BoxConstraints(
+          minWidth: isMobile ? 28 : 32,
+          minHeight: isMobile ? 28 : 32,
+        ),
+        onPressed: () => context.go('/login'),
+      ),
+      _buildCartIcon(context, isMobile),
+      if (!isDesktop && !_showSearch)
+        PopupMenuButton<String>(
+          onSelected: (value) {
+            if (value == 'home') {
+              context.go('/');
+            } else if (value == 'about') {
+              context.go('/about');
+            } else if (value == 'sale') {
+              context.go('/collections/sale-items');
+            } else if (value == 'print_shack') {
+              context.go('/print-shack');
+            }
+          },
+          itemBuilder: (context) => [
+            const PopupMenuItem(value: 'home', child: Text('Home')),
+            const PopupMenuItem(value: 'about', child: Text('About')),
+            const PopupMenuItem(value: 'sale', child: Text('SALE!')),
+            const PopupMenuItem(
+                value: 'print_shack', child: Text('PRINT SHACK')),
+          ],
+          icon: Icon(
+            Icons.menu,
+            size: isMobile ? 20 : 18,
+            color: Colors.grey,
+          ),
+          padding: EdgeInsets.all(isMobile ? 4 : 8),
+        )
+    ];
+  }
+
+  Widget _buildCartIcon(BuildContext context, bool isMobile) {
+    return Stack(
+      children: [
+        IconButton(
+          icon: Icon(
+            Icons.shopping_bag_outlined,
+            size: isMobile ? 20 : 18,
+            color: Colors.grey,
+          ),
+          padding: EdgeInsets.all(isMobile ? 4 : 8),
+          constraints: BoxConstraints(
+            minWidth: isMobile ? 28 : 32,
+            minHeight: isMobile ? 28 : 32,
+          ),
+          onPressed: widget.onCartPressed ?? () => context.go('/cart'),
+        ),
+        Consumer<Cart>(
+          builder: (context, cart, child) {
+            if (cart.itemCount == 0) {
+              return const SizedBox.shrink();
+            }
+            return Positioned(
+              right: isMobile ? 4 : 8,
+              top: isMobile ? 4 : 8,
+              child: Container(
+                padding: const EdgeInsets.all(2),
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                constraints: const BoxConstraints(
+                  minWidth: 12,
+                  minHeight: 12,
+                ),
+                child: Text(
+                  cart.itemCount.toString(),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 8,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            );
+          },
+        ),
+      ],
     );
   }
 }
