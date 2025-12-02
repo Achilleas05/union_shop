@@ -247,30 +247,42 @@ class _PrintShackPageState extends State<PrintShackPage> {
           decoration: BoxDecoration(
             border: Border.all(color: Colors.grey[400]!),
           ),
-          child: DropdownButtonFormField<String>(
-            initialValue: _config,
-            decoration: const InputDecoration(
-              contentPadding:
-                  EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              border: InputBorder.none,
-            ),
-            items: const [
-              DropdownMenuItem(value: '1_front', child: Text('1 line – front')),
-              DropdownMenuItem(
-                  value: '2_front', child: Text('2 lines – front')),
-              DropdownMenuItem(
-                  value: '3_front', child: Text('3 lines – front')),
-              DropdownMenuItem(value: '1_back', child: Text('1 line – back')),
-              DropdownMenuItem(value: '2_back', child: Text('2 lines – back')),
-              DropdownMenuItem(value: '3_back', child: Text('3 lines – back')),
-              DropdownMenuItem(
-                  value: '1_both', child: Text('1 line – front & back')),
-              DropdownMenuItem(
-                  value: '2_both', child: Text('2 lines – front & back')),
-              DropdownMenuItem(
-                  value: '3_both', child: Text('3 lines – front & back')),
+          child: Row(
+            children: [
+              Expanded(
+                child: DropdownButtonFormField<String>(
+                  isExpanded: true,
+                  initialValue: _config, // Changed from initialValue to value
+                  decoration: const InputDecoration(
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                    border: InputBorder.none,
+                  ),
+                  items: const [
+                    DropdownMenuItem(
+                        value: '1_front', child: Text('1 line – front')),
+                    DropdownMenuItem(
+                        value: '2_front', child: Text('2 lines – front')),
+                    DropdownMenuItem(
+                        value: '3_front', child: Text('3 lines – front')),
+                    DropdownMenuItem(
+                        value: '1_back', child: Text('1 line – back')),
+                    DropdownMenuItem(
+                        value: '2_back', child: Text('2 lines – back')),
+                    DropdownMenuItem(
+                        value: '3_back', child: Text('3 lines – back')),
+                    DropdownMenuItem(
+                        value: '1_both', child: Text('1 line – front & back')),
+                    DropdownMenuItem(
+                        value: '2_both', child: Text('2 lines – front & back')),
+                    DropdownMenuItem(
+                        value: '3_both', child: Text('3 lines – front & back')),
+                  ],
+                  onChanged: (value) =>
+                      setState(() => _config = value ?? _config),
+                ),
+              ),
             ],
-            onChanged: (value) => setState(() => _config = value ?? _config),
           ),
         ),
       ],
