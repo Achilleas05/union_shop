@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:union_shop/models/cart.dart';
 
-class CustomHeader extends StatelessWidget {
+class CustomHeader extends StatefulWidget {
   final VoidCallback? onHomePressed;
   final VoidCallback? onAboutPressed;
   final VoidCallback? onSearchPressed;
@@ -21,16 +21,27 @@ class CustomHeader extends StatelessWidget {
     this.onMenuPressed,
   });
 
-  void navigateToHome(BuildContext context) {
-    context.go('/'); // CHANGE TO context.go
+  @override
+  State<CustomHeader> createState() => _CustomHeaderState();
+}
+
+class _CustomHeaderState extends State<CustomHeader> {
+  bool _showSearch = false;
+  final _searchController = TextEditingController();
+  final _searchFocusNode = FocusNode();
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    _searchFocusNode.dispose();
+    super.dispose();
   }
 
-  void navigateToAbout(BuildContext context) {
-    context.go('/about'); // CHANGE TO context.go
-  }
-
-  void navigateToCart(BuildContext context) {
-    context.go('/cart');
+  void _closeSearch() {
+    setState(() {
+      _showSearch = false;
+      _searchController.clear();
+    });
   }
 
   @override
@@ -75,7 +86,7 @@ class CustomHeader extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         GestureDetector(
-                          onTap: onHomePressed ?? () => navigateToHome(context),
+                          onTap: widget.onHomePressed ?? () => context.go('/'),
                           child: Image.network(
                               'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
                               height: isMobile ? 24 : 30,
@@ -97,7 +108,7 @@ class CustomHeader extends StatelessWidget {
                     ),
                   ),
                   // Only show centered navigation on wider screens
-                  if (isDesktop)
+                  if (isDesktop && !_showSearch)
                     Align(
                       alignment: Alignment.center,
                       child: Row(
@@ -105,7 +116,7 @@ class CustomHeader extends StatelessWidget {
                         children: [
                           TextButton(
                             onPressed:
-                                onHomePressed ?? () => navigateToHome(context),
+                                widget.onHomePressed ?? () => context.go('/'),
                             child: const Text(
                               'Home',
                               style: TextStyle(
@@ -142,8 +153,8 @@ class CustomHeader extends StatelessWidget {
                             ),
                           ),
                           TextButton(
-                            onPressed: onAboutPressed ??
-                                () => navigateToAbout(context),
+                            onPressed: widget.onAboutPressed ??
+                                () => context.go('/about'),
                             child: const Text(
                               'About',
                               style: TextStyle(
@@ -156,6 +167,31 @@ class CustomHeader extends StatelessWidget {
                         ],
                       ),
                     ),
+                  if (_showSearch)
+                    Align(
+                      alignment: Alignment.center,
+                      child: Expanded(
+                        child: Container(
+                          constraints: const BoxConstraints(maxWidth: 400),
+                          child: TextField(
+                            controller: _searchController,
+                            focusNode: _searchFocusNode,
+                            decoration: InputDecoration(
+                              hintText: 'Search products...',
+                              prefixIcon: const Icon(Icons.search, size: 18),
+                              suffixIcon: IconButton(
+                                icon: const Icon(Icons.close, size: 18),
+                                onPressed: _closeSearch,
+                              ),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20)),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 8, horizontal: 12),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                   Align(
                     alignment: Alignment.centerRight,
                     child: ConstrainedBox(
@@ -163,19 +199,23 @@ class CustomHeader extends StatelessWidget {
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          IconButton(
-                            icon: Icon(
-                              Icons.search,
-                              size: isMobile ? 20 : 18,
-                              color: Colors.grey,
+                          if (!_showSearch)
+                            IconButton(
+                              icon: Icon(
+                                Icons.search,
+                                size: isMobile ? 20 : 18,
+                                color: Colors.grey,
+                              ),
+                              padding: EdgeInsets.all(isMobile ? 4 : 8),
+                              constraints: BoxConstraints(
+                                minWidth: isMobile ? 28 : 32,
+                                minHeight: isMobile ? 28 : 32,
+                              ),
+                              onPressed: () {
+                                setState(() => _showSearch = true);
+                                _searchFocusNode.requestFocus();
+                              },
                             ),
-                            padding: EdgeInsets.all(isMobile ? 4 : 8),
-                            constraints: BoxConstraints(
-                              minWidth: isMobile ? 28 : 32,
-                              minHeight: isMobile ? 28 : 32,
-                            ),
-                            onPressed: onSearchPressed,
-                          ),
                           IconButton(
                             icon: Icon(
                               Icons.person_outline,
@@ -202,8 +242,8 @@ class CustomHeader extends StatelessWidget {
                                   minWidth: isMobile ? 28 : 32,
                                   minHeight: isMobile ? 28 : 32,
                                 ),
-                                onPressed: onCartPressed ??
-                                    () => navigateToCart(context),
+                                onPressed: widget.onCartPressed ??
+                                    () => context.go('/cart'),
                               ),
                               Consumer<Cart>(
                                 builder: (context, cart, child) {
@@ -239,13 +279,14 @@ class CustomHeader extends StatelessWidget {
                             ],
                           ),
                           // On mobile, show a popup menu. On desktop, show a simple icon.
-                          if (!isDesktop) // Only show menu button on mobile
+                          if (!isDesktop &&
+                              !_showSearch) // Only show menu button on mobile
                             PopupMenuButton<String>(
                               onSelected: (value) {
                                 if (value == 'home') {
-                                  navigateToHome(context);
+                                  context.go('/');
                                 } else if (value == 'about') {
-                                  navigateToAbout(context);
+                                  context.go('/about');
                                 } else if (value == 'sale') {
                                   context.go('/collections/sale-items');
                                 } else if (value == 'print_shack') {
