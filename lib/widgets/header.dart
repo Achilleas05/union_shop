@@ -127,6 +127,17 @@ class CustomHeader extends StatelessWidget {
                           ),
                           const SizedBox(width: 16),
                           TextButton(
+                            onPressed: () => context.go('/print-shack'),
+                            child: const Text(
+                              'PRINT SHACK',
+                              style: TextStyle(
+                                color: Color(0xFF4d2963),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          TextButton(
                             onPressed: onAboutPressed ??
                                 () => navigateToAbout(context),
                             child: const Text(
@@ -233,6 +244,8 @@ class CustomHeader extends StatelessWidget {
                                   navigateToAbout(context);
                                 } else if (value == 'sale') {
                                   context.go('/collections/sale-items');
+                                } else if (value == 'print_shack') {
+                                  context.go('/print-shack');
                                 }
                               },
                               itemBuilder: (context) => [
@@ -241,8 +254,10 @@ class CustomHeader extends StatelessWidget {
                                 const PopupMenuItem(
                                     value: 'about', child: Text('About')),
                                 const PopupMenuItem(
-                                    value: 'sale',
-                                    child: Text('SALE!')), // add this line
+                                    value: 'sale', child: Text('SALE!')),
+                                const PopupMenuItem(
+                                    value: 'print_shack',
+                                    child: Text('PRINT SHACK')),
                               ],
                               icon: const Icon(
                                 Icons.menu,
