@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:union_shop/widgets/header.dart';
 import 'package:union_shop/widgets/footer.dart';
+import 'package:union_shop/models/cart.dart';
 
 class PrintShackPage extends StatefulWidget {
   const PrintShackPage({super.key});
@@ -409,6 +411,40 @@ class _PrintShackPageState extends State<PrintShackPage> {
   }
 
   void _onAddToCart() {
-    // Placeholder for cart functionality
+    final line1 = _controllers[0].text.trim();
+    if (line1.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text('Please enter at least the first line of text'),
+          backgroundColor: Colors.red[700],
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+      return;
+    }
+
+    final parts = [line1];
+    if (_lineCount >= 2) {
+      final line2 = _controllers[1].text.trim();
+      if (line2.isNotEmpty) parts.add(line2);
+    }
+    if (_lineCount >= 3) {
+      final line3 = _controllers[2].text.trim();
+      if (line3.isNotEmpty) parts.add(line3);
+    }
+
+    final cart = Provider.of<Cart>(context, listen: false);
+    final title = '${parts.join(' / ')} ($locationLabel)';
+
+    cart.addItem(CartItem(
+      id: 'print-shack-${DateTime.now().millisecondsSinceEpoch}',
+      productId: 'print-shack',
+      title: title,
+      price: price,
+      quantity: _quantity,
+      size: '$_lineCount line(s) - $locationLabel',
+      color: '',
+      imageUrl: '',
+    ));
   }
 }
