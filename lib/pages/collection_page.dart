@@ -52,6 +52,15 @@ class _CollectionPageState extends State<CollectionPage> {
       case 'Accessories':
         result = result.where((p) => p.category == 'Accessories').toList();
         break;
+      case 'Study Supplies':
+        result = result.where((p) => p.category == 'Study Supplies').toList();
+        break;
+      case 'Electronics':
+        result = result.where((p) => p.category == 'Electronics').toList();
+        break;
+      case 'Gift':
+        result = result.where((p) => p.category == 'Gift').toList();
+        break;
       case 'Sale items':
         result = result.where((p) => p.isOnSale || p.tag == 'Sale').toList();
         break;
@@ -279,6 +288,43 @@ class _CollectionPageState extends State<CollectionPage> {
                   ],
                 ),
               ),
+            if (widget.collectionTitle == 'Tech Essentials')
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: isMobile ? 12.0 : 16.0,
+                    horizontal: isMobile ? 16.0 : 24.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Tech Essentials',
+                      style: TextStyle(
+                        fontSize: isMobile ? 28 : 34,
+                        fontWeight: FontWeight.bold,
+                        color: const Color(0xFF8A2BE2),
+                        letterSpacing: 1,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      "Power up your studies.",
+                      style: TextStyle(
+                          fontSize: isMobile ? 14 : 16,
+                          fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      "Essential technology and accessories for modern learning.",
+                      style: TextStyle(
+                          fontSize: isMobile ? 12 : 14, color: Colors.grey),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 8),
+                  ],
+                ),
+              ),
             if (widget.collectionTitle == 'Gift Shop')
               Padding(
                 padding: EdgeInsets.symmetric(
@@ -308,6 +354,43 @@ class _CollectionPageState extends State<CollectionPage> {
                     const SizedBox(height: 8),
                     Text(
                       "Souvenirs and gifts for every occasion—find something to make someone smile.",
+                      style: TextStyle(
+                          fontSize: isMobile ? 12 : 14, color: Colors.grey),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 8),
+                  ],
+                ),
+              ),
+            if (widget.collectionTitle == 'Graduation')
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: isMobile ? 12.0 : 16.0,
+                    horizontal: isMobile ? 16.0 : 24.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Graduation',
+                      style: TextStyle(
+                        fontSize: isMobile ? 28 : 34,
+                        fontWeight: FontWeight.bold,
+                        color: const Color(0xFFFFD700),
+                        letterSpacing: 1,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      "Celebrate your achievement.",
+                      style: TextStyle(
+                          fontSize: isMobile ? 14 : 16,
+                          fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      "Everything you need for your special graduation day and memories to cherish forever.",
                       style: TextStyle(
                           fontSize: isMobile ? 12 : 14, color: Colors.grey),
                       textAlign: TextAlign.center,
@@ -387,6 +470,9 @@ class _CollectionPageState extends State<CollectionPage> {
                 'All products',
                 'Clothing',
                 'Accessories',
+                'Study Supplies',
+                'Electronics',
+                'Gift',
                 'Sale items',
                 'New arrivals'
               ],
