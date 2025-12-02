@@ -10,7 +10,7 @@ class PrintShackPage extends StatefulWidget {
 }
 
 class _PrintShackPageState extends State<PrintShackPage> {
-  final String _config = '1_front';
+  String _config = '1_front';
 
   int get _lineCount => int.parse(_config.split('_')[0]);
   String get _locationKey => _config.split('_')[1];
@@ -182,6 +182,85 @@ class _PrintShackPageState extends State<PrintShackPage> {
             fontSize: 28,
             fontWeight: FontWeight.w500,
             color: Color(0xFF4d2963),
+          ),
+        ),
+        const SizedBox(height: 24),
+        _buildWarning(),
+        const SizedBox(height: 32),
+        _buildDropdown(),
+      ],
+    );
+  }
+
+  Widget _buildWarning() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.red[50],
+        border: Border.all(color: Colors.red[200]!),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(Icons.warning_amber_rounded, color: Colors.red[700], size: 20),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              'Check spelling carefully before placing your order. Your item will be printed exactly as typed and personalised products are not eligible for refunds.',
+              style: TextStyle(
+                fontSize: 13,
+                color: Colors.red[900],
+                height: 1.5,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDropdown() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'LINES AND LOCATION',
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: Colors.grey[700],
+            letterSpacing: 1,
+          ),
+        ),
+        const SizedBox(height: 12),
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey[400]!),
+          ),
+          child: DropdownButtonFormField<String>(
+            initialValue: _config,
+            decoration: const InputDecoration(
+              contentPadding:
+                  EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              border: InputBorder.none,
+            ),
+            items: const [
+              DropdownMenuItem(value: '1_front', child: Text('1 line – front')),
+              DropdownMenuItem(
+                  value: '2_front', child: Text('2 lines – front')),
+              DropdownMenuItem(
+                  value: '3_front', child: Text('3 lines – front')),
+              DropdownMenuItem(value: '1_back', child: Text('1 line – back')),
+              DropdownMenuItem(value: '2_back', child: Text('2 lines – back')),
+              DropdownMenuItem(value: '3_back', child: Text('3 lines – back')),
+              DropdownMenuItem(
+                  value: '1_both', child: Text('1 line – front & back')),
+              DropdownMenuItem(
+                  value: '2_both', child: Text('2 lines – front & back')),
+              DropdownMenuItem(
+                  value: '3_both', child: Text('3 lines – front & back')),
+            ],
+            onChanged: (value) => setState(() => _config = value ?? _config),
           ),
         ),
       ],
