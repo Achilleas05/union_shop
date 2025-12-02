@@ -305,7 +305,7 @@ class _ProductPageState extends State<ProductPage> {
           width: double.infinity,
           child: TextButton.icon(
             onPressed: () {
-              Navigator.of(context).pop();
+              context.go('/');
             },
             icon: const Icon(Icons.arrow_back, size: 18),
             label: const Text('Continue Shopping'),
