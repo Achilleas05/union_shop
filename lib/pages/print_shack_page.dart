@@ -58,17 +58,90 @@ class _PrintShackPageState extends State<PrintShackPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = MediaQuery.of(context).size.width < 768;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           children: [
             const CustomHeader(),
-            Container(),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: isMobile ? 16.0 : 48.0,
+                vertical: 32.0,
+              ),
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 1200),
+                  child: _buildLayout(isMobile),
+                ),
+              ),
+            ),
             const Footer(),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildLayout(bool isMobile) {
+    if (isMobile) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          _buildImageSection(),
+          const SizedBox(height: 32),
+          _buildProductInfo(),
+        ],
+      );
+    }
+
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(child: _buildImageSection()),
+        const SizedBox(width: 64),
+        Expanded(child: _buildProductInfo()),
+      ],
+    );
+  }
+
+  Widget _buildImageSection() {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey[300]!),
+        color: Colors.grey[50],
+      ),
+      child: AspectRatio(
+        aspectRatio: 1,
+        child: Container(),
+      ),
+    );
+  }
+
+  Widget _buildProductInfo() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Personalise Text',
+          style: TextStyle(
+            fontSize: 32,
+            fontWeight: FontWeight.w600,
+            height: 1.2,
+          ),
+        ),
+        const SizedBox(height: 16),
+        Text(
+          '£${price.toStringAsFixed(2)}',
+          style: const TextStyle(
+            fontSize: 28,
+            fontWeight: FontWeight.w500,
+            color: Color(0xFF4d2963),
+          ),
+        ),
+      ],
     );
   }
 }
