@@ -19,7 +19,7 @@ class CollectionsPage extends StatefulWidget {
 }
 
 class _CollectionsPageState extends State<CollectionsPage> {
-  late List<Collection> _collections;
+  List<Collection> _collections = [];
   final CollectionService _service = CollectionService();
 
   @override
