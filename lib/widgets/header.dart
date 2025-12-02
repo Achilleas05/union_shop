@@ -180,14 +180,41 @@ class _CustomHeaderState extends State<CustomHeader> {
       BuildContext context, bool isDesktop, bool isMobile) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: isMobile ? 8 : 10),
-      child: Row(
+      child: Stack(
+        alignment: Alignment.center,
         children: [
-          _buildLogo(context, isMobile),
-          SizedBox(width: isMobile ? 8 : 16),
-          if (isDesktop && !_showSearch) _buildNavButtons(context),
-          if (_showSearch) _buildSearchField(),
-          if (!_showSearch && isMobile) const Spacer(),
-          _buildRightIcons(context, isDesktop, isMobile),
+          // Left side - Logo
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _buildLogo(context, isMobile),
+              ],
+            ),
+          ),
+
+          // Center - Nav buttons or Search
+          if (isDesktop && !_showSearch)
+            Align(
+              alignment: Alignment.center,
+              child: _buildNavButtons(context),
+            ),
+
+          if (_showSearch)
+            Align(
+              alignment: Alignment.center,
+              child: Container(
+                constraints: const BoxConstraints(maxWidth: 400),
+                child: _buildSearchField(),
+              ),
+            ),
+
+          // Right side - Icons
+          Align(
+            alignment: Alignment.centerRight,
+            child: _buildRightIcons(context, isDesktop, isMobile),
+          ),
         ],
       ),
     );
@@ -214,24 +241,20 @@ class _CustomHeaderState extends State<CustomHeader> {
   }
 
   Widget _buildNavButtons(BuildContext context) {
-    return Expanded(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _navButton('Home', () => context.go('/'), const Color(0xFF4d2963)),
-          const SizedBox(width: 16),
-          _navButton(
-              'SALE!', () => context.go('/collections/sale-items'), Colors.red,
-              bold: true),
-          const SizedBox(width: 16),
-          _navButton('PRINT SHACK', () => context.go('/print-shack'),
-              const Color(0xFF4d2963)),
-          _navButton(
-              'About',
-              widget.onAboutPressed ?? () => context.go('/about'),
-              const Color(0xFF4d2963)),
-        ],
-      ),
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        _navButton('Home', () => context.go('/'), const Color(0xFF4d2963)),
+        const SizedBox(width: 16),
+        _navButton(
+            'SALE!', () => context.go('/collections/sale-items'), Colors.red,
+            bold: true),
+        const SizedBox(width: 16),
+        _navButton('PRINT SHACK', () => context.go('/print-shack'),
+            const Color(0xFF4d2963)),
+        _navButton('About', widget.onAboutPressed ?? () => context.go('/about'),
+            const Color(0xFF4d2963)),
+      ],
     );
   }
 
@@ -252,25 +275,19 @@ class _CustomHeaderState extends State<CustomHeader> {
   }
 
   Widget _buildSearchField() {
-    return Expanded(
-      child: Container(
-        constraints: const BoxConstraints(maxWidth: 400),
-        child: TextField(
-          controller: _searchController,
-          focusNode: _searchFocusNode,
-          onChanged: _performSearch,
-          decoration: InputDecoration(
-            hintText: 'Search products...',
-            prefixIcon: const Icon(Icons.search, size: 18),
-            suffixIcon: IconButton(
-              icon: const Icon(Icons.close, size: 18),
-              onPressed: _closeSearch,
-            ),
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-            contentPadding:
-                const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-          ),
+    return TextField(
+      controller: _searchController,
+      focusNode: _searchFocusNode,
+      onChanged: _performSearch,
+      decoration: InputDecoration(
+        hintText: 'Search products...',
+        prefixIcon: const Icon(Icons.search, size: 18),
+        suffixIcon: IconButton(
+          icon: const Icon(Icons.close, size: 18),
+          onPressed: _closeSearch,
         ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+        contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
       ),
     );
   }
