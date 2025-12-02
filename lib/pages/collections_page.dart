@@ -69,10 +69,10 @@ class _CollectionsPageState extends State<CollectionsPage> {
               child: GridView.count(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                crossAxisCount: 2,
+                crossAxisCount: isMobile ? 2 : 3,
                 crossAxisSpacing: isMobile ? 12 : 16,
                 mainAxisSpacing: isMobile ? 12 : 16,
-                childAspectRatio: isMobile ? 1.0 : 1.0,
+                childAspectRatio: isMobile ? 1.0 : 1.5,
                 children: _collections.map((Collection col) {
                   return CollectionCard(collection: col);
                 }).toList(),
