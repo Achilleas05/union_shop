@@ -1295,15 +1295,15 @@ void main() {
     });
 
     testWidgets('tests very long product names', (WidgetTester tester) async {
-      final longNameProduct = Product(
+      const longNameProduct = Product(
         id: '999',
         name:
             'This is a very long product name that should be truncated with ellipsis',
         price: 99.99,
         imageUrl: 'test.png',
         description: 'Test',
-        sizes: const ['One Size'],
-        colors: const ['Red'],
+        sizes: ['One Size'],
+        colors: ['Red'],
       );
 
       await tester.pumpWidget(
