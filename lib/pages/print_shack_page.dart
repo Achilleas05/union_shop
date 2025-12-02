@@ -108,6 +108,12 @@ class _PrintShackPageState extends State<PrintShackPage> {
   }
 
   Widget _buildImageSection() {
+    final lines = [
+      _controllers[0].text.trim(),
+      if (_lineCount >= 2) _controllers[1].text.trim(),
+      if (_lineCount >= 3) _controllers[2].text.trim(),
+    ].where((line) => line.isNotEmpty).toList();
+
     return Container(
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey[300]!),
@@ -115,7 +121,44 @@ class _PrintShackPageState extends State<PrintShackPage> {
       ),
       child: AspectRatio(
         aspectRatio: 1,
-        child: Container(),
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(32.0),
+            child: Container(
+              padding: const EdgeInsets.all(24),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(color: Colors.grey[300]!),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    locationLabel.toUpperCase(),
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.grey[600],
+                      letterSpacing: 1.2,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  for (var i = 0; i < lines.length; i++) ...[
+                    if (i > 0) const SizedBox(height: 8),
+                    Text(
+                      lines[i].toUpperCase(),
+                      style: TextStyle(
+                        fontSize: i == 0 ? 24 : 20,
+                        fontWeight: i == 0 ? FontWeight.bold : FontWeight.w600,
+                        letterSpacing: i == 0 ? 2 : 1.5,
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
