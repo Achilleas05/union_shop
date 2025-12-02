@@ -132,6 +132,9 @@ class CartContent extends StatelessWidget {
   }
 
   Widget _buildMobileCartItem(CartItem item, BuildContext context) {
+    // Debug: Print the image URL to console
+    debugPrint('Cart Item Image URL: ${item.imageUrl}');
+
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(16),
