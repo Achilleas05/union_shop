@@ -491,7 +491,7 @@ class _CollectionPageState extends State<CollectionPage> {
     required EdgeInsetsGeometry contentPadding,
   }) {
     return DropdownButtonFormField<String>(
-      value: value,
+      initialValue: value,
       isDense: true,
       isExpanded: true,
       style: const TextStyle(fontSize: 14, color: Colors.black),
