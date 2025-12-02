@@ -89,7 +89,7 @@ void main() {
       expect(find.text('About'), findsOneWidget);
       expect(find.byIcon(Icons.search), findsOneWidget);
       expect(find.byIcon(Icons.person_outline), findsOneWidget);
-      expect(find.byIcon(Icons.shopping_bag_outlined), findsOneWidget);
+      expect(find.byIcon(Icons.shopping_cart), findsOneWidget);
     });
 
     testWidgets('has correct height for desktop', (tester) async {
@@ -232,7 +232,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byIcon(Icons.shopping_bag_outlined));
+      await tester.tap(find.byIcon(Icons.shopping_cart));
       await tester.pumpAndSettle();
       expect(lastRoute, '/cart');
     });
@@ -430,7 +430,7 @@ void main() {
       await tester.tap(find.byIcon(Icons.search));
       await tester.pumpAndSettle();
       expect(find.byIcon(Icons.person_outline), findsNothing);
-      expect(find.byIcon(Icons.shopping_bag_outlined), findsNothing);
+      expect(find.byIcon(Icons.shopping_cart), findsNothing);
       expect(find.byIcon(Icons.menu), findsNothing);
     });
   });
@@ -557,9 +557,48 @@ void main() {
 
       final badgeText = tester.widget<Text>(find.text('1'));
       expect(badgeText.style?.color, Colors.white);
-      expect(badgeText.style?.fontSize, 10);
+      expect(badgeText.style?.fontSize, 12);
       expect(badgeText.style?.fontWeight, FontWeight.bold);
       expect(badgeText.textAlign, TextAlign.center);
+    });
+
+    testWidgets('badge container has correct decoration', (tester) async {
+      await tester.pumpWidget(
+        createTestWidget(
+          child: const Scaffold(body: CustomHeader()),
+          width: 1200,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final item = CartItem(
+        id: 'badge_dec',
+        productId: 'badge_dec_prod',
+        title: 'Badge Decoration Test',
+        price: 10.0,
+        quantity: 1,
+        imageUrl: 'badge_dec.jpg',
+      );
+      mockCart.addItem(item);
+      await tester.pumpAndSettle();
+
+      final badgeContainer = tester.widget<Container>(
+        find
+            .ancestor(
+              of: find.text('1'),
+              matching: find.byType(Container),
+            )
+            .first,
+      );
+      expect(
+          badgeContainer.decoration,
+          const BoxDecoration(
+            color: Colors.red,
+            shape: BoxShape.circle,
+          ));
+      expect(badgeContainer.constraints,
+          const BoxConstraints(minWidth: 20, minHeight: 20));
+      expect(badgeContainer.padding, const EdgeInsets.all(4));
     });
   });
 
@@ -619,7 +658,12 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byIcon(Icons.shopping_bag_outlined));
+      // Find the InkWell wrapping the cart icon instead of the icon itself
+      final cartInkWell = find.ancestor(
+        of: find.byIcon(Icons.shopping_cart),
+        matching: find.byType(InkWell),
+      );
+      await tester.tap(cartInkWell);
       await tester.pumpAndSettle();
       expect(cartPressed, true);
     });
@@ -921,8 +965,7 @@ void main() {
       expect(personIcon.size, 18);
       expect(personIcon.color, Colors.grey);
 
-      final cartIcon =
-          tester.widget<Icon>(find.byIcon(Icons.shopping_bag_outlined));
+      final cartIcon = tester.widget<Icon>(find.byIcon(Icons.shopping_cart));
       expect(cartIcon.size, 18);
       expect(cartIcon.color, Colors.grey);
     });
@@ -1132,8 +1175,8 @@ void main() {
           matching: find.byType(Positioned),
         ),
       );
-      expect(positioned.right, 8);
-      expect(positioned.top, 8);
+      expect(positioned.right, -8);
+      expect(positioned.top, -8);
     });
 
     testWidgets('badge container has correct decoration', (tester) async {
@@ -1171,8 +1214,8 @@ void main() {
             shape: BoxShape.circle,
           ));
       expect(badgeContainer.constraints,
-          const BoxConstraints(minWidth: 16, minHeight: 16));
-      expect(badgeContainer.padding, const EdgeInsets.all(2));
+          const BoxConstraints(minWidth: 20, minHeight: 20));
+      expect(badgeContainer.padding, const EdgeInsets.all(4));
     });
   });
 
