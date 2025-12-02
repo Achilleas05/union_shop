@@ -146,8 +146,7 @@ class _CustomHeaderState extends State<CustomHeader> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final bool isDesktop =
-        screenWidth > 768; // A common breakpoint for tablets/desktops
+    final bool isDesktop = screenWidth > 768;
     final bool isMobile = screenWidth < 600;
 
     return Container(
@@ -155,270 +154,273 @@ class _CustomHeaderState extends State<CustomHeader> {
       color: Colors.white,
       child: Column(
         children: [
-          Container(
-            width: double.infinity,
-            padding: EdgeInsets.symmetric(
-              vertical: isMobile ? 8 : 12,
-              horizontal: isMobile ? 8 : 16,
-            ),
-            color: const Color(0xFF4d2963),
-            child: Text(
-              'BIG SALE! OUR ESSENTIAL RANGE HAS DROPPED IN PRICE! OVER 20% OFF! COME GRAB YOURS WHILE STOCK LASTS!',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: isMobile ? 12 : 16,
-                fontWeight: FontWeight.bold,
-                letterSpacing: isMobile ? 0.5 : 1.1,
-              ),
+          _buildBanner(isMobile),
+          Expanded(child: _buildMainContent(context, isDesktop, isMobile)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildBanner(bool isMobile) {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(
+        vertical: isMobile ? 8 : 12,
+        horizontal: isMobile ? 8 : 16,
+      ),
+      color: const Color(0xFF4d2963),
+      child: Text(
+        'BIG SALE! OUR ESSENTIAL RANGE HAS DROPPED IN PRICE! OVER 20% OFF! COME GRAB YOURS WHILE STOCK LASTS!',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: isMobile ? 12 : 16,
+          fontWeight: FontWeight.bold,
+          letterSpacing: isMobile ? 0.5 : 1.1,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMainContent(
+      BuildContext context, bool isDesktop, bool isMobile) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: isMobile ? 8 : 10),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                GestureDetector(
+                  onTap: widget.onHomePressed ?? () => context.go('/'),
+                  child: Image.network(
+                      'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
+                      height: isMobile ? 24 : 30,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      color: Colors.grey[300],
+                      width: isMobile ? 24 : 30,
+                      height: isMobile ? 24 : 30,
+                      child: const Center(
+                        child: Icon(Icons.image_not_supported,
+                            color: Colors.grey, size: 16),
+                      ),
+                    );
+                  }),
+                ),
+                SizedBox(width: isMobile ? 8 : 16),
+              ],
             ),
           ),
-          Expanded(
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: isMobile ? 8 : 10),
-              child: Stack(
-                alignment: Alignment.center,
+          // Only show centered navigation on wider screens
+          if (isDesktop && !_showSearch)
+            Align(
+              alignment: Alignment.center,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        GestureDetector(
-                          onTap: widget.onHomePressed ?? () => context.go('/'),
-                          child: Image.network(
-                              'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
-                              height: isMobile ? 24 : 30,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) {
-                            return Container(
-                              color: Colors.grey[300],
-                              width: isMobile ? 24 : 30,
-                              height: isMobile ? 24 : 30,
-                              child: const Center(
-                                child: Icon(Icons.image_not_supported,
-                                    color: Colors.grey, size: 16),
-                              ),
-                            );
-                          }),
-                        ),
-                        SizedBox(width: isMobile ? 8 : 16),
-                      ],
+                  TextButton(
+                    onPressed: widget.onHomePressed ?? () => context.go('/'),
+                    child: const Text(
+                      'Home',
+                      style: TextStyle(
+                        color: Color(0xFF4d2963),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
-                  // Only show centered navigation on wider screens
-                  if (isDesktop && !_showSearch)
-                    Align(
-                      alignment: Alignment.center,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          TextButton(
-                            onPressed:
-                                widget.onHomePressed ?? () => context.go('/'),
-                            child: const Text(
-                              'Home',
-                              style: TextStyle(
-                                color: Color(0xFF4d2963),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                          TextButton(
-                            onPressed: () =>
-                                context.go('/collections/sale-items'),
-                            child: const Text(
-                              'SALE!',
-                              style: TextStyle(
-                                color: Colors.red,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 1.2,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                          TextButton(
-                            onPressed: () => context.go('/print-shack'),
-                            child: const Text(
-                              'PRINT SHACK',
-                              style: TextStyle(
-                                color: Color(0xFF4d2963),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: widget.onAboutPressed ??
-                                () => context.go('/about'),
-                            child: const Text(
-                              'About',
-                              style: TextStyle(
-                                color: Color(0xFF4d2963),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                        ],
+                  const SizedBox(width: 16),
+                  TextButton(
+                    onPressed: () => context.go('/collections/sale-items'),
+                    child: const Text(
+                      'SALE!',
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1.2,
                       ),
                     ),
-                  if (_showSearch)
-                    Align(
-                      alignment: Alignment.center,
-                      child: Expanded(
-                        child: Container(
-                          constraints: const BoxConstraints(maxWidth: 400),
-                          child: TextField(
-                            controller: _searchController,
-                            focusNode: _searchFocusNode,
-                            onChanged: _performSearch,
-                            decoration: InputDecoration(
-                              hintText: 'Search products...',
-                              prefixIcon: const Icon(Icons.search, size: 18),
-                              suffixIcon: IconButton(
-                                icon: const Icon(Icons.close, size: 18),
-                                onPressed: _closeSearch,
-                              ),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20)),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 8, horizontal: 12),
-                            ),
-                          ),
-                        ),
+                  ),
+                  const SizedBox(width: 16),
+                  TextButton(
+                    onPressed: () => context.go('/print-shack'),
+                    child: const Text(
+                      'PRINT SHACK',
+                      style: TextStyle(
+                        color: Color(0xFF4d2963),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 600),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          if (!_showSearch)
-                            IconButton(
-                              icon: Icon(
-                                Icons.search,
-                                size: isMobile ? 20 : 18,
-                                color: Colors.grey,
-                              ),
-                              padding: EdgeInsets.all(isMobile ? 4 : 8),
-                              constraints: BoxConstraints(
-                                minWidth: isMobile ? 28 : 32,
-                                minHeight: isMobile ? 28 : 32,
-                              ),
-                              onPressed: () {
-                                setState(() => _showSearch = true);
-                                _searchFocusNode.requestFocus();
-                              },
-                            ),
-                          IconButton(
-                            icon: Icon(
-                              Icons.person_outline,
-                              size: isMobile ? 20 : 18,
-                              color: Colors.grey,
-                            ),
-                            padding: EdgeInsets.all(isMobile ? 4 : 8),
-                            constraints: BoxConstraints(
-                              minWidth: isMobile ? 28 : 32,
-                              minHeight: isMobile ? 28 : 32,
-                            ),
-                            onPressed: () => context.go('/login'),
-                          ),
-                          Stack(
-                            children: [
-                              IconButton(
-                                icon: Icon(
-                                  Icons.shopping_bag_outlined,
-                                  size: isMobile ? 20 : 18,
-                                  color: Colors.grey,
-                                ),
-                                padding: EdgeInsets.all(isMobile ? 4 : 8),
-                                constraints: BoxConstraints(
-                                  minWidth: isMobile ? 28 : 32,
-                                  minHeight: isMobile ? 28 : 32,
-                                ),
-                                onPressed: widget.onCartPressed ??
-                                    () => context.go('/cart'),
-                              ),
-                              Consumer<Cart>(
-                                builder: (context, cart, child) {
-                                  if (cart.itemCount == 0) {
-                                    return const SizedBox.shrink();
-                                  }
-                                  return Positioned(
-                                    right: isMobile ? 4 : 8,
-                                    top: isMobile ? 4 : 8,
-                                    child: Container(
-                                      padding: const EdgeInsets.all(2),
-                                      decoration: BoxDecoration(
-                                        color: Colors.red,
-                                        borderRadius: BorderRadius.circular(6),
-                                      ),
-                                      constraints: const BoxConstraints(
-                                        minWidth: 12,
-                                        minHeight: 12,
-                                      ),
-                                      child: Text(
-                                        cart.itemCount.toString(),
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 8,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ],
-                          ),
-                          // On mobile, show a popup menu. On desktop, show a simple icon.
-                          if (!isDesktop &&
-                              !_showSearch) // Only show menu button on mobile
-                            PopupMenuButton<String>(
-                              onSelected: (value) {
-                                if (value == 'home') {
-                                  context.go('/');
-                                } else if (value == 'about') {
-                                  context.go('/about');
-                                } else if (value == 'sale') {
-                                  context.go('/collections/sale-items');
-                                } else if (value == 'print_shack') {
-                                  context.go('/print-shack');
-                                }
-                              },
-                              itemBuilder: (context) => [
-                                const PopupMenuItem(
-                                    value: 'home', child: Text('Home')),
-                                const PopupMenuItem(
-                                    value: 'about', child: Text('About')),
-                                const PopupMenuItem(
-                                    value: 'sale', child: Text('SALE!')),
-                                const PopupMenuItem(
-                                    value: 'print_shack',
-                                    child: Text('PRINT SHACK')),
-                              ],
-                              icon: Icon(
-                                Icons.menu,
-                                size: isMobile ? 20 : 18,
-                                color: Colors.grey,
-                              ),
-                              padding: EdgeInsets.all(isMobile ? 4 : 8),
-                            )
-                        ],
+                  ),
+                  TextButton(
+                    onPressed:
+                        widget.onAboutPressed ?? () => context.go('/about'),
+                    child: const Text(
+                      'About',
+                      style: TextStyle(
+                        color: Color(0xFF4d2963),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
                 ],
               ),
             ),
-          )
+          if (_showSearch)
+            Align(
+              alignment: Alignment.center,
+              child: Expanded(
+                child: Container(
+                  constraints: const BoxConstraints(maxWidth: 400),
+                  child: TextField(
+                    controller: _searchController,
+                    focusNode: _searchFocusNode,
+                    onChanged: _performSearch,
+                    decoration: InputDecoration(
+                      hintText: 'Search products...',
+                      prefixIcon: const Icon(Icons.search, size: 18),
+                      suffixIcon: IconButton(
+                        icon: const Icon(Icons.close, size: 18),
+                        onPressed: _closeSearch,
+                      ),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 12),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 600),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (!_showSearch)
+                    IconButton(
+                      icon: Icon(
+                        Icons.search,
+                        size: isMobile ? 20 : 18,
+                        color: Colors.grey,
+                      ),
+                      padding: EdgeInsets.all(isMobile ? 4 : 8),
+                      constraints: BoxConstraints(
+                        minWidth: isMobile ? 28 : 32,
+                        minHeight: isMobile ? 28 : 32,
+                      ),
+                      onPressed: () {
+                        setState(() => _showSearch = true);
+                        _searchFocusNode.requestFocus();
+                      },
+                    ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.person_outline,
+                      size: isMobile ? 20 : 18,
+                      color: Colors.grey,
+                    ),
+                    padding: EdgeInsets.all(isMobile ? 4 : 8),
+                    constraints: BoxConstraints(
+                      minWidth: isMobile ? 28 : 32,
+                      minHeight: isMobile ? 28 : 32,
+                    ),
+                    onPressed: () => context.go('/login'),
+                  ),
+                  Stack(
+                    children: [
+                      IconButton(
+                        icon: Icon(
+                          Icons.shopping_bag_outlined,
+                          size: isMobile ? 20 : 18,
+                          color: Colors.grey,
+                        ),
+                        padding: EdgeInsets.all(isMobile ? 4 : 8),
+                        constraints: BoxConstraints(
+                          minWidth: isMobile ? 28 : 32,
+                          minHeight: isMobile ? 28 : 32,
+                        ),
+                        onPressed:
+                            widget.onCartPressed ?? () => context.go('/cart'),
+                      ),
+                      Consumer<Cart>(
+                        builder: (context, cart, child) {
+                          if (cart.itemCount == 0) {
+                            return const SizedBox.shrink();
+                          }
+                          return Positioned(
+                            right: isMobile ? 4 : 8,
+                            top: isMobile ? 4 : 8,
+                            child: Container(
+                              padding: const EdgeInsets.all(2),
+                              decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              constraints: const BoxConstraints(
+                                minWidth: 12,
+                                minHeight: 12,
+                              ),
+                              child: Text(
+                                cart.itemCount.toString(),
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 8,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                  // On mobile, show a popup menu. On desktop, show a simple icon.
+                  if (!isDesktop &&
+                      !_showSearch) // Only show menu button on mobile
+                    PopupMenuButton<String>(
+                      onSelected: (value) {
+                        if (value == 'home') {
+                          context.go('/');
+                        } else if (value == 'about') {
+                          context.go('/about');
+                        } else if (value == 'sale') {
+                          context.go('/collections/sale-items');
+                        } else if (value == 'print_shack') {
+                          context.go('/print-shack');
+                        }
+                      },
+                      itemBuilder: (context) => [
+                        const PopupMenuItem(value: 'home', child: Text('Home')),
+                        const PopupMenuItem(
+                            value: 'about', child: Text('About')),
+                        const PopupMenuItem(
+                            value: 'sale', child: Text('SALE!')),
+                        const PopupMenuItem(
+                            value: 'print_shack', child: Text('PRINT SHACK')),
+                      ],
+                      icon: Icon(
+                        Icons.menu,
+                        size: isMobile ? 20 : 18,
+                        color: Colors.grey,
+                      ),
+                      padding: EdgeInsets.all(isMobile ? 4 : 8),
+                    )
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
