@@ -8,19 +8,13 @@ import 'package:union_shop/models/fixtures.dart';
 class CustomHeader extends StatefulWidget {
   final VoidCallback? onHomePressed;
   final VoidCallback? onAboutPressed;
-  final VoidCallback? onSearchPressed;
-  final VoidCallback? onProfilePressed;
   final VoidCallback? onCartPressed;
-  final VoidCallback? onMenuPressed;
 
   const CustomHeader({
     super.key,
     this.onHomePressed,
     this.onAboutPressed,
-    this.onSearchPressed,
-    this.onProfilePressed,
     this.onCartPressed,
-    this.onMenuPressed,
   });
 
   @override
@@ -146,8 +140,8 @@ class _CustomHeaderState extends State<CustomHeader> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final bool isDesktop = screenWidth > 768;
-    final bool isMobile = screenWidth < 600;
+    final isDesktop = screenWidth > 768;
+    final isMobile = screenWidth < 600;
 
     return Container(
       height: isDesktop ? 140 : 120,
@@ -186,54 +180,14 @@ class _CustomHeaderState extends State<CustomHeader> {
       BuildContext context, bool isDesktop, bool isMobile) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: isMobile ? 8 : 10),
-      child: Stack(
-        alignment: Alignment.center,
+      child: Row(
         children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _buildLogo(context, isMobile),
-                SizedBox(width: isMobile ? 8 : 16),
-              ],
-            ),
-          ),
-          if (isDesktop && !_showSearch)
-            Align(
-              alignment: Alignment.center,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _navButton(
-                      'Home',
-                      widget.onHomePressed ?? () => context.go('/'),
-                      const Color(0xFF4d2963)),
-                  const SizedBox(width: 16),
-                  _navButton('SALE!',
-                      () => context.go('/collections/sale-items'), Colors.red,
-                      bold: true),
-                  const SizedBox(width: 16),
-                  _navButton('PRINT SHACK', () => context.go('/print-shack'),
-                      const Color(0xFF4d2963)),
-                  _navButton(
-                      'About',
-                      widget.onAboutPressed ?? () => context.go('/about'),
-                      const Color(0xFF4d2963)),
-                ],
-              ),
-            ),
+          _buildLogo(context, isMobile),
+          SizedBox(width: isMobile ? 8 : 16),
+          if (isDesktop && !_showSearch) _buildNavButtons(context),
           if (_showSearch) _buildSearchField(),
-          Align(
-            alignment: Alignment.centerRight,
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 600),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: _buildRightIcons(context, isDesktop, isMobile),
-              ),
-            ),
-          ),
+          if (!_showSearch && isMobile) const Spacer(),
+          _buildRightIcons(context, isDesktop, isMobile),
         ],
       ),
     );
@@ -257,6 +211,28 @@ class _CustomHeaderState extends State<CustomHeader> {
             ),
           );
         },
+      ),
+    );
+  }
+
+  Widget _buildNavButtons(BuildContext context) {
+    return Expanded(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          _navButton('Home', () => context.go('/'), const Color(0xFF4d2963)),
+          const SizedBox(width: 16),
+          _navButton(
+              'SALE!', () => context.go('/collections/sale-items'), Colors.red,
+              bold: true),
+          const SizedBox(width: 16),
+          _navButton('PRINT SHACK', () => context.go('/print-shack'),
+              const Color(0xFF4d2963)),
+          _navButton(
+              'About',
+              widget.onAboutPressed ?? () => context.go('/about'),
+              const Color(0xFF4d2963)),
+        ],
       ),
     );
   }
@@ -301,95 +277,55 @@ class _CustomHeaderState extends State<CustomHeader> {
     );
   }
 
-  List<Widget> _buildRightIcons(
-      BuildContext context, bool isDesktop, bool isMobile) {
-    return [
-      if (!_showSearch)
-        IconButton(
-          icon: Icon(
-            Icons.search,
-            size: isMobile ? 20 : 18,
-            color: Colors.grey,
-          ),
-          padding: EdgeInsets.all(isMobile ? 4 : 8),
-          constraints: BoxConstraints(
-            minWidth: isMobile ? 28 : 32,
-            minHeight: isMobile ? 28 : 32,
-          ),
-          onPressed: () {
-            setState(() => _showSearch = true);
-            _searchFocusNode.requestFocus();
-          },
-        ),
-      IconButton(
-        icon: Icon(
-          Icons.person_outline,
-          size: isMobile ? 20 : 18,
-          color: Colors.grey,
-        ),
-        padding: EdgeInsets.all(isMobile ? 4 : 8),
-        constraints: BoxConstraints(
-          minWidth: isMobile ? 28 : 32,
-          minHeight: isMobile ? 28 : 32,
-        ),
-        onPressed: () => context.go('/login'),
-      ),
-      _buildCartIcon(context, isMobile),
-      if (!isDesktop && !_showSearch)
-        PopupMenuButton<String>(
-          onSelected: (value) {
-            switch (value) {
-              case 'home':
-                context.go('/');
-                break;
-              case 'about':
-                context.go('/about');
-                break;
-              case 'sale':
-                context.go('/collections/sale-items');
-                break;
-              case 'print_shack':
-                context.go('/print-shack');
-                break;
-            }
-          },
-          itemBuilder: (_) => const [
-            PopupMenuItem(value: 'home', child: Text('Home')),
-            PopupMenuItem(value: 'about', child: Text('About')),
-            PopupMenuItem(value: 'sale', child: Text('SALE!')),
-            PopupMenuItem(value: 'print_shack', child: Text('PRINT SHACK')),
-          ],
-          icon: Icon(
-            Icons.menu,
-            size: isMobile ? 20 : 18,
-            color: Colors.grey,
-          ),
-          padding: EdgeInsets.all(isMobile ? 4 : 8),
-        )
-    ];
+  Widget _buildRightIcons(BuildContext context, bool isDesktop, bool isMobile) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (!_showSearch) _buildSearchIcon(),
+        _buildIcon(Icons.person_outline, () => context.go('/login')),
+        _buildCartIcon(context),
+        if (!isDesktop) _buildMobileMenu(context),
+      ],
+    );
   }
 
-  Widget _buildCartIcon(BuildContext context, bool isMobile) {
+  Widget _buildSearchIcon() {
+    return IconButton(
+      icon: const Icon(Icons.search, size: 18, color: Colors.grey),
+      padding: const EdgeInsets.all(8),
+      constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+      onPressed: () {
+        setState(() => _showSearch = true);
+        _searchFocusNode.requestFocus();
+      },
+    );
+  }
+
+  Widget _buildIcon(IconData icon, VoidCallback onPressed) {
+    return IconButton(
+      icon: Icon(icon, size: 18, color: Colors.grey),
+      padding: const EdgeInsets.all(8),
+      constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+      onPressed: onPressed,
+    );
+  }
+
+  Widget _buildCartIcon(BuildContext context) {
     return Stack(
       children: [
         IconButton(
           icon: const Icon(Icons.shopping_bag_outlined,
               size: 18, color: Colors.grey),
-          padding: EdgeInsets.all(isMobile ? 4 : 8),
-          constraints: BoxConstraints(
-            minWidth: isMobile ? 28 : 32,
-            minHeight: isMobile ? 28 : 32,
-          ),
+          padding: const EdgeInsets.all(8),
+          constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
           onPressed: widget.onCartPressed ?? () => context.go('/cart'),
         ),
         Consumer<Cart>(
-          builder: (context, cart, child) {
-            if (cart.itemCount == 0) {
-              return const SizedBox.shrink();
-            }
+          builder: (context, cart, _) {
+            if (cart.itemCount == 0) return const SizedBox.shrink();
             return Positioned(
-              right: isMobile ? 4 : 8,
-              top: isMobile ? 4 : 8,
+              right: 8,
+              top: 8,
               child: Container(
                 padding: const EdgeInsets.all(2),
                 decoration: const BoxDecoration(
@@ -408,6 +344,34 @@ class _CustomHeaderState extends State<CustomHeader> {
           },
         ),
       ],
+    );
+  }
+
+  Widget _buildMobileMenu(BuildContext context) {
+    return PopupMenuButton<String>(
+      onSelected: (value) {
+        switch (value) {
+          case 'home':
+            context.go('/');
+            break;
+          case 'about':
+            context.go('/about');
+            break;
+          case 'sale':
+            context.go('/collections/sale-items');
+            break;
+          case 'print_shack':
+            context.go('/print-shack');
+            break;
+        }
+      },
+      itemBuilder: (_) => const [
+        PopupMenuItem(value: 'home', child: Text('Home')),
+        PopupMenuItem(value: 'about', child: Text('About')),
+        PopupMenuItem(value: 'sale', child: Text('SALE!')),
+        PopupMenuItem(value: 'print_shack', child: Text('PRINT SHACK')),
+      ],
+      icon: const Icon(Icons.menu, size: 18, color: Colors.grey),
     );
   }
 }
