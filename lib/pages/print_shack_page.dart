@@ -388,26 +388,56 @@ class _PrintShackPageState extends State<PrintShackPage> {
   }
 
   Widget _buildAddToCartButton() {
-    return SizedBox(
-      width: double.infinity,
-      height: 56,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF4d2963),
-          foregroundColor: Colors.white,
-          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-          elevation: 0,
-        ),
-        onPressed: _onAddToCart,
-        child: Text(
-          'ADD TO CART • £${(price * _quantity).toStringAsFixed(2)}',
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            letterSpacing: 1,
+    return Row(
+      children: [
+        Expanded(
+          child: SizedBox(
+            height: 56,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF4d2963),
+                foregroundColor: Colors.white,
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero),
+                elevation: 0,
+              ),
+              onPressed: _onAddToCart,
+              child: Text(
+                'ADD TO CART • £${(price * _quantity).toStringAsFixed(2)}',
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 1,
+                ),
+              ),
+            ),
           ),
         ),
-      ),
+        const SizedBox(width: 10),
+        Expanded(
+          child: SizedBox(
+            height: 56,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.green,
+                foregroundColor: Colors.white,
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero),
+                elevation: 0,
+              ),
+              onPressed: _onBuyNow,
+              child: const Text(
+                'BUY NOW',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 1,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -450,6 +480,26 @@ class _PrintShackPageState extends State<PrintShackPage> {
 
     _showSuccessSnackbar(parts);
     _showAddToCartDialog();
+  }
+
+  void _onBuyNow() {
+    final line1 = _controllers[0].text.trim();
+    if (line1.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text('Please enter at least the first line of text'),
+          backgroundColor: Colors.red[700],
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+      return;
+    }
+
+    // Add to cart first
+    _onAddToCart();
+
+    // Navigate to cart
+    GoRouter.of(context).go('/cart');
   }
 
   void _showSuccessSnackbar(List<String> parts) {
