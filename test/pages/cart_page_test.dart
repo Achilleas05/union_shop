@@ -714,4 +714,25 @@ void main() {
       expect(find.textContaining('Very Long'), findsAtLeastNWidgets(1));
     });
   });
+
+  group('Debug Tests', () {
+    testWidgets('debug prints image URL when displaying cart item',
+        (tester) async {
+      cart.addItem(CartItem(
+        id: '1_item',
+        productId: '1',
+        title: 'Test Product',
+        price: 29.99,
+        imageUrl: 'https://example.com/test-image.jpg',
+        quantity: 1,
+      ));
+
+      await tester.pumpWidget(createTestWidget());
+      await tester.pumpAndSettle();
+
+      // The debug print should have been called, but we can't directly test it
+      // This test just ensures the item renders correctly with the URL
+      expect(find.text('Test Product'), findsOneWidget);
+    });
+  });
 }
