@@ -73,16 +73,17 @@ class _CustomHeaderState extends State<CustomHeader> {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          // Left side - Logo
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _buildLogo(context, isMobile),
-              ],
+          // Left side - Logo (only show when not searching on mobile)
+          if (!(_showSearch && isMobile))
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _buildLogo(context, isMobile),
+                ],
+              ),
             ),
-          ),
 
           // Center - Nav buttons or Search
           if (isDesktop && !_showSearch)
@@ -94,14 +95,22 @@ class _CustomHeaderState extends State<CustomHeader> {
           if (_showSearch)
             Align(
               alignment: Alignment.center,
-              child: SearchOverlay(onClose: _closeSearch),
+              child: Container(
+                width: isMobile ? double.infinity : null,
+                constraints: isMobile
+                    ? const BoxConstraints(maxWidth: double.infinity)
+                    : const BoxConstraints(maxWidth: 400),
+                padding: isMobile ? const EdgeInsets.only(right: 48) : null,
+                child: SearchOverlay(onClose: _closeSearch),
+              ),
             ),
 
-          // Right side - Icons
-          Align(
-            alignment: Alignment.centerRight,
-            child: _buildRightIcons(context, isDesktop, isMobile),
-          ),
+          // Right side - Icons (only show when not searching on mobile)
+          if (!(_showSearch && isMobile))
+            Align(
+              alignment: Alignment.centerRight,
+              child: _buildRightIcons(context, isDesktop, isMobile),
+            ),
         ],
       ),
     );
@@ -166,9 +175,19 @@ class _CustomHeaderState extends State<CustomHeader> {
       mainAxisSize: MainAxisSize.min,
       children: [
         if (!_showSearch) _buildSearchIcon(),
-        _buildIcon(Icons.person_outline, () => context.go('/login')),
-        _buildCartIcon(context),
-        if (!isDesktop) _buildMobileMenu(context),
+        if (!_showSearch)
+          _buildIcon(Icons.person_outline, () => context.go('/login')),
+        if (!_showSearch) _buildCartIcon(context),
+        if (!isDesktop && !_showSearch) _buildMobileMenu(context),
+
+        // Add close button when searching on mobile
+        if (_showSearch && isMobile)
+          IconButton(
+            icon: const Icon(Icons.close, size: 18, color: Colors.grey),
+            padding: const EdgeInsets.all(8),
+            constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+            onPressed: _closeSearch,
+          ),
       ],
     );
   }
