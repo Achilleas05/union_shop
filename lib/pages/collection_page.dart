@@ -123,6 +123,8 @@ class _CollectionPageState extends State<CollectionPage> {
   @override
   Widget build(BuildContext context) {
     final pageItems = _currentPageItems();
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 600;
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -130,167 +132,187 @@ class _CollectionPageState extends State<CollectionPage> {
           children: [
             const CustomHeader(),
             if (widget.collectionTitle == 'Sale Items')
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: isMobile ? 12.0 : 16.0,
+                    horizontal: isMobile ? 16.0 : 24.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
                       'SALE',
                       style: TextStyle(
-                        fontSize: 34,
+                        fontSize: isMobile ? 28 : 34,
                         fontWeight: FontWeight.bold,
                         color: Colors.red,
                         letterSpacing: 2,
                       ),
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Text(
-                      "Don’t miss out! Get yours before they’re all gone!",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      "Don't miss out! Get yours before they're all gone!",
+                      style: TextStyle(
+                          fontSize: isMobile ? 14 : 16,
+                          fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Text(
                       "All prices shown are inclusive of the discount 🛒",
-                      style: TextStyle(fontSize: 14, color: Colors.grey),
+                      style: TextStyle(
+                          fontSize: isMobile ? 12 : 14, color: Colors.grey),
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                   ],
                 ),
               ),
             if (widget.collectionTitle == 'Essential Range')
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: isMobile ? 12.0 : 16.0,
+                    horizontal: isMobile ? 16.0 : 24.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
                       'Essential Range',
                       style: TextStyle(
-                        fontSize: 34,
+                        fontSize: isMobile ? 28 : 34,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF4d2963),
+                        color: const Color(0xFF4d2963),
                         letterSpacing: 2,
                       ),
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Text(
                       "Quality basics, everyday value.",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: isMobile ? 14 : 16,
+                          fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Text(
                       "Over 20% off our Essential Range—stock up for the semester!",
-                      style: TextStyle(fontSize: 14, color: Colors.grey),
+                      style: TextStyle(
+                          fontSize: isMobile ? 12 : 14, color: Colors.grey),
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                   ],
                 ),
               ),
             if (widget.collectionTitle == 'University Clothing')
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: isMobile ? 12.0 : 16.0,
+                    horizontal: isMobile ? 16.0 : 24.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
                       'University Clothing',
                       style: TextStyle(
-                        fontSize: 34,
+                        fontSize: isMobile ? 28 : 34,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF2E8B57),
+                        color: const Color(0xFF2E8B57),
                         letterSpacing: 1,
                       ),
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Text(
                       "Show your university pride.",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: isMobile ? 14 : 16,
+                          fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Text(
                       "Browse our official campus apparel—perfect for every student.",
-                      style: TextStyle(fontSize: 14, color: Colors.grey),
+                      style: TextStyle(
+                          fontSize: isMobile ? 12 : 14, color: Colors.grey),
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                   ],
                 ),
               ),
             if (widget.collectionTitle == 'Study Supplies')
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: isMobile ? 12.0 : 16.0,
+                    horizontal: isMobile ? 16.0 : 24.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
                       'Study Supplies',
                       style: TextStyle(
-                        fontSize: 34,
+                        fontSize: isMobile ? 28 : 34,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF1E90FF),
+                        color: const Color(0xFF1E90FF),
                         letterSpacing: 1,
                       ),
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Text(
                       "Gear up for success.",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: isMobile ? 14 : 16,
+                          fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Text(
                       "Find essential stationery and accessories for every student.",
-                      style: TextStyle(fontSize: 14, color: Colors.grey),
+                      style: TextStyle(
+                          fontSize: isMobile ? 12 : 14, color: Colors.grey),
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                   ],
                 ),
               ),
             if (widget.collectionTitle == 'Gift Shop')
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: isMobile ? 12.0 : 16.0,
+                    horizontal: isMobile ? 16.0 : 24.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
                       'Gift Shop',
                       style: TextStyle(
-                        fontSize: 34,
+                        fontSize: isMobile ? 28 : 34,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFFFF6347),
+                        color: const Color(0xFFFF6347),
                         letterSpacing: 1,
                       ),
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Text(
                       "Share a piece of Portsmouth.",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: isMobile ? 14 : 16,
+                          fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Text(
                       "Souvenirs and gifts for every occasion—find something to make someone smile.",
-                      style: TextStyle(fontSize: 14, color: Colors.grey),
+                      style: TextStyle(
+                          fontSize: isMobile ? 12 : 14, color: Colors.grey),
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                   ],
                 ),
               ),
@@ -308,59 +330,70 @@ class _CollectionPageState extends State<CollectionPage> {
     );
   }
 
-  Widget _buildHeader() => Container(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          children: [
-            Text(
-              widget.collectionTitle,
-              style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              '${_filteredAndSortedProducts.length} products in this collection',
-              style: const TextStyle(fontSize: 16, color: Colors.grey),
-            ),
-          ],
-        ),
-      );
+  Widget _buildHeader() {
+    final isMobile = MediaQuery.of(context).size.width < 600;
+    return Container(
+      padding: EdgeInsets.all(isMobile ? 16 : 24),
+      child: Column(
+        children: [
+          Text(
+            widget.collectionTitle,
+            style: TextStyle(
+                fontSize: isMobile ? 22 : 28, fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 8),
+          Text(
+            '${_filteredAndSortedProducts.length} products in this collection',
+            style: TextStyle(fontSize: isMobile ? 14 : 16, color: Colors.grey),
+          ),
+        ],
+      ),
+    );
+  }
 
   Widget _buildFilterRow() {
+    final isMobile = MediaQuery.of(context).size.width < 600;
     const borderStyle =
         OutlineInputBorder(borderSide: BorderSide(color: Colors.grey));
-    const dropdownPadding = EdgeInsets.symmetric(horizontal: 12, vertical: 8);
+    final dropdownPadding =
+        EdgeInsets.symmetric(horizontal: isMobile ? 8 : 12, vertical: 8);
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24),
+      padding: EdgeInsets.symmetric(horizontal: isMobile ? 16 : 24),
       child: Row(
         children: [
-          _buildDropdown(
-            value: _selectedSort,
-            label: 'Sort by',
-            items: const [
-              'Featured',
-              'Price: Low to High',
-              'Price: High to Low',
-              'A-Z'
-            ],
-            onChanged: _onSortChanged,
-            borderStyle: borderStyle,
-            contentPadding: dropdownPadding,
+          Expanded(
+            child: _buildDropdown(
+              value: _selectedSort,
+              label: 'Sort by',
+              items: const [
+                'Featured',
+                'Price: Low to High',
+                'Price: High to Low',
+                'A-Z'
+              ],
+              onChanged: _onSortChanged,
+              borderStyle: borderStyle,
+              contentPadding: dropdownPadding,
+            ),
           ),
           const SizedBox(width: 12),
-          _buildDropdown(
-            value: _selectedFilter,
-            label: 'Filter',
-            items: const [
-              'All products',
-              'Clothing',
-              'Accessories',
-              'Sale items',
-              'New arrivals'
-            ],
-            onChanged: _onFilterChanged,
-            borderStyle: borderStyle,
-            contentPadding: dropdownPadding,
+          Expanded(
+            child: _buildDropdown(
+              value: _selectedFilter,
+              label: 'Filter',
+              items: const [
+                'All products',
+                'Clothing',
+                'Accessories',
+                'Sale items',
+                'New arrivals'
+              ],
+              onChanged: _onFilterChanged,
+              borderStyle: borderStyle,
+              contentPadding: dropdownPadding,
+            ),
           ),
         ],
       ),
@@ -374,36 +407,40 @@ class _CollectionPageState extends State<CollectionPage> {
     required Function(String?) onChanged,
     required InputBorder borderStyle,
     required EdgeInsetsGeometry contentPadding,
-  }) =>
-      Expanded(
-        child: DropdownButtonFormField<String>(
-          initialValue: value,
-          decoration: InputDecoration(
-            labelText: label,
-            border: borderStyle,
-            enabledBorder: borderStyle,
-            focusedBorder: borderStyle,
-            contentPadding: contentPadding,
-          ),
-          items: items
-              .map((item) => DropdownMenuItem(value: item, child: Text(item)))
-              .toList(),
-          onChanged: onChanged,
-        ),
-      );
+  }) {
+    return DropdownButtonFormField<String>(
+      initialValue: value,
+      decoration: InputDecoration(
+        labelText: label,
+        border: borderStyle,
+        enabledBorder: borderStyle,
+        focusedBorder: borderStyle,
+        contentPadding: contentPadding,
+      ),
+      items: items
+          .map((item) => DropdownMenuItem(value: item, child: Text(item)))
+          .toList(),
+      onChanged: onChanged,
+    );
+  }
 
-  Widget _buildProductGrid(List<Product> pageItems) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: GridView.count(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          crossAxisCount: MediaQuery.of(context).size.width > 800 ? 3 : 2,
-          crossAxisSpacing: 16,
-          mainAxisSpacing: 16,
-          childAspectRatio: 0.75,
-          children: pageItems.map(_buildProductCard).toList(),
-        ),
-      );
+  Widget _buildProductGrid(List<Product> pageItems) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 600;
+
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: isMobile ? 16 : 24),
+      child: GridView.count(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        crossAxisCount: 2,
+        crossAxisSpacing: isMobile ? 12 : 16,
+        mainAxisSpacing: isMobile ? 12 : 16,
+        childAspectRatio: isMobile ? 0.65 : 0.75,
+        children: pageItems.map(_buildProductCard).toList(),
+      ),
+    );
+  }
 
   Widget _buildPaginationControls() {
     return Padding(
