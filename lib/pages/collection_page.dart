@@ -495,47 +495,56 @@ class _CollectionPageState extends State<CollectionPage> {
                       style: const TextStyle(
                           fontSize: 14, fontWeight: FontWeight.w500),
                       maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 4),
-                    Text(
-                      '£${product.price.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: product.originalPrice != null
-                            ? Colors.red
-                            : Colors.grey,
-                        fontWeight: FontWeight.w600,
+                    SizedBox(
+                      height: 60,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '£${product.price.toStringAsFixed(2)}',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: product.originalPrice != null
+                                  ? Colors.red
+                                  : Colors.grey,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          if (product.originalPrice != null)
+                            Text(
+                              '£${product.originalPrice!.toStringAsFixed(2)}',
+                              style: const TextStyle(
+                                decoration: TextDecoration.lineThrough,
+                                fontSize: 12,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          if (product.tag != null)
+                            Container(
+                              margin: const EdgeInsets.only(top: 4),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 6, vertical: 2),
+                              decoration: BoxDecoration(
+                                color: product.tag == 'Sale'
+                                    ? Colors.red
+                                    : Colors.orange,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Text(
+                                product.tag!,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                        ],
                       ),
                     ),
-                    if (product.originalPrice != null)
-                      Text(
-                        '£${product.originalPrice!.toStringAsFixed(2)}',
-                        style: const TextStyle(
-                          decoration: TextDecoration.lineThrough,
-                          fontSize: 12,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    if (product.tag != null)
-                      Container(
-                        margin: const EdgeInsets.only(top: 4),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 2),
-                        decoration: BoxDecoration(
-                          color: product.tag == 'Sale'
-                              ? Colors.red
-                              : Colors.orange,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: Text(
-                          product.tag!,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
                   ],
                 ),
               ),
