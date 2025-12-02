@@ -5,12 +5,13 @@ import 'package:union_shop/pages/collections_page.dart';
 import 'package:union_shop/pages/product_page.dart';
 import 'package:union_shop/pages/about_page.dart';
 import 'package:union_shop/widgets/header.dart';
-import 'package:union_shop/widgets/footer.dart'; // Add this import
+import 'package:union_shop/widgets/footer.dart';
 import 'package:union_shop/pages/collection_page.dart';
 import 'package:union_shop/models/fixtures.dart';
 import 'package:union_shop/pages/login_page.dart';
 import 'package:union_shop/pages/cart_page.dart';
 import 'package:union_shop/models/cart.dart';
+import 'package:union_shop/pages/print_shack_page.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -72,6 +73,10 @@ class UnionShopApp extends StatelessWidget {
         GoRoute(
           path: '/cart',
           builder: (context, state) => const CartPage(),
+        ),
+        GoRoute(
+          path: '/print-shack',
+          builder: (context, state) => const PrintShackPage(),
         ),
       ],
     );
