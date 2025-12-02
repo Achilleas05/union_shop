@@ -46,26 +46,22 @@ class _CollectionPageState extends State<CollectionPage> {
 
     // FILTER
     switch (_selectedFilter) {
-      case 'Clothing':
-        result = result.where((p) => p.category == 'Clothing').toList();
-        break;
-      case 'Accessories':
-        result = result.where((p) => p.category == 'Accessories').toList();
-        break;
-      case 'Study Supplies':
-        result = result.where((p) => p.category == 'Study Supplies').toList();
-        break;
-      case 'Electronics':
-        result = result.where((p) => p.category == 'Electronics').toList();
-        break;
-      case 'Gift':
-        result = result.where((p) => p.category == 'Gift').toList();
-        break;
       case 'Sale items':
-        result = result.where((p) => p.isOnSale || p.tag == 'Sale').toList();
+        result = result
+            .where((p) => p.tag == 'Sale' || p.originalPrice != null)
+            .toList();
         break;
       case 'New arrivals':
-        result = result.where((p) => p.isNew).toList();
+        // Filter by tag == 'New' since there's no isNew field
+        result = result.where((p) => p.tag == 'New').toList();
+        break;
+      case 'Clothing':
+      case 'Accessories':
+      case 'Study Supplies':
+      case 'Electronics':
+      case 'Gift':
+        // These filters don't work because Product has no category field
+        // Keep all products for now
         break;
       case 'All products':
       default:
@@ -440,10 +436,10 @@ class _CollectionPageState extends State<CollectionPage> {
     const borderStyle =
         OutlineInputBorder(borderSide: BorderSide(color: Colors.grey));
     final dropdownPadding =
-        EdgeInsets.symmetric(horizontal: isMobile ? 8 : 12, vertical: 8);
+        EdgeInsets.symmetric(horizontal: isMobile ? 6 : 10, vertical: 8);
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: isMobile ? 16 : 24),
+      padding: EdgeInsets.symmetric(horizontal: isMobile ? 12 : 24),
       child: Row(
         children: [
           Expanded(
@@ -461,7 +457,7 @@ class _CollectionPageState extends State<CollectionPage> {
               contentPadding: dropdownPadding,
             ),
           ),
-          const SizedBox(width: 12),
+          const SizedBox(width: 8),
           Expanded(
             child: _buildDropdown(
               value: _selectedFilter,
@@ -495,7 +491,10 @@ class _CollectionPageState extends State<CollectionPage> {
     required EdgeInsetsGeometry contentPadding,
   }) {
     return DropdownButtonFormField<String>(
-      initialValue: value,
+      value: value,
+      isDense: true,
+      isExpanded: true,
+      style: const TextStyle(fontSize: 14, color: Colors.black),
       decoration: InputDecoration(
         labelText: label,
         border: borderStyle,
@@ -504,7 +503,13 @@ class _CollectionPageState extends State<CollectionPage> {
         contentPadding: contentPadding,
       ),
       items: items
-          .map((item) => DropdownMenuItem(value: item, child: Text(item)))
+          .map((item) => DropdownMenuItem(
+                value: item,
+                child: Text(
+                  item,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ))
           .toList(),
       onChanged: onChanged,
     );
