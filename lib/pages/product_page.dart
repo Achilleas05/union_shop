@@ -20,6 +20,19 @@ class _ProductPageState extends State<ProductPage> {
   int _quantity = 1;
 
   @override
+  void initState() {
+    super.initState();
+    // Initialize with the first available size and color from the product
+    final product = widget.product ?? _createDummyProduct();
+    if (product.sizes.isNotEmpty) {
+      _selectedSize = product.sizes[0];
+    }
+    if (product.colors.isNotEmpty) {
+      _selectedColor = product.colors[0];
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final product = widget.product ?? _createDummyProduct();
 
@@ -177,18 +190,24 @@ class _ProductPageState extends State<ProductPage> {
   }
 
   Widget _buildOptionsSection() {
+    final product = widget.product ?? _createDummyProduct();
+
     return Column(
       children: [
-        _buildDropdown('Size', _selectedSize, ['S', 'M', 'L', 'XL'], (value) {
-          setState(() => _selectedSize = value!);
-        }),
-        const SizedBox(height: 16),
-        _buildDropdown(
-            'Color', _selectedColor, ['Black', 'Navy', 'Grey', 'White'],
-            (value) {
-          setState(() => _selectedColor = value!);
-        }),
-        const SizedBox(height: 16),
+        if (product.sizes.isNotEmpty && product.sizes[0] != 'One Size')
+          _buildDropdown(
+              'Size', _selectedSize, List<String>.from(product.sizes), (value) {
+            setState(() => _selectedSize = value!);
+          }),
+        if (product.sizes.isNotEmpty && product.sizes[0] != 'One Size')
+          const SizedBox(height: 16),
+        if (product.colors.isNotEmpty)
+          _buildDropdown(
+              'Color', _selectedColor, List<String>.from(product.colors),
+              (value) {
+            setState(() => _selectedColor = value!);
+          }),
+        if (product.colors.isNotEmpty) const SizedBox(height: 16),
         _buildQuantitySelector(),
       ],
     );
