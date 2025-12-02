@@ -38,30 +38,34 @@ class CustomHeader extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     final bool isDesktop =
         screenWidth > 768; // A common breakpoint for tablets/desktops
+    final bool isMobile = screenWidth < 600;
 
     return Container(
-      height: 140,
+      height: isDesktop ? 140 : 120,
       color: Colors.white,
       child: Column(
         children: [
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 12),
+            padding: EdgeInsets.symmetric(
+              vertical: isMobile ? 8 : 12,
+              horizontal: isMobile ? 8 : 16,
+            ),
             color: const Color(0xFF4d2963),
-            child: const Text(
+            child: Text(
               'BIG SALE! OUR ESSENTIAL RANGE HAS DROPPED IN PRICE! OVER 20% OFF! COME GRAB YOURS WHILE STOCK LASTS!',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 16,
+                fontSize: isMobile ? 12 : 16,
                 fontWeight: FontWeight.bold,
-                letterSpacing: 1.1,
+                letterSpacing: isMobile ? 0.5 : 1.1,
               ),
             ),
           ),
           Expanded(
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding: EdgeInsets.symmetric(horizontal: isMobile ? 8 : 10),
               child: Stack(
                 alignment: Alignment.center,
                 children: [
@@ -74,21 +78,21 @@ class CustomHeader extends StatelessWidget {
                           onTap: onHomePressed ?? () => navigateToHome(context),
                           child: Image.network(
                               'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
-                              height: 30,
+                              height: isMobile ? 24 : 30,
                               fit: BoxFit.cover,
                               errorBuilder: (context, error, stackTrace) {
                             return Container(
                               color: Colors.grey[300],
-                              width: 30,
-                              height: 30,
+                              width: isMobile ? 24 : 30,
+                              height: isMobile ? 24 : 30,
                               child: const Center(
                                 child: Icon(Icons.image_not_supported,
-                                    color: Colors.grey),
+                                    color: Colors.grey, size: 16),
                               ),
                             );
                           }),
                         ),
-                        const SizedBox(width: 16),
+                        SizedBox(width: isMobile ? 8 : 16),
                       ],
                     ),
                   ),
@@ -160,43 +164,43 @@ class CustomHeader extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           IconButton(
-                            icon: const Icon(
+                            icon: Icon(
                               Icons.search,
-                              size: 18,
+                              size: isMobile ? 20 : 18,
                               color: Colors.grey,
                             ),
-                            padding: const EdgeInsets.all(8),
-                            constraints: const BoxConstraints(
-                              minWidth: 32,
-                              minHeight: 32,
+                            padding: EdgeInsets.all(isMobile ? 4 : 8),
+                            constraints: BoxConstraints(
+                              minWidth: isMobile ? 28 : 32,
+                              minHeight: isMobile ? 28 : 32,
                             ),
                             onPressed: onSearchPressed,
                           ),
                           IconButton(
-                            icon: const Icon(
+                            icon: Icon(
                               Icons.person_outline,
-                              size: 18,
+                              size: isMobile ? 20 : 18,
                               color: Colors.grey,
                             ),
-                            padding: const EdgeInsets.all(8),
-                            constraints: const BoxConstraints(
-                              minWidth: 32,
-                              minHeight: 32,
+                            padding: EdgeInsets.all(isMobile ? 4 : 8),
+                            constraints: BoxConstraints(
+                              minWidth: isMobile ? 28 : 32,
+                              minHeight: isMobile ? 28 : 32,
                             ),
                             onPressed: () => context.go('/login'),
                           ),
                           Stack(
                             children: [
                               IconButton(
-                                icon: const Icon(
+                                icon: Icon(
                                   Icons.shopping_bag_outlined,
-                                  size: 18,
+                                  size: isMobile ? 20 : 18,
                                   color: Colors.grey,
                                 ),
-                                padding: const EdgeInsets.all(8),
-                                constraints: const BoxConstraints(
-                                  minWidth: 32,
-                                  minHeight: 32,
+                                padding: EdgeInsets.all(isMobile ? 4 : 8),
+                                constraints: BoxConstraints(
+                                  minWidth: isMobile ? 28 : 32,
+                                  minHeight: isMobile ? 28 : 32,
                                 ),
                                 onPressed: onCartPressed ??
                                     () => navigateToCart(context),
@@ -207,8 +211,8 @@ class CustomHeader extends StatelessWidget {
                                     return const SizedBox.shrink();
                                   }
                                   return Positioned(
-                                    right: 8,
-                                    top: 8,
+                                    right: isMobile ? 4 : 8,
+                                    top: isMobile ? 4 : 8,
                                     child: Container(
                                       padding: const EdgeInsets.all(2),
                                       decoration: BoxDecoration(
@@ -259,12 +263,12 @@ class CustomHeader extends StatelessWidget {
                                     value: 'print_shack',
                                     child: Text('PRINT SHACK')),
                               ],
-                              icon: const Icon(
+                              icon: Icon(
                                 Icons.menu,
-                                size: 18,
+                                size: isMobile ? 20 : 18,
                                 color: Colors.grey,
                               ),
-                              padding: const EdgeInsets.all(8),
+                              padding: EdgeInsets.all(isMobile ? 4 : 8),
                             )
                         ],
                       ),
