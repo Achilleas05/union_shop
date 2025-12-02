@@ -519,7 +519,7 @@ class _CollectionPageState extends State<CollectionPage> {
       child: GridView.count(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
-        crossAxisCount: 2,
+        crossAxisCount: isMobile ? 2 : 3,
         crossAxisSpacing: isMobile ? 12 : 16,
         mainAxisSpacing: isMobile ? 12 : 16,
         childAspectRatio: isMobile ? 0.65 : 0.75,
