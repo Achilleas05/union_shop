@@ -214,9 +214,9 @@ class _CustomHeaderState extends State<CustomHeader> {
     return Consumer<Cart>(
       builder: (context, cart, child) {
         return InkWell(
-          onTap: () => context.go('/cart'),
+          onTap: widget.onCartPressed ?? () => context.go('/cart'),
           child: Container(
-            padding: const EdgeInsets.all(12), // Ensures minimum tap target
+            padding: const EdgeInsets.all(12),
             child: Stack(
               clipBehavior: Clip.none,
               children: [
