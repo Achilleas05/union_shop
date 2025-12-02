@@ -193,6 +193,8 @@ class _PrintShackPageState extends State<PrintShackPage> {
         _buildTextFields(),
         const SizedBox(height: 8),
         _buildQuantity(),
+        const SizedBox(height: 32),
+        _buildAddToCartButton(),
       ],
     );
   }
@@ -380,5 +382,33 @@ class _PrintShackPageState extends State<PrintShackPage> {
         ),
       ),
     );
+  }
+
+  Widget _buildAddToCartButton() {
+    return SizedBox(
+      width: double.infinity,
+      height: 56,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFF4d2963),
+          foregroundColor: Colors.white,
+          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+          elevation: 0,
+        ),
+        onPressed: _onAddToCart,
+        child: Text(
+          'ADD TO CART • £${(price * _quantity).toStringAsFixed(2)}',
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 1,
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _onAddToCart() {
+    // Placeholder for cart functionality
   }
 }
