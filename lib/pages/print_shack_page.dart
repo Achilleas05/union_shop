@@ -188,6 +188,8 @@ class _PrintShackPageState extends State<PrintShackPage> {
         _buildWarning(),
         const SizedBox(height: 32),
         _buildDropdown(),
+        const SizedBox(height: 24),
+        _buildTextFields(),
       ],
     );
   }
@@ -263,6 +265,41 @@ class _PrintShackPageState extends State<PrintShackPage> {
             onChanged: (value) => setState(() => _config = value ?? _config),
           ),
         ),
+      ],
+    );
+  }
+
+  Widget _buildTextFields() {
+    return Column(
+      children: [
+        for (var i = 0; i < _lineCount; i++) ...[
+          if (i > 0) const SizedBox(height: 16),
+          Text(
+            'LINE ${i + 1} (MAX 10 CHARACTERS)',
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: Colors.grey[700],
+              letterSpacing: 1,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey[400]!),
+            ),
+            child: TextField(
+              controller: _controllers[i],
+              maxLength: 10,
+              decoration: const InputDecoration(
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                border: InputBorder.none,
+                counterText: '',
+              ),
+            ),
+          ),
+        ],
       ],
     );
   }
