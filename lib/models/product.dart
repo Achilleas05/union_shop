@@ -35,4 +35,6 @@ class Product {
     if (id.startsWith('magnet') || name.contains('Magnet')) return 'Gift';
     return 'Other';
   }
+
+  String? get title => null;
 }
