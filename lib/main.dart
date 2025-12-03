@@ -15,6 +15,7 @@ import 'package:union_shop/pages/print_shack_page.dart';
 import 'package:union_shop/pages/print_shack_about_page.dart';
 import 'package:union_shop/models/order_history.dart';
 import 'package:union_shop/pages/order_history_page.dart';
+import 'package:union_shop/pages/sign_up_page.dart';
 
 void main() {
   runApp(
@@ -96,6 +97,10 @@ class UnionShopApp extends StatelessWidget {
         GoRoute(
           path: '/order-history',
           builder: (context, state) => const OrderHistoryPage(),
+        ),
+        GoRoute(
+          path: '/sign-up',
+          builder: (context, state) => const SignUpPage(),
         ),
       ],
     );
