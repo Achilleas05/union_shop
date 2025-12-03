@@ -48,6 +48,16 @@ void main() {
           builder: (context, state) =>
               const Scaffold(body: Text('Print Shack')),
         ),
+        GoRoute(
+          path: '/print-shack/about',
+          builder: (context, state) =>
+              const Scaffold(body: Text('Print Shack About')),
+        ),
+        GoRoute(
+          path: '/order-history',
+          builder: (context, state) =>
+              const Scaffold(body: Text('Order History')),
+        ),
       ],
       redirect: (context, state) {
         lastRoute = state.uri.toString();
@@ -88,6 +98,7 @@ void main() {
       expect(find.text('PRINT SHACK'), findsOneWidget);
       expect(find.text('About'), findsOneWidget);
       expect(find.byIcon(Icons.search), findsOneWidget);
+      expect(find.byIcon(Icons.history), findsOneWidget);
       expect(find.byIcon(Icons.person_outline), findsOneWidget);
       expect(find.byIcon(Icons.shopping_cart), findsOneWidget);
     });
@@ -148,7 +159,8 @@ void main() {
       expect(lastRoute, '/collections/sale-items');
     });
 
-    testWidgets('navigates to print-shack when PRINT SHACK button is tapped',
+    testWidgets(
+        'navigates to print-shack when PRINT SHACK dropdown item is tapped',
         (tester) async {
       await tester.pumpWidget(
         createTestWidget(
@@ -160,7 +172,29 @@ void main() {
 
       await tester.tap(find.text('PRINT SHACK'));
       await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Personalisation').last);
+      await tester.pumpAndSettle();
       expect(lastRoute, '/print-shack');
+    });
+
+    testWidgets(
+        'navigates to print-shack/about when About Print Shack is tapped',
+        (tester) async {
+      await tester.pumpWidget(
+        createTestWidget(
+          child: const Scaffold(body: CustomHeader()),
+          width: 1200,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('PRINT SHACK'));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('About Print Shack').last);
+      await tester.pumpAndSettle();
+      expect(lastRoute, '/print-shack/about');
     });
 
     testWidgets('navigates to about when About button is tapped',
@@ -235,6 +269,21 @@ void main() {
       await tester.tap(find.byIcon(Icons.shopping_cart));
       await tester.pumpAndSettle();
       expect(lastRoute, '/cart');
+    });
+
+    testWidgets('navigates to order history when history icon is tapped',
+        (tester) async {
+      await tester.pumpWidget(
+        createTestWidget(
+          child: const Scaffold(body: CustomHeader()),
+          width: 1200,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byIcon(Icons.history));
+      await tester.pumpAndSettle();
+      expect(lastRoute, '/order-history');
     });
 
     testWidgets('does not show mobile menu on desktop', (tester) async {
@@ -366,9 +415,26 @@ void main() {
 
       await tester.tap(find.byIcon(Icons.menu));
       await tester.pumpAndSettle();
-      await tester.tap(find.text('PRINT SHACK'));
+      await tester.tap(find.text('Personalisation'));
       await tester.pumpAndSettle();
       expect(lastRoute, '/print-shack');
+    });
+
+    testWidgets('mobile menu navigates correctly - About Print Shack',
+        (tester) async {
+      await tester.pumpWidget(
+        createTestWidget(
+          child: const Scaffold(body: CustomHeader()),
+          width: 400,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byIcon(Icons.menu));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('About Print Shack'));
+      await tester.pumpAndSettle();
+      expect(lastRoute, '/print-shack/about');
     });
 
     testWidgets('hides logo when searching on mobile', (tester) async {
@@ -641,6 +707,8 @@ void main() {
       await tester.tap(find.text('About'));
       await tester.pumpAndSettle();
       expect(aboutPressed, true);
+      // When custom callback is provided, it should not navigate
+      expect(lastRoute, isNot('/about'));
     });
 
     testWidgets('calls custom onCartPressed callback', (tester) async {
@@ -961,6 +1029,10 @@ void main() {
       expect(searchIcon.size, 18);
       expect(searchIcon.color, Colors.grey);
 
+      final historyIcon = tester.widget<Icon>(find.byIcon(Icons.history));
+      expect(historyIcon.size, 18);
+      expect(historyIcon.color, Colors.grey);
+
       final personIcon = tester.widget<Icon>(find.byIcon(Icons.person_outline));
       expect(personIcon.size, 18);
       expect(personIcon.color, Colors.grey);
@@ -1275,6 +1347,122 @@ void main() {
             .first,
       );
       expect(headerContainer.color, Colors.white);
+    });
+  });
+
+  group('CustomHeader - Dropdown Menu', () {
+    testWidgets('PRINT SHACK dropdown shows correct items', (tester) async {
+      await tester.pumpWidget(
+        createTestWidget(
+          child: const Scaffold(body: CustomHeader()),
+          width: 1200,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('PRINT SHACK'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('About Print Shack'), findsOneWidget);
+      expect(find.text('Personalisation'), findsOneWidget);
+    });
+
+    testWidgets('PRINT SHACK dropdown has correct icon', (tester) async {
+      await tester.pumpWidget(
+        createTestWidget(
+          child: const Scaffold(body: CustomHeader()),
+          width: 1200,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final dropdownIcon = find.descendant(
+        of: find.ancestor(
+          of: find.text('PRINT SHACK'),
+          matching: find.byType(Row),
+        ),
+        matching: find.byIcon(Icons.arrow_drop_down),
+      );
+      expect(dropdownIcon, findsOneWidget);
+    });
+  });
+
+  group('CustomHeader - Mobile Menu Items', () {
+    testWidgets('mobile menu shows all menu items', (tester) async {
+      await tester.pumpWidget(
+        createTestWidget(
+          child: const Scaffold(body: CustomHeader()),
+          width: 400,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byIcon(Icons.menu));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Home'), findsWidgets);
+      expect(find.text('About'), findsWidgets);
+      expect(find.text('SALE!'), findsOneWidget);
+      expect(find.text('About Print Shack'), findsOneWidget);
+      expect(find.text('Personalisation'), findsOneWidget);
+    });
+
+    testWidgets('mobile menu navigates to order history', (tester) async {
+      await tester.pumpWidget(
+        createTestWidget(
+          child: const Scaffold(body: CustomHeader()),
+          width: 400,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // History icon should be visible on mobile too (hidden in menu, but present in action bar)
+      // Update test to verify it's clickable and navigates correctly
+      await tester.tap(find.byIcon(Icons.history));
+      await tester.pumpAndSettle();
+      expect(lastRoute, '/order-history');
+    });
+  });
+
+  group('CustomHeader - History Icon', () {
+    testWidgets('history icon is visible on desktop', (tester) async {
+      await tester.pumpWidget(
+        createTestWidget(
+          child: const Scaffold(body: CustomHeader()),
+          width: 1200,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.byIcon(Icons.history), findsOneWidget);
+    });
+
+    testWidgets('history icon navigates correctly', (tester) async {
+      await tester.pumpWidget(
+        createTestWidget(
+          child: const Scaffold(body: CustomHeader()),
+          width: 1200,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byIcon(Icons.history));
+      await tester.pumpAndSettle();
+      expect(lastRoute, '/order-history');
+    });
+
+    testWidgets('history icon has correct styling', (tester) async {
+      await tester.pumpWidget(
+        createTestWidget(
+          child: const Scaffold(body: CustomHeader()),
+          width: 1200,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final historyIcon = tester.widget<Icon>(find.byIcon(Icons.history));
+      expect(historyIcon.size, 18);
+      expect(historyIcon.color, Colors.grey);
     });
   });
 }
