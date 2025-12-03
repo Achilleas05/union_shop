@@ -510,6 +510,7 @@ test/
 │   ├── collection_page_test.dart   # Collection view interactions
 │   ├── collections_page_test.dart  # Collections listing and navigation
 │   ├── login_page_test.dart        # Login interface and validation
+│   ├── sign_up_page_test.dart      # User registration interface tests
 │   ├── print_shack_about_page_test.dart # Print Shack information display
 │   └── print_shack_page_test.dart  # Product personalization interface
 ├── widgets/                        # Widget tests
@@ -652,6 +653,7 @@ union_shop/
 │   │   ├── collection_page.dart   # Individual collection view
 │   │   ├── collections_page.dart  # All collections listing
 │   │   ├── login_page.dart        # User login interface
+│   │   ├── sign_up_page.dart      # User registration interface
 │   │   ├── order_history_page.dart # User order history display
 │   │   ├── print_shack_about_page.dart # Print Shack service information
 │   │   ├── print_shack_page.dart  # Product personalization interface
@@ -768,6 +770,8 @@ The main entry point of the application. Contains:
 **collections_page.dart**: All collections listing page.
 
 **login_page.dart**: User login interface.
+
+**sign_up_page.dart**: User sign up interface.
 
 **order_history_page.dart**: User order history display.
 
