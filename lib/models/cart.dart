@@ -44,6 +44,28 @@ class CartItem {
       color: color ?? this.color,
     );
   }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'productId': productId,
+        'title': title,
+        'price': price,
+        'imageUrl': imageUrl,
+        'quantity': quantity,
+        'size': size,
+        'color': color,
+      };
+
+  factory CartItem.fromJson(Map<String, dynamic> json) => CartItem(
+        id: json['id'] ?? '',
+        productId: json['productId'] ?? '',
+        title: json['title'] ?? '',
+        price: (json['price'] ?? 0).toDouble(),
+        imageUrl: json['imageUrl'] ?? '',
+        quantity: json['quantity'] ?? 1,
+        size: json['size'],
+        color: json['color'],
+      );
 }
 
 class Cart extends ChangeNotifier {
