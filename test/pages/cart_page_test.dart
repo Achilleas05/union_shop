@@ -4,15 +4,18 @@ import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:union_shop/pages/cart_page.dart';
 import 'package:union_shop/models/cart.dart';
+import 'package:union_shop/models/order_history.dart';
 import 'package:union_shop/widgets/header.dart';
 import 'package:union_shop/widgets/footer.dart';
 
 void main() {
   late Cart cart;
+  late OrderHistory orderHistory;
   late GoRouter router;
 
   setUp(() {
     cart = Cart();
+    orderHistory = OrderHistory();
     router = GoRouter(
       initialLocation: '/cart',
       routes: [
@@ -24,13 +27,25 @@ void main() {
           path: '/cart',
           builder: (context, state) => const CartPage(),
         ),
+        GoRoute(
+          path: '/order-history',
+          builder: (context, state) =>
+              const Scaffold(body: Text('Order History')),
+        ),
       ],
     );
   });
 
-  Widget createTestWidget({Cart? testCart}) {
-    return ChangeNotifierProvider<Cart>(
-      create: (_) => testCart ?? cart,
+  Widget createTestWidget({Cart? testCart, OrderHistory? testOrderHistory}) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<Cart>(
+          create: (_) => testCart ?? cart,
+        ),
+        ChangeNotifierProvider<OrderHistory>(
+          create: (_) => testOrderHistory ?? orderHistory,
+        ),
+      ],
       child: MaterialApp.router(
         routerConfig: router,
       ),
@@ -478,7 +493,8 @@ void main() {
   });
 
   group('Checkout Dialog Tests', () {
-    testWidgets('shows checkout dialog when PROCEED TO CHECKOUT is tapped',
+    testWidgets(
+        'shows snackbar and navigates when PROCEED TO CHECKOUT is tapped',
         (tester) async {
       cart.addItem(CartItem(
         id: '1_item',
@@ -495,28 +511,21 @@ void main() {
       final checkoutButton = find.text('PROCEED TO CHECKOUT');
       expect(checkoutButton, findsOneWidget);
 
+      // Scroll to make the button visible
+      await tester.ensureVisible(checkoutButton);
+      await tester.pumpAndSettle();
+
       await tester.tap(checkoutButton);
       await tester.pumpAndSettle();
 
-      // Look for ANY dialog or bottom sheet that appears
-      // Try to find dialog elements
-      final dialogs = find.byType(AlertDialog);
-      final simpleDialogs = find.byType(SimpleDialog);
-      final dialogsRoute = find.byType(DialogRoute);
+      // Should show snackbar
+      expect(find.text('Order placed successfully!'), findsOneWidget);
 
-      if (dialogs.evaluate().isNotEmpty) {
-        expect(dialogs, findsOneWidget);
-      } else if (simpleDialogs.evaluate().isNotEmpty) {
-        expect(simpleDialogs, findsOneWidget);
-      } else if (dialogsRoute.evaluate().isNotEmpty) {
-        expect(dialogsRoute, findsOneWidget);
-      } else {
-        // If no standard dialog found, look for any text that appears after tap
-        expect(find.textContaining('Order'), findsAtLeastNWidgets(1));
-      }
+      // Should navigate to order history
+      expect(find.text('Order History'), findsOneWidget);
     });
 
-    testWidgets('checkout dialog clears cart and navigates to home',
+    testWidgets('checkout clears cart and navigates to order history',
         (tester) async {
       cart.addItem(CartItem(
         id: '1_item',
@@ -530,46 +539,25 @@ void main() {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
 
+      expect(cart.items.length, 1);
+
+      // Scroll to make the button visible
+      final checkoutButton = find.text('PROCEED TO CHECKOUT');
+      await tester.ensureVisible(checkoutButton);
+      await tester.pumpAndSettle();
+
       // Tap checkout button
-      await tester.tap(find.text('PROCEED TO CHECKOUT'));
+      await tester.tap(checkoutButton);
       await tester.pumpAndSettle();
 
-      // Try to find and tap a dialog button
-      final dialogButtons = find.byType(ElevatedButton);
-      final textButtons = find.byType(TextButton);
+      // Cart should be cleared
+      expect(cart.items.isEmpty, true);
 
-      if (dialogButtons.evaluate().isNotEmpty) {
-        // Tap the last ElevatedButton (likely the action button)
-        await tester.tap(dialogButtons.last);
-      } else if (textButtons.evaluate().isNotEmpty) {
-        // Tap the last TextButton
-        await tester.tap(textButtons.last);
-      } else {
-        // Try to tap any button with common dialog text
-        final okButton = find.text('OK');
-        final closeButton = find.text('Close');
-        final continueButton = find.text('Continue');
-
-        if (okButton.evaluate().isNotEmpty) {
-          await tester.tap(okButton);
-        } else if (closeButton.evaluate().isNotEmpty) {
-          await tester.tap(closeButton);
-        } else if (continueButton.evaluate().isNotEmpty) {
-          await tester.tap(continueButton);
-        } else {
-          // If no button found, just tap somewhere to close
-          await tester.tapAt(Offset.zero);
-        }
-      }
-
-      await tester.pumpAndSettle();
-
-      // Cart should be cleared (or at least we tried to clear it)
-      // Even if cart isn't cleared, navigation should happen
-      expect(find.text('Home'), findsOneWidget);
+      // Should navigate to order history
+      expect(find.text('Order History'), findsOneWidget);
     });
 
-    testWidgets('checkout dialog displays correct total for multiple items',
+    testWidgets('checkout adds order to order history with correct total',
         (tester) async {
       cart.addItem(CartItem(
         id: '1_item',
@@ -591,28 +579,22 @@ void main() {
       await tester.pumpWidget(createTestWidget());
       await tester.pumpAndSettle();
 
-      await tester.tap(find.text('PROCEED TO CHECKOUT'));
+      expect(orderHistory.orders.isEmpty, true);
+
+      // Scroll to make the button visible
+      final checkoutButton = find.text('PROCEED TO CHECKOUT');
+      await tester.ensureVisible(checkoutButton);
       await tester.pumpAndSettle();
+
+      await tester.tap(checkoutButton);
+      await tester.pumpAndSettle();
+
+      // Order should be added to history
+      expect(orderHistory.orders.length, 1);
 
       // Calculate expected total
       const expectedTotal = (29.99 * 2) + 49.99;
-      final totalText = '£${expectedTotal.toStringAsFixed(2)}';
-
-      // Look for the total in any text
-      final allText = tester.widgetList<Text>(find.byType(Text));
-      bool foundTotal = false;
-      for (final textWidget in allText) {
-        if (textWidget.data != null && textWidget.data!.contains(totalText)) {
-          foundTotal = true;
-          break;
-        }
-      }
-
-      // If not found, at least verify the dialog showed something
-      if (!foundTotal) {
-        // Verify that tapping checkout did something
-        expect(find.text('PROCEED TO CHECKOUT'), findsNothing);
-      }
+      expect(orderHistory.orders.first.total, expectedTotal);
     });
   });
 
