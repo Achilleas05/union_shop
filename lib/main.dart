@@ -13,9 +13,19 @@ import 'package:union_shop/pages/cart_page.dart';
 import 'package:union_shop/models/cart.dart';
 import 'package:union_shop/pages/print_shack_page.dart';
 import 'package:union_shop/pages/print_shack_about_page.dart';
+import 'package:union_shop/models/order_history.dart';
+import 'package:union_shop/pages/order_history_page.dart';
 
 void main() {
-  runApp(const UnionShopApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => Cart()),
+        ChangeNotifierProvider(create: (_) => OrderHistory()),
+      ],
+      child: const UnionShopApp(),
+    ),
+  );
 }
 
 class UnionShopApp extends StatelessWidget {
@@ -83,18 +93,19 @@ class UnionShopApp extends StatelessWidget {
           path: '/print-shack/about',
           builder: (context, state) => const PrintShackAboutPage(),
         ),
+        GoRoute(
+          path: '/order-history',
+          builder: (context, state) => const OrderHistoryPage(),
+        ),
       ],
     );
 
-    return ChangeNotifierProvider(
-      create: (context) => Cart(),
-      child: MaterialApp.router(
-        routerConfig: router,
-        title: 'Union Shop',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4d2963)),
-        ),
+    return MaterialApp.router(
+      routerConfig: router,
+      title: 'Union Shop',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4d2963)),
       ),
     );
   }
