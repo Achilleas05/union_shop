@@ -143,14 +143,56 @@ class _CustomHeaderState extends State<CustomHeader> {
         _navButton('Home', () => context.go('/'), const Color(0xFF4d2963)),
         const SizedBox(width: 16),
         _navButton(
+            'About', () => context.go('/about'), const Color(0xFF4d2963)),
+        const SizedBox(width: 16),
+        _navButton(
             'SALE!', () => context.go('/collections/sale-items'), Colors.red,
             bold: true),
         const SizedBox(width: 16),
-        _navButton('PRINT SHACK', () => context.go('/print-shack'),
-            const Color(0xFF4d2963)),
-        _navButton('About', widget.onAboutPressed ?? () => context.go('/about'),
-            const Color(0xFF4d2963)),
+        _buildAboutDropdown(context),
       ],
+    );
+  }
+
+  Widget _buildAboutDropdown(BuildContext context) {
+    return PopupMenuButton<String>(
+      onSelected: (value) {
+        switch (value) {
+          case 'about':
+            context.go('/print-shack/about');
+            break;
+          case 'personalisation':
+            context.go('/print-shack');
+            break;
+        }
+      },
+      offset: const Offset(0, 40),
+      itemBuilder: (_) => const [
+        PopupMenuItem(value: 'about', child: Text('About Print Shack')),
+        PopupMenuItem(value: 'personalisation', child: Text('Personalisation')),
+      ],
+      child: const Padding(
+        padding: EdgeInsets.symmetric(horizontal: 8),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'PRINT SHACK',
+              style: TextStyle(
+                color: Color(0xFF4d2963),
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            SizedBox(width: 4),
+            Icon(
+              Icons.arrow_drop_down,
+              color: Color(0xFF4d2963),
+              size: 20,
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -267,7 +309,10 @@ class _CustomHeaderState extends State<CustomHeader> {
           case 'sale':
             context.go('/collections/sale-items');
             break;
-          case 'print_shack':
+          case 'print-shack-about':
+            context.go('/print-shack/about');
+            break;
+          case 'personalisation':
             context.go('/print-shack');
             break;
         }
@@ -276,7 +321,9 @@ class _CustomHeaderState extends State<CustomHeader> {
         PopupMenuItem(value: 'home', child: Text('Home')),
         PopupMenuItem(value: 'about', child: Text('About')),
         PopupMenuItem(value: 'sale', child: Text('SALE!')),
-        PopupMenuItem(value: 'print_shack', child: Text('PRINT SHACK')),
+        PopupMenuItem(
+            value: 'print-shack-about', child: Text('About Print Shack')),
+        PopupMenuItem(value: 'personalisation', child: Text('Personalisation')),
       ],
       icon: const Icon(Icons.menu, size: 18, color: Colors.grey),
     );
