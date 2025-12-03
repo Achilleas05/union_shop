@@ -137,40 +137,40 @@ The table below is an almost comprehensive list of features present on the websi
 
 ⚠️ Note that this assessment focuses on functionality over visual design (do not spend a lot of time making it look exactly like the real website). You do not have to list the exact same products or collections as the real website. You are also encouraged to use copyright-free or AI-generated images instead of downloading images from the real website.
 
-| Feature | Description | Marks (%) | Reference |
-|---------|-------------|-----------|-----------|
-| **Basic (40%)** | | | |
-| Static Homepage | Homepage layout and widgets with static content (hardcoded data* acceptable, mobile view focus) | 5% | [Homepage](https://shop.upsu.net/) |
-| Static Navbar | Top navigation bar with menu (links do not have to work at this stage, mobile view focus) | 5% | [Homepage](https://shop.upsu.net/) |
-| About Us Page | Static about us page* with company information (separate page from homepage) | 5% | [About Us](https://shop.upsu.net/pages/about-us) |
-| Footer | Footer with dummy* links and information present in at least one page | 4% | [Homepage](https://shop.upsu.net/) |
-| Dummy* Collections Page | Page displaying various collections of products (hardcoded data* acceptable) | 5% | [Collections](https://shop.upsu.net/collections/) |
-| Dummy* Collection Page | Page displaying products within one collection including dropdowns and filters (hardcoded data* acceptable, widgets do not have to function) | 5% | [Collection Example](https://shop.upsu.net/collections/autumn-favourites) |
-| Dummy* Product Page | Product page showing details and images with dropdowns, buttons and widgets (hardcoded data* acceptable, widgets do not have to function) | 4% | [Product Example](https://shop.upsu.net/collections/autumn-favourites/products/classic-sweatshirt-1) |
-| Sale Collection | Page showing sale products with discounted prices and promotional messaging (hardcoded data* acceptable, widgets do not have to function) | 4% | [Sale Items](https://shop.upsu.net/collections/sale-items) |
-| Authentication UI | Login/signup page with the relevant forms (widgets do not have to function) | 3% | [Sign In](https://shop.upsu.net/account/login) |
-| **Intermediate (35%)** | | | |
-| Navigation | Full navigation across all pages; users should be able to navigate using buttons, navbar, and URLs | 3% | All pages |
-| Dynamic Collections Page | Collections page populated from data models or services with functioning sorting, filtering, pagination widgets | 6% | [Collections](https://shop.upsu.net/collections/) |
-| Dynamic Collection Page | Product listings of a collection populated from data models or services with functioning sorting, filtering, pagination widgets | 6% | [Collection Example](https://shop.upsu.net/collections/autumn-favourites) |
-| Functional Product Pages | Product pages populated from data models or services with functioning dropdowns and counters (add to cart buttons do not have to work yet) | 6% | [Product Example](https://shop.upsu.net/collections/autumn-favourites/products/classic-sweatshirt-1) |
-| Shopping Cart | Add items to cart, view cart page, basic cart functionality (checkout buttons should place order without real monetary transactions) | 6% | [Cart](https://shop.upsu.net/cart) |
-| Print Shack | Text personalisation page with associated about page, the form must dynamically update based on selected fields | 3% | [Personalisation](https://shop.upsu.net/products/personalise-text) |
-| Responsiveness* | The layout of the application should be adaptive and the application should function on desktop in addition to mobile view (no need to test it on real devices) | 5% | All pages |
-| **Advanced (25%)** | | | |
-| Authentication System | Full user authentication and account management (you can implement this with other external authentications like Google, not just Shop), includes the account dashboard and all relevant functionality | 8% | [Account](https://shop.upsu.net/account) |
-| Cart Management | Full cart functionality including quantity editing/removal, price calculations and persistence | 6% | [Cart](https://shop.upsu.net/cart) |
-| Search System | Complete search functionality (search buttons should function on the navbar and the footer) | 4% | [Search](https://shop.upsu.net/search) |
+| Feature                  | Description                                                                                                                                                                                            | Marks (%) | Reference                                                                                            |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------- | ---------------------------------------------------------------------------------------------------- |
+| **Basic (40%)**          |                                                                                                                                                                                                        |           |                                                                                                      |
+| Static Homepage          | Homepage layout and widgets with static content (hardcoded data\* acceptable, mobile view focus)                                                                                                       | 5%        | [Homepage](https://shop.upsu.net/)                                                                   |
+| Static Navbar            | Top navigation bar with menu (links do not have to work at this stage, mobile view focus)                                                                                                              | 5%        | [Homepage](https://shop.upsu.net/)                                                                   |
+| About Us Page            | Static about us page\* with company information (separate page from homepage)                                                                                                                          | 5%        | [About Us](https://shop.upsu.net/pages/about-us)                                                     |
+| Footer                   | Footer with dummy\* links and information present in at least one page                                                                                                                                 | 4%        | [Homepage](https://shop.upsu.net/)                                                                   |
+| Dummy\* Collections Page | Page displaying various collections of products (hardcoded data\* acceptable)                                                                                                                          | 5%        | [Collections](https://shop.upsu.net/collections/)                                                    |
+| Dummy\* Collection Page  | Page displaying products within one collection including dropdowns and filters (hardcoded data\* acceptable, widgets do not have to function)                                                          | 5%        | [Collection Example](https://shop.upsu.net/collections/autumn-favourites)                            |
+| Dummy\* Product Page     | Product page showing details and images with dropdowns, buttons and widgets (hardcoded data\* acceptable, widgets do not have to function)                                                             | 4%        | [Product Example](https://shop.upsu.net/collections/autumn-favourites/products/classic-sweatshirt-1) |
+| Sale Collection          | Page showing sale products with discounted prices and promotional messaging (hardcoded data\* acceptable, widgets do not have to function)                                                             | 4%        | [Sale Items](https://shop.upsu.net/collections/sale-items)                                           |
+| Authentication UI        | Login/signup page with the relevant forms (widgets do not have to function)                                                                                                                            | 3%        | [Sign In](https://shop.upsu.net/account/login)                                                       |
+| **Intermediate (35%)**   |                                                                                                                                                                                                        |           |                                                                                                      |
+| Navigation               | Full navigation across all pages; users should be able to navigate using buttons, navbar, and URLs                                                                                                     | 3%        | All pages                                                                                            |
+| Dynamic Collections Page | Collections page populated from data models or services with functioning sorting, filtering, pagination widgets                                                                                        | 6%        | [Collections](https://shop.upsu.net/collections/)                                                    |
+| Dynamic Collection Page  | Product listings of a collection populated from data models or services with functioning sorting, filtering, pagination widgets                                                                        | 6%        | [Collection Example](https://shop.upsu.net/collections/autumn-favourites)                            |
+| Functional Product Pages | Product pages populated from data models or services with functioning dropdowns and counters (add to cart buttons do not have to work yet)                                                             | 6%        | [Product Example](https://shop.upsu.net/collections/autumn-favourites/products/classic-sweatshirt-1) |
+| Shopping Cart            | Add items to cart, view cart page, basic cart functionality (checkout buttons should place order without real monetary transactions)                                                                   | 6%        | [Cart](https://shop.upsu.net/cart)                                                                   |
+| Print Shack              | Text personalisation page with associated about page, the form must dynamically update based on selected fields                                                                                        | 3%        | [Personalisation](https://shop.upsu.net/products/personalise-text)                                   |
+| Responsiveness\*         | The layout of the application should be adaptive and the application should function on desktop in addition to mobile view (no need to test it on real devices)                                        | 5%        | All pages                                                                                            |
+| **Advanced (25%)**       |                                                                                                                                                                                                        |           |                                                                                                      |
+| Authentication System    | Full user authentication and account management (you can implement this with other external authentications like Google, not just Shop), includes the account dashboard and all relevant functionality | 8%        | [Account](https://shop.upsu.net/account)                                                             |
+| Cart Management          | Full cart functionality including quantity editing/removal, price calculations and persistence                                                                                                         | 6%        | [Cart](https://shop.upsu.net/cart)                                                                   |
+| Search System            | Complete search functionality (search buttons should function on the navbar and the footer)                                                                                                            | 4%        | [Search](https://shop.upsu.net/search)                                                               |
 
 Below are explanations for some of the terminology used in the table:
 
-***Pages** refer to distinct screens or views in your application that users can navigate to. See [line 22 of `lib/main.dart`](https://github.com/manighahrmani/union_shop/blob/main/lib/main.dart#L22) or the `navigateToProduct` function in the same file for an example of how to define routes for different pages.
+**\*Pages** refer to distinct screens or views in your application that users can navigate to. See [line 22 of `lib/main.dart`](https://github.com/manighahrmani/union_shop/blob/main/lib/main.dart#L22) or the `navigateToProduct` function in the same file for an example of how to define routes for different pages.
 
-***Hardcoded data** refers to data (text or images) that is directly written into your code files rather than being fetched from a database or external service. For example, you can create a list of products with an AI-generated image and text descriptions directly in your Dart code instead of retrieving them from a backend.
+**\*Hardcoded data** refers to data (text or images) that is directly written into your code files rather than being fetched from a database or external service. For example, you can create a list of products with an AI-generated image and text descriptions directly in your Dart code instead of retrieving them from a backend.
 
-***Dummy data** is data that is often hardcoded or (AI) generated for display or testing purposes. It is not meant to represent real-world data stored in your services.
+**\*Dummy data** is data that is often hardcoded or (AI) generated for display or testing purposes. It is not meant to represent real-world data stored in your services.
 
-***Responsiveness** refers to the ability of your application to adapt its layout and design based on the screen size and orientation of the device it is being viewed on. Your app should primarily focus on mobile view but to achieve full marks in this section, it should also function correctly on wider screens (desktop view).
+**\*Responsiveness** refers to the ability of your application to adapt its layout and design based on the screen size and orientation of the device it is being viewed on. Your app should primarily focus on mobile view but to achieve full marks in this section, it should also function correctly on wider screens (desktop view).
 
 ### Software Development Practices
 
@@ -178,22 +178,22 @@ In addition to functionality, you will be assessed on your software development 
 
 The table below outlines the aspects that will be evaluated and the mark (from the 25%) allocated to each:
 
-| Aspect | Description | Marks (%) |
-|--------|-------------|-----------|
-| Git | Regular, small, meaningful commits* to your repository throughout development; clear commit messages | 8% |
-| README | A comprehensive, well-formatted and accurate README file* (delete the current README file first) | 5% |
-| Testing | Tests covering all or almost all of the application; passing tests | 6% |
-| External Services* | Integration and utilization of cloud services | 6% |
+| Aspect              | Description                                                                                           | Marks (%) |
+| ------------------- | ----------------------------------------------------------------------------------------------------- | --------- |
+| Git                 | Regular, small, meaningful commits\* to your repository throughout development; clear commit messages | 8%        |
+| README              | A comprehensive, well-formatted and accurate README file\* (delete the current README file first)     | 5%        |
+| Testing             | Tests covering all or almost all of the application; passing tests                                    | 6%        |
+| External Services\* | Integration and utilization of cloud services                                                         | 6%        |
 
 ⚠️ You may not be awarded the 25% software development practices mark if your code has problems or poor quality. Your code must be properly formatted and free from errors, warnings, or suggestions. Make sure your codebase is also well-structured, refactored and relatively free of repetition too. Your code must be your own work (you need to understand it). **Plagiarised code** (e.g., commits showing large chunks of code copied over, especially from other students) will be penalised according to the University’s academic misconduct policy, and you be awarded 0 marks for the entire coursework.
 
 Below are some explanations for the terminology used in the table:
 
-***Regular, small, meaningful commits**: [worksheet 2](https://manighahrmani.github.io/sandwich_shop/worksheet-2.html) onwards on the [Flutter Course homepage](https://manighahrmani.github.io/sandwich_shop/) have demonstrated how to use Git effectively. You need to follow the practice taught in the worksheets.
+**\*Regular, small, meaningful commits**: [worksheet 2](https://manighahrmani.github.io/sandwich_shop/worksheet-2.html) onwards on the [Flutter Course homepage](https://manighahrmani.github.io/sandwich_shop/) have demonstrated how to use Git effectively. You need to follow the practice taught in the worksheets.
 
-***README**: Refer to [worksheet 4](https://manighahrmani.github.io/sandwich_shop/worksheet-4.html#writing-a-readme) for guidance on writing a good README file.
+**\*README**: Refer to [worksheet 4](https://manighahrmani.github.io/sandwich_shop/worksheet-4.html#writing-a-readme) for guidance on writing a good README file.
 
-***External Services** refer to third-party cloud services like Firebase or Azure that your application integrates with. This could include services like user authentication, database, or hosting the application live on the web. To get marks for this, you must integrate at **least two** separate external services. You are only awarded marks if your README documents this integration and explains how it is used in your application (e.g., provide a live link to the website if you have hosted it).
+**\*External Services** refer to third-party cloud services like Firebase or Azure that your application integrates with. This could include services like user authentication, database, or hosting the application live on the web. To get marks for this, you must integrate at **least two** separate external services. You are only awarded marks if your README documents this integration and explains how it is used in your application (e.g., provide a live link to the website if you have hosted it).
 
 ## Submission
 
@@ -270,3 +270,32 @@ git push
 If you make a mistake and need to revert to a previous commit, you can view your commit history with `git log --oneline`, find the commit hash where things were working (for example, `abc1234`), and revert to that commit with `git reset --hard abc1234`. If necessary, you can force push with `git push --force`. In extreme cases where your repository is completely broken and unrecoverable, you can start fresh by deleting your forked repository on GitHub (Settings → Danger Zone → Delete this repository), forking the original repository again from [github.com/manighahrmani/union_shop](https://github.com/manighahrmani/union_shop), and cloning your fresh fork.
 
 AI tools are valuable during development, and you are encouraged to use them. However, you must apply the best practices taught in the worksheets, particularly those covered in [Worksheet 6](https://manighahrmani.github.io/sandwich_shop/worksheet-6.html). AI-generated code should be reviewed, understood, and adapted to fit your application properly. Blindly copying AI suggestions without understanding them will likely result in poor code quality and may not meet the requirements. Use AI as a learning aid and coding partner rather than a replacement for your own understanding and decision-making.
+
+# Union Shop
+
+A Flutter-based e-commerce demo app for the University of Portsmouth Students' Union (UPSU).  
+Provides browsing of collections and products, a cart, basic authentication UI, and order history — built as a local/demo app (no backend).
+
+---
+
+## Key features
+
+- Browse collections and featured products
+- Product detail pages and images (local assets)
+- Add/remove items from a cart (local state via Provider)
+- Simple order history (local, no backend)
+- Pages for Print Shack and UPSU information
+- Responsive layout for mobiles and wider screens
+- Routing with go_router and state with provider
+
+---
+
+## Quickstart — prerequisites
+
+- Flutter SDK (>= stable channel). Install: https://flutter.dev/docs/get-started/install
+- Git
+- A code editor (VS Code, Android Studio, etc.)
+
+---
+
+## Clone & run
