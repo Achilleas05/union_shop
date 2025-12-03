@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:union_shop/widgets/header.dart';
 import 'package:union_shop/widgets/footer.dart';
 import 'package:union_shop/models/cart.dart';
+import 'package:union_shop/models/order_history.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
@@ -534,8 +535,21 @@ class CartContent extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                // Simulate checkout
-                _showCheckoutDialog(context, cart);
+                final cartProvider = Provider.of<Cart>(context, listen: false);
+                final orderHistory =
+                    Provider.of<OrderHistory>(context, listen: false);
+
+                orderHistory.addOrder(cartProvider);
+                cartProvider.clear();
+
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Order placed successfully!'),
+                    backgroundColor: Colors.green,
+                  ),
+                );
+
+                context.go('/order-history');
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF4d2963),
@@ -568,39 +582,6 @@ class CartContent extends StatelessWidget {
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _showCheckoutDialog(BuildContext context, Cart cart) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Order Confirmation'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('Thank you for your order!'),
-            const SizedBox(height: 16),
-            Text('Total: £${cart.totalAmount.toStringAsFixed(2)}'),
-            const SizedBox(height: 8),
-            const Text(
-              'This is a demo checkout. No actual payment was processed.',
-              style: TextStyle(fontSize: 12, color: Colors.grey),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              cart.clear();
-              context.go('/');
-            },
-            child: const Text('Continue Shopping'),
           ),
         ],
       ),
