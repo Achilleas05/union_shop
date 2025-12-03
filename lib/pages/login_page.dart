@@ -122,6 +122,32 @@ class LoginPage extends StatelessWidget {
                               ),
                             ),
                           ),
+                          const SizedBox(height: 22),
+                          SizedBox(
+                            height: 48,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.grey[200],
+                                foregroundColor: Colors.grey,
+                                elevation: 0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(7),
+                                ),
+                              ),
+                              onPressed: null, // fully disables button
+                              child: const Text(
+                                "Continue",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600, fontSize: 17),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          TextButton(
+                            onPressed: () => context.go('/sign-up'),
+                            child:
+                                const Text('Don\'t have an account? Sign up'),
+                          ),
                         ],
                       ),
                     ),
