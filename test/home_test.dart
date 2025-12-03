@@ -1,14 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:union_shop/main.dart';
+import 'package:union_shop/models/cart.dart';
 import 'package:union_shop/widgets/footer.dart';
 import 'package:union_shop/widgets/header.dart';
+
+// Helper function to create testable widget with providers
+Widget createTestableWidget(Widget child) {
+  return ChangeNotifierProvider(
+    create: (_) => Cart(),
+    child: child,
+  );
+}
 
 void main() {
   group('Home Page Tests', () {
     testWidgets('should display home page with basic elements', (tester) async {
-      await tester.pumpWidget(const UnionShopApp());
+      await tester.pumpWidget(createTestableWidget(const UnionShopApp()));
       await tester.pumpAndSettle();
 
       // Check that basic UI elements are present
@@ -26,7 +36,7 @@ void main() {
     });
 
     testWidgets('should display product cards', (tester) async {
-      await tester.pumpWidget(const UnionShopApp());
+      await tester.pumpWidget(createTestableWidget(const UnionShopApp()));
       await tester.pumpAndSettle();
 
       // Check that product cards are displayed
@@ -43,7 +53,7 @@ void main() {
     });
 
     testWidgets('should display header icons', (tester) async {
-      await tester.pumpWidget(const UnionShopApp());
+      await tester.pumpWidget(createTestableWidget(const UnionShopApp()));
       await tester.pumpAndSettle();
 
       // Check that header is present
@@ -51,7 +61,7 @@ void main() {
     });
 
     testWidgets('should display footer', (tester) async {
-      await tester.pumpWidget(const UnionShopApp());
+      await tester.pumpWidget(createTestableWidget(const UnionShopApp()));
       await tester.pumpAndSettle();
 
       // Check that footer is present (update with actual footer text from Footer widget)
@@ -61,7 +71,7 @@ void main() {
     testWidgets(
         'should navigate to collections when BROWSE COLLECTION button is tapped',
         (tester) async {
-      await tester.pumpWidget(const UnionShopApp());
+      await tester.pumpWidget(createTestableWidget(const UnionShopApp()));
       await tester.pumpAndSettle();
 
       // Tap the BROWSE COLLECTION button
@@ -74,7 +84,7 @@ void main() {
 
     testWidgets('should navigate to product page when product card is tapped',
         (tester) async {
-      await tester.pumpWidget(const UnionShopApp());
+      await tester.pumpWidget(createTestableWidget(const UnionShopApp()));
       await tester.pumpAndSettle();
 
       // Drag to scroll down to reveal product cards
@@ -95,7 +105,7 @@ void main() {
       tester.view.physicalSize = const Size(400, 800);
       tester.view.devicePixelRatio = 1.0;
 
-      await tester.pumpWidget(const UnionShopApp());
+      await tester.pumpWidget(createTestableWidget(const UnionShopApp()));
       await tester.pumpAndSettle();
 
       // Check that hero text is present
@@ -116,7 +126,7 @@ void main() {
       tester.view.physicalSize = const Size(1200, 800);
       tester.view.devicePixelRatio = 1.0;
 
-      await tester.pumpWidget(const UnionShopApp());
+      await tester.pumpWidget(createTestableWidget(const UnionShopApp()));
       await tester.pumpAndSettle();
 
       // Verify GridView has 2 columns for desktop
@@ -130,14 +140,14 @@ void main() {
 
     testWidgets('should have SingleChildScrollView for scrolling',
         (tester) async {
-      await tester.pumpWidget(const UnionShopApp());
+      await tester.pumpWidget(createTestableWidget(const UnionShopApp()));
       await tester.pumpAndSettle();
 
       expect(find.byType(SingleChildScrollView), findsOneWidget);
     });
 
     testWidgets('should navigate to different product pages', (tester) async {
-      await tester.pumpWidget(const UnionShopApp());
+      await tester.pumpWidget(createTestableWidget(const UnionShopApp()));
       await tester.pumpAndSettle();
 
       // Scroll down to reveal products
@@ -152,7 +162,7 @@ void main() {
     });
 
     testWidgets('should test HomeScreen navigation methods', (tester) async {
-      await tester.pumpWidget(const UnionShopApp());
+      await tester.pumpWidget(createTestableWidget(const UnionShopApp()));
       await tester.pumpAndSettle();
 
       final homeScreen = tester.widget<HomeScreen>(find.byType(HomeScreen));
@@ -165,7 +175,7 @@ void main() {
     });
 
     testWidgets('should navigate to about page', (tester) async {
-      await tester.pumpWidget(const UnionShopApp());
+      await tester.pumpWidget(createTestableWidget(const UnionShopApp()));
       await tester.pumpAndSettle();
 
       final homeScreen = tester.widget<HomeScreen>(find.byType(HomeScreen));
@@ -178,7 +188,7 @@ void main() {
     });
 
     testWidgets('should navigate to product page', (tester) async {
-      await tester.pumpWidget(const UnionShopApp());
+      await tester.pumpWidget(createTestableWidget(const UnionShopApp()));
       await tester.pumpAndSettle();
 
       final homeScreen = tester.widget<HomeScreen>(find.byType(HomeScreen));
@@ -191,7 +201,7 @@ void main() {
     });
 
     testWidgets('should navigate to collections page', (tester) async {
-      await tester.pumpWidget(const UnionShopApp());
+      await tester.pumpWidget(createTestableWidget(const UnionShopApp()));
       await tester.pumpAndSettle();
 
       final homeScreen = tester.widget<HomeScreen>(find.byType(HomeScreen));
@@ -231,7 +241,12 @@ void main() {
         initialLocation: '/',
       );
 
-      await tester.pumpWidget(MaterialApp.router(routerConfig: router));
+      await tester.pumpWidget(
+        ChangeNotifierProvider(
+          create: (_) => Cart(),
+          child: MaterialApp.router(routerConfig: router),
+        ),
+      );
       await tester.pumpAndSettle();
 
       // Find and tap the ProductCard
@@ -244,7 +259,7 @@ void main() {
 
     testWidgets('should render hero section with correct styling',
         (tester) async {
-      await tester.pumpWidget(const UnionShopApp());
+      await tester.pumpWidget(createTestableWidget(const UnionShopApp()));
       await tester.pumpAndSettle();
 
       // Check Stack widget exists
