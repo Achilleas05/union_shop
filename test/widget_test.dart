@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:union_shop/main.dart';
+import 'package:provider/provider.dart';
+import 'package:union_shop/models/cart.dart';
 
 void main() {
+  Widget createTestApp() {
+    return ChangeNotifierProvider(
+      create: (_) => Cart(),
+      child: const UnionShopApp(),
+    );
+  }
+
   testWidgets('App loads and displays header', (WidgetTester tester) async {
-    await tester.pumpWidget(const UnionShopApp());
+    await tester.pumpWidget(createTestApp());
     await tester.pumpAndSettle();
 
     // Verify header elements are present
@@ -16,7 +25,7 @@ void main() {
 
   testWidgets('Home page displays featured products',
       (WidgetTester tester) async {
-    await tester.pumpWidget(const UnionShopApp());
+    await tester.pumpWidget(createTestApp());
     await tester.pumpAndSettle();
 
     expect(find.text('FEATURED PRODUCTS'), findsOneWidget);
@@ -25,7 +34,7 @@ void main() {
   });
 
   testWidgets('Navigation buttons work correctly', (WidgetTester tester) async {
-    await tester.pumpWidget(const UnionShopApp());
+    await tester.pumpWidget(createTestApp());
     await tester.pumpAndSettle();
 
     // Test About navigation
@@ -40,7 +49,7 @@ void main() {
   });
 
   testWidgets('Print Shack dropdown works', (WidgetTester tester) async {
-    await tester.pumpWidget(const UnionShopApp());
+    await tester.pumpWidget(createTestApp());
     await tester.pumpAndSettle();
 
     // Tap the Print Shack dropdown
@@ -59,7 +68,7 @@ void main() {
 
   testWidgets('Print Shack about page displays correctly',
       (WidgetTester tester) async {
-    await tester.pumpWidget(const UnionShopApp());
+    await tester.pumpWidget(createTestApp());
     await tester.pumpAndSettle();
 
     // Navigate to Print Shack About
@@ -78,7 +87,7 @@ void main() {
 
   testWidgets('Print Shack personalisation page displays correctly',
       (WidgetTester tester) async {
-    await tester.pumpWidget(const UnionShopApp());
+    await tester.pumpWidget(createTestApp());
     await tester.pumpAndSettle();
 
     // Navigate to Print Shack Personalisation
@@ -102,7 +111,7 @@ void main() {
       tester.view.resetDevicePixelRatio();
     });
 
-    await tester.pumpWidget(const UnionShopApp());
+    await tester.pumpWidget(createTestApp());
     await tester.pumpAndSettle();
 
     // Open mobile menu
@@ -118,21 +127,21 @@ void main() {
   });
 
   testWidgets('Cart icon is visible in header', (WidgetTester tester) async {
-    await tester.pumpWidget(const UnionShopApp());
+    await tester.pumpWidget(createTestApp());
     await tester.pumpAndSettle();
 
     expect(find.byIcon(Icons.shopping_cart), findsOneWidget);
   });
 
   testWidgets('Search icon is visible in header', (WidgetTester tester) async {
-    await tester.pumpWidget(const UnionShopApp());
+    await tester.pumpWidget(createTestApp());
     await tester.pumpAndSettle();
 
     expect(find.byIcon(Icons.search), findsOneWidget);
   });
 
   testWidgets('Banner displays sale message', (WidgetTester tester) async {
-    await tester.pumpWidget(const UnionShopApp());
+    await tester.pumpWidget(createTestApp());
     await tester.pumpAndSettle();
 
     expect(find.textContaining('BIG SALE!'), findsOneWidget);
