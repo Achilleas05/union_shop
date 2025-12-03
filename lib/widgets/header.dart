@@ -10,11 +10,11 @@ class CustomHeader extends StatefulWidget {
   final VoidCallback? onCartPressed;
 
   const CustomHeader({
-    super.key,
+    Key? key,
     this.onHomePressed,
     this.onAboutPressed,
     this.onCartPressed,
-  });
+  }) : super(key: key);
 
   @override
   State<CustomHeader> createState() => _CustomHeaderState();
@@ -24,7 +24,9 @@ class _CustomHeaderState extends State<CustomHeader> {
   bool _showSearch = false;
 
   void _closeSearch() {
-    setState(() => _showSearch = false);
+    setState(() {
+      _showSearch = false;
+    });
   }
 
   @override
@@ -118,7 +120,13 @@ class _CustomHeaderState extends State<CustomHeader> {
 
   Widget _buildLogo(BuildContext context, bool isMobile) {
     return GestureDetector(
-      onTap: widget.onHomePressed ?? () => context.go('/'),
+      onTap: () {
+        if (widget.onHomePressed != null) {
+          widget.onHomePressed!();
+        } else {
+          context.go('/');
+        }
+      },
       child: Image.network(
         'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
         height: isMobile ? 24 : 30,
@@ -142,8 +150,23 @@ class _CustomHeaderState extends State<CustomHeader> {
       children: [
         _navButton('Home', () => context.go('/'), const Color(0xFF4d2963)),
         const SizedBox(width: 16),
-        _navButton(
-            'About', () => context.go('/about'), const Color(0xFF4d2963)),
+        TextButton(
+          onPressed: () {
+            if (widget.onAboutPressed != null) {
+              widget.onAboutPressed!();
+            } else {
+              context.go('/about');
+            }
+          },
+          child: const Text(
+            'About',
+            style: TextStyle(
+              color: Color(0xFF4d2963),
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
         const SizedBox(width: 16),
         _navButton(
             'SALE!', () => context.go('/collections/sale-items'), Colors.red,
@@ -266,7 +289,13 @@ class _CustomHeaderState extends State<CustomHeader> {
     return Consumer<Cart>(
       builder: (context, cart, child) {
         return InkWell(
-          onTap: widget.onCartPressed ?? () => context.go('/cart'),
+          onTap: () {
+            if (widget.onCartPressed != null) {
+              widget.onCartPressed!();
+            } else {
+              context.go('/cart');
+            }
+          },
           child: Container(
             padding: const EdgeInsets.all(12),
             child: Stack(
