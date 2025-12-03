@@ -217,6 +217,7 @@ class _CustomHeaderState extends State<CustomHeader> {
       mainAxisSize: MainAxisSize.min,
       children: [
         if (!_showSearch) _buildSearchIcon(),
+        if (!_showSearch) _buildHistoryIcon(context),
         if (!_showSearch)
           _buildIcon(Icons.person_outline, () => context.go('/login')),
         if (!_showSearch) _buildCartIcon(context),
@@ -240,6 +241,15 @@ class _CustomHeaderState extends State<CustomHeader> {
       padding: const EdgeInsets.all(8),
       constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
       onPressed: () => setState(() => _showSearch = true),
+    );
+  }
+
+  Widget _buildHistoryIcon(BuildContext context) {
+    return IconButton(
+      icon: const Icon(Icons.history, size: 18, color: Colors.grey),
+      padding: const EdgeInsets.all(8),
+      constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+      onPressed: () => context.go('/order-history'),
     );
   }
 
