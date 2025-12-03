@@ -1,5 +1,4 @@
-````markdown
-# Union Shop - Flutter E-Commerce Application
+git push --force-with-lease# Union Shop - Flutter E-Commerce Application
 
 A comprehensive e-commerce application built with Flutter, providing a complete shopping experience with product browsing, cart management, and product personalization features. This mobile-first application is optimized for web deployment with cross-platform compatibility.
 
@@ -17,9 +16,7 @@ A comprehensive e-commerce application built with Flutter, providing a complete 
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
   - [Running the Application](#running-the-application)
-  - [Testing](#testing)
 - [Project Structure](#-project-structure)
-- [Architecture & Design](#-architecture--design)
 - [State Management](#-state-management)
 - [Testing Strategy](#-testing-strategy)
 - [Development Guidelines](#-development-guidelines)
@@ -28,7 +25,6 @@ A comprehensive e-commerce application built with Flutter, providing a complete 
 - [Contributing](#-contributing)
 - [Contact & Support](#-contact--support)
 - [Acknowledgments](#-acknowledgments)
-- [License](#-license)
 - [Project Information](#-project-information)
 
 ## ✨ Features
@@ -152,7 +148,6 @@ sudo snap install flutter --classic
 # Verify installation
 flutter --version
 ```
-````
 
 ##### 2. Dart SDK (Version 2.17 or higher)
 
@@ -1267,7 +1262,3 @@ This project serves as a foundation for:
 **Built with ❤️ using Flutter**
 
 _Thank you for checking out Union Shop! We hope this project provides value for learning Flutter development and e-commerce application design._
-
-```
-
-```
