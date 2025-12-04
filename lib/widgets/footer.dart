@@ -11,6 +11,14 @@ class Footer extends StatefulWidget {
 class _FooterState extends State<Footer> {
   bool _showSearch = false;
 
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_showSearch) FocusScope.of(context).requestFocus();
+    });
+  }
+
   void _closeSearch() {
     setState(() {
       _showSearch = false;
@@ -34,9 +42,9 @@ class _FooterState extends State<Footer> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 if (_showSearch)
-                  Container(
-                    constraints: const BoxConstraints(maxWidth: 400),
-                    child: SearchOverlay(onClose: _closeSearch),
+                  SearchOverlay(
+                    onClose: _closeSearch,
+                    useOverlay: false,
                   ),
                 const SizedBox(height: 20),
                 isMobile
