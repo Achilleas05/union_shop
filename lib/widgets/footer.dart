@@ -1,7 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:union_shop/widgets/search_overlay.dart';
 
-class Footer extends StatelessWidget {
+class Footer extends StatefulWidget {
   const Footer({super.key});
+
+  @override
+  State<Footer> createState() => _FooterState();
+}
+
+class _FooterState extends State<Footer> {
+  bool _showSearch = false;
+
+  void _closeSearch() {
+    setState(() {
+      _showSearch = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +33,12 @@ class Footer extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                if (_showSearch)
+                  Container(
+                    constraints: const BoxConstraints(maxWidth: 400),
+                    child: SearchOverlay(onClose: _closeSearch),
+                  ),
+                const SizedBox(height: 20),
                 isMobile
                     ? Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -246,7 +266,9 @@ class Footer extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: TextButton(
-        onPressed: () {}, // Placeholder for future functionality
+        onPressed: text == 'Search'
+            ? () => setState(() => _showSearch = true)
+            : () {}, // Placeholder for future functionality
         style: TextButton.styleFrom(
           padding: EdgeInsets.zero,
           minimumSize: const Size(0, 0),
