@@ -5,10 +5,12 @@ import 'package:union_shop/models/fixtures.dart';
 
 class SearchOverlay extends StatefulWidget {
   final VoidCallback onClose;
+  final bool useOverlay;
 
   const SearchOverlay({
     super.key,
     required this.onClose,
+    this.useOverlay = true,
   });
 
   @override
@@ -43,6 +45,7 @@ class _SearchOverlayState extends State<SearchOverlay> {
   }
 
   void _showResultsOverlay() {
+    if (!widget.useOverlay) return;
     _removeOverlay();
     if (_searchResults.isEmpty) return;
 
@@ -122,11 +125,76 @@ class _SearchOverlayState extends State<SearchOverlay> {
     }).toList();
 
     setState(() => _searchResults = results);
-    _showResultsOverlay();
+    if (widget.useOverlay) {
+      _showResultsOverlay();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    if (!widget.useOverlay) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          TextField(
+            controller: _searchController,
+            focusNode: _searchFocusNode,
+            onChanged: _performSearch,
+            decoration: InputDecoration(
+              hintText: 'Search products...',
+              prefixIcon: const Icon(Icons.search, size: 18),
+              suffixIcon: IconButton(
+                icon: const Icon(Icons.close, size: 18),
+                onPressed: widget.onClose,
+              ),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+            ),
+          ),
+          if (_searchResults.isNotEmpty)
+            Container(
+              constraints: const BoxConstraints(maxHeight: 300),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(color: Colors.grey[300]!),
+                borderRadius: BorderRadius.circular(8),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withAlpha(20),
+                    blurRadius: 8,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: _searchResults.length,
+                itemBuilder: (context, index) {
+                  final product = _searchResults[index];
+                  return ListTile(
+                    leading: _buildProductImage(product.imageUrl),
+                    title: Text(
+                      product.title ?? product.name,
+                      style: const TextStyle(
+                          fontSize: 14, fontWeight: FontWeight.w500),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    subtitle: Text(
+                      product.price.toString(),
+                      style: const TextStyle(fontSize: 12, color: Colors.grey),
+                    ),
+                    onTap: () => _navigateToProduct(context, product.id),
+                  );
+                },
+              ),
+            ),
+        ],
+      );
+    }
+
     return Container(
       constraints: const BoxConstraints(maxWidth: 400),
       child: TextField(
