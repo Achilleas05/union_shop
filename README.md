@@ -255,9 +255,17 @@ union_shop/
 ├── ios/
 ├── web/
 ├── windows/
+├── linux/
+├── macos/
 ├── coverage/
+├── .gitignore
+├── analysis_options.yaml
 ├── pubspec.yaml
-└── README.md
+├── pubspec.lock
+├── README.md
+├── requirements.md
+├── prompt.md
+└── flutter_01.log
 ```
 
 #### Step 2: Install Dependencies
@@ -502,6 +510,7 @@ test/
 │   ├── cart_test.dart              # Cart operations and validation
 │   ├── collection_test.dart         # Collection logic and organization
 │   ├── fixtures_test.dart          # Sample data generation and testing
+│   ├── order_history_test.dart     # Order history tracking and testing
 │   ├── order_test.dart             # Order processing and history
 │   └── product_test.dart           # Product model validation and pricing
 ├── pages/                          # Page/Screen tests
@@ -510,16 +519,16 @@ test/
 │   ├── collection_page_test.dart   # Collection view interactions
 │   ├── collections_page_test.dart  # Collections listing and navigation
 │   ├── login_page_test.dart        # Login interface and validation
-│   ├── sign_up_page_test.dart      # User registration interface tests
 │   ├── print_shack_about_page_test.dart # Print Shack information display
-│   └── print_shack_page_test.dart  # Product personalization interface
+│   ├── print_shack_page_test.dart  # Product personalization interface
+│   ├── product_page_test.dart      # Product detail page tests
+│   └── sign_up_page_test.dart      # User registration interface tests
 ├── widgets/                        # Widget tests
 │   ├── footer_test.dart            # Footer component rendering
 │   ├── header_test.dart            # Header navigation and functionality
-│   └── search_overlay_test.dart    # Search functionality and UI
-├── home_test.dart                  # Homepage layout and features
-├── product_test.dart               # Product display and interactions
-└── widget_test.dart                # Basic widget testing framework
+│   ├── search_overlay_test.dart    # Search functionality and UI
+│   └── widget_test.dart            # Basic widget testing framework
+└── home_test.dart                  # Homepage layout and features
 ```
 
 #### Test Coverage
@@ -671,6 +680,7 @@ union_shop/
 │   │   ├── cart_test.dart        # Cart functionality tests
 │   │   ├── collection_test.dart  # Collection model tests
 │   │   ├── fixtures_test.dart    # Sample data tests
+│   │   ├── order_history_test.dart # Order history tests
 │   │   ├── order_test.dart       # Order processing tests
 │   │   └── product_test.dart     # Product model validation
 │   ├── pages/                    # Page/Screen tests
@@ -680,24 +690,44 @@ union_shop/
 │   │   ├── collections_page_test.dart # Collections listing tests
 │   │   ├── login_page_test.dart      # Login interface tests
 │   │   ├── print_shack_about_page_test.dart # Print Shack info tests
-│   │   └── print_shack_page_test.dart # Personalization interface tests
+│   │   ├── print_shack_page_test.dart # Personalization interface tests
+│   │   ├── product_page_test.dart    # Product page tests
+│   │   └── sign_up_page_test.dart    # Sign up page tests
 │   ├── widgets/                  # Widget component tests
 │   │   ├── footer_test.dart     # Footer rendering tests
 │   │   ├── header_test.dart     # Header functionality tests
-│   │   └── search_overlay_test.dart # Search overlay tests
-│   ├── home_test.dart           # Homepage tests
-│   ├── product_test.dart        # Product display tests
-│   └── widget_test.dart         # Basic widget tests
+│   │   ├── search_overlay_test.dart # Search overlay tests
+│   │   └── widget_test.dart     # Basic widget tests
+│   └── home_test.dart           # Homepage tests
 ├── assets/                       # Images, fonts, and static resources
 │   ├── home-mobile.png          # Mobile homepage screenshot
 │   ├── home-desktop.png         # Desktop homepage screenshot
-│   └── [other assets]           # Additional images and resources
+│   ├── portsmouth_bag.png       # Portsmouth bag product image
+│   ├── portsmouth_beanie.png    # Portsmouth beanie product image
+│   ├── portsmouth_calculator.png # Portsmouth calculator product image
+│   ├── portsmouth_frame.png     # Portsmouth frame product image
+│   ├── portsmouth_grad_hat.png  # Portsmouth graduation hat product image
+│   ├── portsmouth_headset.png   # Portsmouth headset product image
+│   ├── portsmouth_hoodie.png    # Portsmouth hoodie product image
+│   ├── portsmouth_index_cards.png # Portsmouth index cards product image
+│   ├── portsmouth_keychains.png # Portsmouth keychains product image
+│   ├── portsmouth_laptop.png    # Portsmouth laptop product image
+│   ├── portsmouth_magnet.png    # Portsmouth magnet product image
+│   ├── portsmouth_mug.png       # Portsmouth mug product image
+│   ├── portsmouth_pants.png     # Portsmouth pants product image
+│   ├── portsmouth_pen.png       # Portsmouth pen product image
+│   ├── portsmouth_polo.png      # Portsmouth polo shirt product image
+│   ├── portsmouth_stickynotes.png # Portsmouth sticky notes product image
+│   └── portsmouth_varsity.png   # Portsmouth varsity jacket product image
 ├── android/                     # Android-specific configuration
 ├── ios/                         # iOS-specific configuration
 ├── web/                         # Web-specific configuration and assets
 ├── windows/                     # Windows-specific configuration
 ├── linux/                       # Linux-specific configuration
 ├── macos/                       # macOS-specific configuration
+├── build/                       # Build output directory
+├── coverage/                    # Test coverage reports
+├── .dart_tool/                  # Dart tooling cache and configuration
 ├── .gitignore                   # Git ignore rules
 ├── analysis_options.yaml        # Dart/Flutter analysis configuration
 ├── pubspec.yaml                 # Dependencies and project metadata
