@@ -26,11 +26,19 @@ class _CollectionPageState extends State<CollectionPage> {
   late List<Product> _filteredAndSortedProducts;
 
   int _currentPage = 1;
-  final int _pageSize = 6;
 
-  int get _totalPages => _filteredAndSortedProducts.isEmpty
-      ? 1
-      : (_filteredAndSortedProducts.length / _pageSize).ceil();
+  int get _pageSize {
+    final isMobile = MediaQuery.of(context).size.width < 600;
+    return isMobile ? 4 : 1000;
+  }
+
+  int get _totalPages {
+    final isMobile = MediaQuery.of(context).size.width < 600;
+    if (!isMobile || _filteredAndSortedProducts.length < 4) {
+      return 1; // No pagination if <4 on mobile
+    }
+    return (_filteredAndSortedProducts.length / _pageSize).ceil();
+  }
 
   @override
   void initState() {
@@ -104,6 +112,10 @@ class _CollectionPageState extends State<CollectionPage> {
   }
 
   List<Product> _currentPageItems() {
+    final isMobile = MediaQuery.of(context).size.width < 600;
+    if (!isMobile || _filteredAndSortedProducts.length < 4) {
+      return _filteredAndSortedProducts;
+    }
     if (_filteredAndSortedProducts.isEmpty) return const [];
     final startIndex = (_currentPage - 1) * _pageSize;
     final endIndex =
@@ -534,6 +546,9 @@ class _CollectionPageState extends State<CollectionPage> {
   }
 
   Widget _buildPaginationControls() {
+    if (_totalPages <= 0) {
+      return const SizedBox.shrink();
+    }
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Row(
