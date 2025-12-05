@@ -143,6 +143,10 @@ class _CollectionPageState extends State<CollectionPage> {
     final screenWidth = MediaQuery.of(context).size.width;
     final isMobile = screenWidth < 600;
 
+    if (_currentPage > _totalPages) {
+      _currentPage = 1;
+    }
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
