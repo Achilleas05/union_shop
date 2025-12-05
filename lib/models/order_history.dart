@@ -10,11 +10,12 @@ class OrderHistory with ChangeNotifier {
   int get orderCount => _orders.length;
 
   void addOrder(Cart cart) {
+    final now = DateTime.now();
     final order = Order(
-      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      id: now.millisecondsSinceEpoch.toString(),
       items: List.from(cart.items),
       total: cart.totalAmount,
-      dateOrdered: DateTime.now(),
+      dateOrdered: now.add(Duration(milliseconds: _orders.length)),
     );
 
     _orders.insert(0, order); // Add to beginning for newest first
