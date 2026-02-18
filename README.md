@@ -1,4 +1,4 @@
-git push --force-with-lease# Union Shop - Flutter E-Commerce Application
+# Union Shop - Flutter E-Commerce Application
 
 A comprehensive e-commerce application built with Flutter, providing a complete shopping experience with product browsing, cart management, and product personalization features. This mobile-first application is optimized for web deployment with cross-platform compatibility.
 
